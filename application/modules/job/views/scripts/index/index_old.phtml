@@ -1,0 +1,27 @@
+<?php echo $this->headScript()->appendFile("/js/job/search.js") ?>
+
+<h1>Jobs</h1>
+
+<form id="jobSearch" class="form-inline ajax">
+    <input type="text" name="keyword" placeholder="Keyword" />
+    <select name="status">
+        <option value="">Status</option>
+        <?php foreach ($this->statuses as $status): ?>
+        <option value="<?php echo $status->jobStatusId; ?>"><?php echo $status->label; ?></option>
+        <?php endforeach; ?>
+    </select>
+    <select name="process">
+        <option value="">Process</option>
+        <?php foreach ($this->processes as $process): ?>
+        <option value="<?php echo $process->jobProcessId; ?>"><?php echo $process->label; ?></option>
+        <?php endforeach; ?>
+    </select>
+    <input type="submit" value="Search" />
+</form>
+
+<a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'add'), 'default', true); ?>" class="btn btn-primary"><i class="icon-plus icon-white"></i> Add Job</a>
+
+<div id="resultContent">
+    <?php echo $this->partial('index/partials/index-table.phtml', array('jobs' => $this->jobs, 'statuses' => $this->statuses, 'processes' => $this->processes)); ?>
+</div>
+

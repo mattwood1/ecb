@@ -1,0 +1,51 @@
+<form class="form-inline" action="" method="post">
+
+    <center><h1>Add Parts</h1></center>
+
+    <div class="row-fluid">
+        <div class="span1">
+            <?php echo $this->form->quantity; ?>
+        </div>
+        <div class="span3">
+            <?php echo $this->form->description; ?>
+        </div>
+        <div class="span2">
+            <?php echo $this->form->cost; ?>
+        </div>
+        <div class="span2">
+            <?php echo $this->form->discount; ?>
+        </div>
+        <div class="span1">
+            <?php echo $this->form->vat; ?>
+        </div>
+        <div class="span2">
+            <?php echo $this->form->total; ?>
+        </div>
+        <div class="span1">
+            <?php echo $this->form->jobId; ?>
+            <?php echo $this->form->save; ?>
+        </div>
+    </div>
+</form>
+
+    <!--<script type="text/javascript">-->
+    $(document).ready(function() {
+        $(document).on('keyup', $('#quantity'), function(){
+            $('#cost').val( parseFloat( * $('#labHours').val() ).toFixed(2) )
+
+            $('#cost').val(
+                parseFloat(
+                    parseFloat($('#cost').val()) -
+                    parseFloat($('#discount').val()) +
+                    parseFloat($('#partsTotal').val()) +
+                    parseFloat($('#recovEst').val()) +
+                    parseFloat($('#specialEst').val())
+                ).toFixed(2)
+            )
+
+            $('#vat').val( parseFloat( parseFloat($('#cost').val()) * 0.2 ).toFixed(2) )
+
+            $('#totalEst').val( parseFloat( parseFloat($('#subtotEst').val()) + parseFloat($('#vatEst').val()) ).toFixed(2) )
+        });
+    })
+<!--</script>-->

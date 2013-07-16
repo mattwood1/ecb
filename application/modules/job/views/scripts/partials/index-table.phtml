@@ -1,0 +1,63 @@
+<?php if ($this->jobs): ?>
+<table class="indexTable padded table-condensed">
+    <thead>
+        <tr>
+            <th><i class="icon-file-text-alt"></i></th>
+            <th>Car Reg</th>
+            <th>Customer</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Status</th>
+            <th class="hidden-phone hidden-tablet">Vin No.</th>
+            <th class="hidden-phone hidden-tablet">Postcode</th>
+            <th class="hidden-phone hidden-tablet">Modified</th>
+            <th class="hidden-phone hidden-tablet">Created</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->jobs as $job): ?>
+        <tr class="<?php echo strtolower($job->status->class); ?>">
+            <td><?php echo count($job->notes); ?></td>
+            <td><span class="numberPlateTable"><?php echo $job->carReg; ?></span></td>
+            <td><?php echo $job->name; ?></td>
+            <td><?php echo $job->make; ?></td>
+            <td><?php echo $job->model; ?></td>
+            <td>
+                <span class="label <?php echo strtolower($job->status->class); ?>"><?php echo $job->status->label; ?></span>
+            </td>
+            <td class="small hidden-phone hidden-tablet"><?php echo $job->vin; ?></td>
+            <td class="hidden-phone hidden-tablet"><?php echo $job->postcode; ?></td>
+            <td class="small hidden-phone hidden-tablet"><?php echo $this->date($job->dateModified, Coda_View_Helper_Date::DATETIME); ?></td>
+            <td class="small hidden-phone hidden-tablet"><?php echo $this->date($job->dateCreated, Coda_View_Helper_Date::DATETIME); ?></td>
+
+            <td>
+                <div class="btn-group">
+                    <a href="<?php echo $this->url(array('action' => 'edit', 'job' => $job->jobId));?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
+                    <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-submenu pull-left"><a>Status</a>
+                            <ul class="dropdown-menu">
+                                <?php foreach ($this->statuses as $status): ?>
+                                <li><a href="<?php echo $this->url(array('action' => 'set-status', 'job' => $job->jobId, 'status' => $status->jobStatusId));?>" class="modalConfirm" data-modalmessage="You are changing this to <?php echo $status->label; ?>"><?php echo $status->label; ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu pull-left"><a>Stage</a>
+                            <ul class="dropdown-menu">
+                                <?php foreach ($this->processes as $process): ?>
+                                <li><a href="<?php echo $this->url(array('action' => 'set-process', 'job' => $job->jobId, 'process' => $process->jobProcessId));?>" class="modalConfirm" data-modalmessage="You are changing this to <?php echo $process->label; ?>"><?php echo $process->label; ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+
+<?php endif;?>
