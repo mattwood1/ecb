@@ -30,16 +30,20 @@ class Job_Form_JobPart extends Twitter_Form
         ));
         $this->addElement('text', 'vat', array (
                 'placeholder'     => 'VAT',
-                'class'           => 'span12'
+                'class'           => 'span12',
+                'readonly' => 'readonly'
         ));
         $this->addElement('text', 'total', array (
                 'placeholder'     => 'Total',
-                'class'           => 'span12'
+                'class'           => 'span12',
+                'readonly'        => 'readonly'
         ));
         $this->addElement('hidden', 'jobId', array (
                 'value'           => $this->_jobId
         ));
 
         $this->addElement("submit", "save", array("label" => "Save"));
+        
+        
     }
 }

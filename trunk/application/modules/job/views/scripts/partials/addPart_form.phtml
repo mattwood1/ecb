@@ -28,24 +28,20 @@
     </div>
 </form>
 
-    <!--<script type="text/javascript">-->
+    <script type="text/javascript">
     $(document).ready(function() {
         $(document).on('keyup', $('#quantity'), function(){
-            $('#cost').val( parseFloat( * $('#labHours').val() ).toFixed(2) )
+            $('#cost').val( parseFloat( * $('#quantity').val() ).toFixed(2) )
 
             $('#cost').val(
                 parseFloat(
-                    parseFloat($('#cost').val()) -
-                    parseFloat($('#discount').val()) +
-                    parseFloat($('#partsTotal').val()) +
-                    parseFloat($('#recovEst').val()) +
-                    parseFloat($('#specialEst').val())
-                ).toFixed(2)
+                    parseFloat($('#discount').val()) -
+                    ).toFixed(2)
             )
 
             $('#vat').val( parseFloat( parseFloat($('#cost').val()) * 0.2 ).toFixed(2) )
 
-            $('#totalEst').val( parseFloat( parseFloat($('#subtotEst').val()) + parseFloat($('#vatEst').val()) ).toFixed(2) )
+            $('#total').val( parseFloat( parseFloat($('#cost').val()) + parseFloat($('#vat').val()) ).toFixed(2) )
         });
     })
-<!--</script>-->
+</script>

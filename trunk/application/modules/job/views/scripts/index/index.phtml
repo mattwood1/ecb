@@ -3,7 +3,7 @@
 <h1><i class="icon-wrench"></i> Jobs</h1>
 
 <form id="jobSearch" class="form-inline ajax">
-    <input type="text" name="keyword" placeholder="Keyword" />
+    <input type="search" name="keyword" placeholder="Keyword" />
     <select name="status">
         <option value="">Status</option>
         <?php foreach ($this->statuses as $status): ?>
@@ -17,9 +17,8 @@
         <?php endforeach; ?>
     </select>
     <input type="submit" value="Search" />
+    <a href="<?php echo $this->url(array('action' => 'add')); ?>" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i> Add Job</a>
 </form>
-
-<a href="<?php echo $this->url(array('action' => 'add')); ?>" class="btn btn-primary"><i class="icon-plus icon-white"></i> Add Job</a>
 
 <div id="resultContent">
     <?php echo $this->partial('partials/index-table.phtml', array('jobs' => $this->jobs, 'statuses' => $this->statuses, 'processes' => $this->processes)); ?>
