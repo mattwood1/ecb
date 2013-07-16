@@ -15,7 +15,7 @@ class Todo_IndexController extends Coda_Controller
         // Nothing really unless database driven
         //$todos = Doctrine_Core::getTable('Coda_Model_Todo')->findAll()->order('todoId DESC');
 
-        $todos = Doctrine_Query::create()->select('*')->from('Coda_Model_Todo')->orderBy('todoId ASC');
+        $todos = Doctrine_Query::create()->select('*')->from('Coda_Model_Todo')->orderBy('CASE Status WHEN "FAULT" THEN 1 WHEN "INFO" THEN 2 WHEN "TODO" THEN 3 ELSE 4 END, todoId ASC');
 
         $this->view->todos = $todos->execute();
     }
