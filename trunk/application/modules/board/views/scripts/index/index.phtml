@@ -1,0 +1,219 @@
+<h1><i class="icon-list-alt"></i> Board</h1>
+
+<!--<p>Code pinched from '<a href="http://beer2code.com/themes/core-admin/pages/dashboard/dashboard.html" target="_blank">Core Admin</a>'</p>-->
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="box">
+            <div class="box-header">
+                <span class="title">Strip</span>
+            </div>
+            <div class="box-content padded">
+                <?php if ($this->wip->toArray()): ?>
+                <table class="table">
+                   <thead>
+                       <tr>
+                           <th>Car Reg</th>
+                           <th>Make</th>
+                           <th>Model</th>
+                           <th>Action</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <?php foreach ($this->wip as $wip): ?>
+                       <tr>
+                           <td>
+                               <span class="numberPlateTable"><?php echo $wip->carReg; ?>
+                           </td>
+                           <td><?php echo $wip->make; ?></td>
+                           <td><?php echo $wip->model; ?></td>
+                           <td><?php echo $wip->process->label ;echo $wip->status->label; ?>
+                       </tr>
+                       <?php endforeach; ?>
+                   </tbody>
+               </table>
+               <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="box">
+            <div class="box-header">
+                <span class="title">Fit</span>
+            </div>
+            <div class="box-content padded">
+                <?php if ($this->fit->toArray()): ?>
+                <table class="table">
+                   <thead>
+                       <tr>
+                           <th>Car Reg</th>
+                           <th>Make</th>
+                           <th>Model</th>
+                           <th>Action</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <?php foreach ($this->fit as $fit): ?>
+                       <tr>
+                           <td>
+                               <span class="numberPlateTable"><?php echo $fit->carReg; ?>
+                           </td>
+                           <td><?php echo $fit->make; ?></td>
+                           <td><?php echo $fit->model; ?></td>
+                           <td><?php echo $fit->process->label; ?>
+                       </tr>
+                       <?php endforeach; ?>
+                   </tbody>
+               </table>
+               <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="box">
+            <div class="box-header">
+                <span class="title">Paint</span>
+            </div>
+            <div class="box-content padded">
+                <?php if ($this->paint->toArray()): ?>
+                <table class="table">
+                   <thead>
+                       <tr>
+                           <th>Car Reg</th>
+                           <th>Make</th>
+                           <th>Model</th>
+                           <th>Action</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <?php foreach ($this->paint as $paint): ?>
+                       <tr>
+                           <td>
+                               <span class="numberPlateTable"><?php echo $paint->carReg; ?>
+                           </td>
+                           <td><?php echo $paint->make; ?></td>
+                           <td><?php echo $paint->model; ?></td>
+                           <td><?php echo $paint->process->label; ?>
+                       </tr>
+                       <?php endforeach; ?>
+                   </tbody>
+               </table>
+               <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="span6">
+        <div class="box">
+            <div class="box-header">
+                <span class="title">Repair</span>
+            </div>
+            <div class="box-content padded">
+                <?php if ($this->repair->toArray()): ?>
+                <table class="table">
+                   <thead>
+                       <tr>
+                           <th>Car Reg</th>
+                           <th>Make</th>
+                           <th>Model</th>
+                           <th>Action</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <?php foreach ($this->repair as $repair): ?>
+                       <tr>
+                           <td>
+                               <span class="numberPlateTable"><?php echo $repair->carReg; ?>
+                           </td>
+                           <td><?php echo $repair->make; ?></td>
+                           <td><?php echo $repair->model; ?></td>
+                           <td><?php echo $repair->process->label; ?>
+                       </tr>
+                       <?php endforeach; ?>
+                   </tbody>
+               </table>
+               <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="row-fluid">
+    <div class="span6">
+        <div class="box">
+            <div class="box-header">
+                <span class="title">Prime</span>
+            </div>
+            <div class="box-content padded">
+                <?php if ($this->prime->toArray()): ?>
+                <table class="table">
+                   <thead>
+                       <tr>
+                           <th>Car Reg</th>
+                           <th>Make</th>
+                           <th>Model</th>
+                           <th>Action</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <?php foreach ($this->prime as $prime): ?>
+                       <tr>
+                           <td>
+                               <span class="numberPlateTable"><?php echo $prime->carReg; ?>
+                           </td>
+                           <td><?php echo $prime->make; ?></td>
+                           <td><?php echo $prime->model; ?></td>
+                           <td><?php echo $prime->process->label; ?>
+                       </tr>
+                       <?php endforeach; ?>
+                   </tbody>
+               </table>
+               <?php endif; ?>
+              </div>
+        </div>
+    </div>
+
+
+    <div class="span6">
+        <div class="box">
+            <div class="box-header">
+                <span class="title">Polish / Wash</span>
+            </div>
+            <div class="box-content padded">
+                <?php if ($this->polishWash->toArray()): ?>
+                <table class="table">
+                   <thead>
+                       <tr>
+                           <th>Car Reg</th>
+                           <th>Make</th>
+                           <th>Model</th>
+                           <th>Action</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <?php foreach ($this->polishWash as $polishWash): ?>
+                       <tr>
+                           <td>
+                               <span class="numberPlateTable"><?php echo $polishWash->carReg; ?>
+                           </td>
+                           <td><?php echo $polishWash->make; ?></td>
+                           <td><?php echo $polishWash->model; ?></td>
+                           <td><?php echo $polishWash->process->label; ?>
+                       </tr>
+                       <?php endforeach; ?>
+                   </tbody>
+               </table>
+               <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+

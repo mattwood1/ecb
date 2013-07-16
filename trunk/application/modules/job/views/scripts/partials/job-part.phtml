@@ -1,0 +1,32 @@
+<?php if (! empty($this->parts)): ?>
+<table class="table">
+    <thead>
+        <tr>
+            <th class="span1">Qty</th>
+            <th class="span3">Description</th>
+            <th class="span2">Cost</th>
+            <th class="span2">Discount</th>
+            <th class="span1">VAT</th>
+            <th class="span2">Total</th>
+            <th class="span1">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->parts as $part): ?>
+        <tr>
+            <td><?php echo $part->quantity; ?></td>
+            <td><?php echo $part->description; ?></td>
+            <td>&pound;<?php echo $part->cost; ?></td>
+            <td><?php echo $part->discount; ?>%</td>
+            <td><?php echo $part->vat; ?>%</td>
+            <td>&pound;<?php echo $part->total; ?></td>
+            <td>
+                <a href="<?php echo $this->url(array('action' => 'delete-part', 'job' => $this->job->jobId, 'part' => $part->jobPartId)); ?>" class="btn btn-mini ajax">Delete</a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php else: ?>
+<p>No parts</p>
+<?php endif; ?>
