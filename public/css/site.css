@@ -6,12 +6,17 @@
 	src: url(UKNumberPlate.ttf);
 }
 
+/* Bootstrap Overrides */
+.navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+    max-width: 1020px;
+}
+
 /* Number Plate */
 input.numberPlateTable, .numberPlateTable {
     font-family: UKNumberPlate;
     background: yellow;
-    font-size: 22px;
-    width: 100px;
+    font-size: 20px;
+    width: 120px;
     text-align: center;
     color: black;
     display: block;
@@ -21,33 +26,51 @@ input.numberPlateTable, .numberPlateTable {
 }
 
 /* Status Colours */
-.grey {
+.label.grey {
         background: grey;
         color: #ffffff; 
 }
-.green {
+tr.grey {
+    background: rgba(120, 120, 120, 0.2);
+}
+.label.green {
         background: green;
         color: #ffffff; 
 }
-.blue {
+tr.green {
+    background: rgba(0,255,0,0.2);
+}
+.label.blue {
         background: blue;
         color: #ffffff; 
+}
+tr.blue {
+    background: rgba(0,0,255,0.2);
 }
 .black {
         background: black;
         color: #ffffff; 
 }
-.yellow {
+.label.yellow {
         background: yellow;
         color: #000000; 
 }
-.red {
+tr.yellow {
+    background: rgba(255, 255, 0, 0.2);
+}
+.label.red {
         background: red;
         color: #ffffff; 
 }
-.purple {
+tr.red {
+    background: rgba(255,0,0,0.2);
+}
+.label.purple {
         background: purple;
         color: #ffffff;
+}
+tr.purple {
+    background: rgba(128, 0, 128,0.2);
 }
 
 td.currency, th.currency {
@@ -101,5 +124,31 @@ td.currency, th.currency {
 
 .padded {
     padding: 15px;
+}
+
+.word-wrap {
+    word-break: break-word;
+}
+
+.numberPlateTable.large {
+    font-size: 23pt;
+    width: 190px;
+    height: 1.3em;
+}
+.small {
+font-size: 8pt;
+}
+.indexTable tr  {
+    text-align: center;
+    padding: 5px;
+}
+
+.indexTable th {
+    text-align: center;
+    padding: 5px;
+}
+.indexTable td{
+    text-align: center;
+    padding: 9px;
 }
 
