@@ -27,9 +27,9 @@ class Report_IndexController extends Coda_Controller
 			$printLayout->setLayout('print-bootstrap');
 
             $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+            $this->view->job = $job;
 
             if ( $job ) {
-                $this->view->job = $job;
                 $printLayout->content .= $this->view->render('index/report-1.phtml');
             } else {
                 $this->gotoRoute(array('action' => 'index'));
@@ -41,5 +41,6 @@ class Report_IndexController extends Coda_Controller
             $this->getResponse()
                 ->setHeader( 'Content-type', 'application/pdf' )
                 ->appendBody( $pdfGen->generate() );
+
         }
 }
