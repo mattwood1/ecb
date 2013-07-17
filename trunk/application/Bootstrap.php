@@ -76,7 +76,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public function _initPlugins()
     {
         $front = Zend_Controller_Front::getInstance();
-        $front->registerPlugin(new Coda_Plugin_InitPlugin())
+        $front
+              ->registerPlugin(new Coda_Plugin_InitPlugin())
               ->registerPlugin(new Coda_Plugin_AuthPlugin())
         //        ->registerPlugin(new CustomerPlugin())
         //        ->registerPlugin(new PageAccessPlugin())

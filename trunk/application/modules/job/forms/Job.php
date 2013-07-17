@@ -154,8 +154,8 @@ class Job_Form_Job extends Twitter_Form
                         '4'      => 'Repair',
                         '5'      => 'Prime',
                         '6'      => 'Polish / Wash',
-                        '7'      => 'Complete',), 
-                
+                        '7'      => 'Complete',),
+
                 'class' => 'span12'
         ));
 
