@@ -6,6 +6,9 @@ class Todo_IndexController extends Coda_Controller
     {
         /* Initialize action controller here */
         if (! $this->_request->user) {
+            $requestUrl = new Zend_Session_Namespace('requestUrl');
+            $requestUrl->url = $this->_request->getRequestUri();
+
             $this->_flash('To Do requires the user to be logged in', Coda_Helper_Flash::INFO);
             $this->gotoRoute(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'));
         }

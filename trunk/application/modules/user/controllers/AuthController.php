@@ -8,6 +8,8 @@ class User_AuthController extends Coda_Controller
 
     public function loginAction()
     {
+        $requestUrl = new Zend_Session_Namespace('requestUrl');
+
         $form = new User_Form_Login();
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
@@ -18,7 +20,12 @@ class User_AuthController extends Coda_Controller
                 $user = Doctrine_Core::getTable('Coda_Model_User')->findOneBy('userId', $result->userId);
                 $user->dateLoggedIn = $zfDate->get(Zend_Date::ISO_8601);
                 $user->save();
-                $this->gotoRoute(array('module' => 'default', 'controller' => 'index', 'action' => 'index'));
+
+                if ($requestUrl->url) {
+                    header('Location: '.$requestUrl->url);
+                } else {
+                    $this->gotoRoute(array('module' => 'default', 'controller' => 'index', 'action' => 'index'));
+                }
             }
         }
 
