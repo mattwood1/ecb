@@ -1,11 +1,16 @@
 <?php
-
-class IndexController extends Zend_Controller_Action
+class IndexController extends Coda_Controller
 {
-
     public function init()
     {
         /* Initialize action controller here */
+        if (! $this->_request->user) {
+            $requestUrl = new Zend_Session_Namespace('requestUrl');
+            $requestUrl->url = $this->_request->getRequestUri();
+
+            $this->_flash('Dashboard requires the user to be logged in', Coda_Helper_Flash::INFO);
+            $this->gotoRoute(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'));
+        }
     }
 
     public function indexAction()
@@ -21,7 +26,7 @@ class IndexController extends Zend_Controller_Action
      // {  $diary = Doctrine_Core::getTable('Coda_Model_Diary')->create($form->getValues());
        //     $diary->save();
         //    $form->reset();}
-            
+
 
         $this->view->wip = $wip->execute();
         $this->view->bookedIn = $bookedIn->execute();
@@ -29,7 +34,7 @@ class IndexController extends Zend_Controller_Action
         $this->view->rdyToInvoice = $rdyToInvoice->execute();
         $this->view->statuses = $statuses;
         $this->view->processes = $processes;
-        
+
     }
 
 

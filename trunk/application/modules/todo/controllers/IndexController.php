@@ -1,7 +1,6 @@
 <?php
 class Todo_IndexController extends Coda_Controller
 {
-
     public function init()
     {
         /* Initialize action controller here */
@@ -13,6 +12,7 @@ class Todo_IndexController extends Coda_Controller
             $this->gotoRoute(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'));
         }
     }
+
     public function indexAction()
     {
         // Nothing really unless database driven
