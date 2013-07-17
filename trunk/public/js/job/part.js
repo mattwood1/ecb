@@ -14,4 +14,14 @@ $(function(){
 			$('#jobPart .resultContent').html(data);
 		});
 	});
+	
+	$(document).on('keyup', $('#quantity'), function(){
+		$('#vat').val( parseFloat(20.0).toFixed(1) );
+		
+		subtotal = parseFloat(($('#quantity').val()) * parseFloat($('#cost').val()));
+		tax = parseFloat($('#vat').val());
+		total = ((tax / 100) * subtotal) + subtotal;
+		
+		$('#total').val( parseFloat(total).toFixed(2) );
+	});
 });
