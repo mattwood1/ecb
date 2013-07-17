@@ -17,7 +17,7 @@ class Report_IndexController extends Coda_Controller
         $this->view->job = $job;
     }
 
-    public function paidQuotesPdfAction()
+    public function reportPdfAction()
         {
             $this->_helper->viewRenderer->setNoRender(true);
             $this->_helper->layout->disableLayout(true);
@@ -26,25 +26,16 @@ class Report_IndexController extends Coda_Controller
 			$printLayout->setLayoutPath( APPLICATION_PATH . '/layouts/scripts' );
 			$printLayout->setLayout('print-bootstrap');
 
-            $quoteId = $this->getParam('id');
+            $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
 
-            if( $quoteId ) {
-
-                //single
-                $printLayout->content .= $this->_generateQuotePdf($quoteId);
-            }
-            else {
-
-                //all
-                $paidQuotesQuery = LS_Model_ProposalTable::getPaidQuotes();
-
-                foreach ($paidQuotesQuery->execute() as $quote) {
-
-                     $printLayout->content .= $this->_generateQuotePdf($quote->id);
-                }
+            if ( $job ) {
+                $this->view->job = $job;
+                $printLayout->content .= $this->view->render('index/report-1.phtml');
+            } else {
+                $this->gotoRoute(array('action' => 'index'));
             }
 
-            $pdfGen = new Xigen_Pdf( APPLICATION_PATH . '/bin/wkhtmltopdf' );
+            $pdfGen = new Coda_Pdf( APPLICATION_PATH . '/bin/wkhtmltopdf' );
             $pdfGen->setBody( $printLayout->render() );
 
             $this->getResponse()
