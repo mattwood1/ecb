@@ -3,7 +3,14 @@ class Report_IndexController extends Coda_Controller
 {
     public function indexAction()
     {
+        /* Initialize action controller here */
+        if (! $this->_request->user) {
+            $requestUrl = new Zend_Session_Namespace('requestUrl');
+            $requestUrl->url = $this->_request->getRequestUri();
 
+            $this->_flash('Reports requires the user to be logged in', Coda_Helper_Flash::INFO);
+            $this->gotoRoute(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'));
+        }
     }
 
     public function report1Action()

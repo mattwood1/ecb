@@ -5,10 +5,17 @@ class Ccars_IndexController extends Coda_Controller
     public function init()
     {
         /* Initialize action controller here */
+        if (! $this->_request->user) {
+            $requestUrl = new Zend_Session_Namespace('requestUrl');
+            $requestUrl->url = $this->_request->getRequestUri();
+
+            $this->_flash('Reports requires the user to be logged in', Coda_Helper_Flash::INFO);
+            $this->gotoRoute(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'));
+        }
     }
 
     public function indexAction()
-    { 
+    {
         $form = new Ccars_Form_Ccars();
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
@@ -21,10 +28,10 @@ class Ccars_IndexController extends Coda_Controller
 
         $this->view->form = $form;
     $this->view->ccarsa = $ccarsa;
-    
+
         }
 
-     public function addAction() 
+     public function addAction()
     {
             $form = new Ccars_Form_Ccars();
 
@@ -40,7 +47,7 @@ class Ccars_IndexController extends Coda_Controller
         $this->view->form = $form;
         $this->view->ccarsa = $ccarsa;
     }
-    
+
 
     public function editAction()
     {
@@ -61,8 +68,8 @@ class Ccars_IndexController extends Coda_Controller
     }
 
 
-       
-    
+
+
     public function deleteAction()
     {
         $ccars = Doctrine_Core::getTable('Coda_Model_Ccars')->findOneBy('carId', $this->_request->getParam('carId'));
