@@ -2,7 +2,7 @@
 
     class Coda_Pdf
     {
-    
+
         protected $_wkhtmltopdf_path = '';
 
         protected $_dpi = 600;
@@ -18,11 +18,11 @@
         public function __construct( $wkhtmltopdf_path )
         {
             if( file_exists( $wkhtmltopdf_path ) && is_executable( $wkhtmltopdf_path ) ) {
-            
+
                 $this->_wkhtmltopdf_path = $wkhtmltopdf_path;
             }
             else {
-            
+
                 throw new InvalidArgumentException("'{$wkhtmltopdf_path}' not found or is not executable.");
             }
         }
@@ -40,11 +40,9 @@
         public function generate()
         {
             if( $this->_body ) {
-
-                return $this->_generatePdf();         
+                return $this->_generatePdf();
             }
             else {
-            
                 throw new Exception("Unable to generate PDF, no document body defined.");
             }
         }
@@ -57,7 +55,7 @@
                 2   =>  array('pipe', 'w')
             );
 
-            $command = sprintf( 
+            $command = sprintf(
                 '%s --quiet --dpi %d --margin-right %d --margin-top %d --margin-bottom %d --margin-left %d - -',
                 $this->_wkhtmltopdf_path,
                 $this->_dpi,
@@ -71,11 +69,10 @@
             $pdf = null;
 
             if( is_resource( $process ) ) {
-            
                 // write body and close stdin
                 fwrite( $pipes[0], $this->_body );
                 fclose( $pipes[0] );
-               
+
                 // read pdf
                 $pdf = stream_get_contents( $pipes[1] );
 
@@ -83,13 +80,13 @@
                 fclose( $pipes[1] );
                 fclose( $pipes[2] );
 
-                // clean up 
+                // clean up
                 proc_close( $process );
+            } else {
+                throw new error_get_last();
             }
-            
             return $pdf;
         }
-
     }
 
 ?>
