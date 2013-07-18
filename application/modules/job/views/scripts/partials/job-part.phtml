@@ -18,7 +18,7 @@
             <td><?php echo $part->description; ?></td>
             <td>&pound;<?php echo $part->cost; ?></td>
             <td><?php echo $part->discount; ?>%</td>
-            <td><?php echo $part->vat; ?>%</td>
+            <td>&pound;<?php echo $part->vat; ?></td>
             <td>&pound;<?php echo $part->total; ?></td>
             <td>
                 <a href="<?php echo $this->url(array('action' => 'delete-part', 'job' => $this->job->jobId, 'part' => $part->jobPartId)); ?>" class="btn btn-mini ajax">Delete</a>

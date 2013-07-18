@@ -27,21 +27,3 @@
         </div>
     </div>
 </form>
-
-    <script type="text/javascript">
-    $(document).ready(function() {
-        $(document).on('keyup', $('#quantity'), function(){
-            $('#cost').val( parseFloat( * $('#quantity').val() ).toFixed(2) )
-
-            $('#cost').val(
-                parseFloat(
-                    parseFloat($('#discount').val()) -
-                    ).toFixed(2)
-            )
-
-            $('#vat').val( parseFloat( parseFloat($('#cost').val()) * 0.2 ).toFixed(2) )
-
-            $('#total').val( parseFloat( parseFloat($('#cost').val()) + parseFloat($('#vat').val()) ).toFixed(2) )
-        });
-    })
-</script>
