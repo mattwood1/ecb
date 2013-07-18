@@ -31,7 +31,6 @@ class Coda_Plugin_InitPlugin extends Zend_Controller_Plugin_Abstract
 
         //var_dump($this->_view);
         Zend_Controller_Action_HelperBroker::addPath('Coda/Helper/', 'Coda_Helper_');
-        Zend_Controller_Action_HelperBroker::addPath('Coda/Form/Element', 'Coda_Form_Element');
 
 
         //set the page title and doctype
