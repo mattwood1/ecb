@@ -1,3 +1,4 @@
+<?php if ($this->jobStatuses->toArray()): ?>
 <table class="table">
     <thead>
         <tr>
@@ -59,3 +60,6 @@
         <?php endforeach; ?>
    </tbody>
 </table>
+<?php else: ?>
+<p>There are no jobs to show.</p>
+<?php endif; ?>
