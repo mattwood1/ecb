@@ -33,55 +33,7 @@
                 <span class="title"><i class="icon-cogs"></i> W I P</span>
             </div>
             <div class="box-content padded">
-               <table class="table">
-                   <thead>
-                       <tr>
-                           <th>Car Reg</th>
-                           <th>Customer</th>
-                           <th>Make</th>
-                           <th>Model</th>
-                           <th>Stage</th>
-                           <th>Action</th>
-                       </tr>
-                   </thead>
-                   <tbody>
-                       <?php foreach ($this->wip as $wip): ?>
-                       <tr>
-                           <td>
-                               <span class="numberPlateTable"><?php echo $wip->carReg; ?></span>
-                           </td>
-                           <td><?php echo $wip->name; ?></td>
-                           <td><?php echo $wip->make; ?></td>
-                           <td><?php echo $wip->model; ?></td>
-                           <td><?php echo $wip->process->label; ?></td>
-                            <td>
-                <div class="btn-group">
-                    <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $wip->jobId));?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
-                    <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-submenu pull-left"><a>Status</a>
-                            <ul class="dropdown-menu">
-                                <?php foreach ($this->statuses as $status): ?>
-                                <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'set-status', 'job' => $wip->jobId, 'status' => $status->jobStatusId));?>" class="modalConfirm" data-modalmessage="You are changing this to <?php echo $status->label; ?>"><?php echo $status->label; ?></a></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu pull-left"><a>Stage</a>
-                            <ul class="dropdown-menu">
-                                <?php foreach ($this->processes as $process): ?>
-                                <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'set-process', 'job' => $wip->jobId, 'process' => $process->jobProcessId));?>" class="modalConfirm" data-modalmessage="You are changing this to <?php echo $process->label; ?>"><?php echo $process->label; ?></a></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </td>
-                       </tr>
-                       <?php endforeach; ?>
-                   </tbody>
-               </table>
+                <?php echo $this->partial('index/partials/table-data.phtml', array('jobStatuses' => $this->wip, 'statuses' => $this->statuses, 'processes' => $this->processes, 'stage' => true, 'postcode' => true ))?>
             </div>
         </div>
     </div>
@@ -93,38 +45,7 @@
                 <span class="title">Ready to Invoice</span>
             </div>
             <div class="box-content padded">
-               <table class="table">
-                   <thead>
-                       <tr>
-                           <th>Car Reg</th>
-                           <th>Customer</th>
-                           <th>Make</th>
-                           <th>Model</th>
-                           <th>Action</th>
-
-                       </tr>
-                   </thead>
-                   <tbody>
-                       <?php foreach ($this->rdyToInvoice as $rdyToInvoice): ?>
-                       <tr>
-                           <td>
-                               <span class="numberPlateTable"><?php echo $rdyToInvoice->carReg; ?></span>
-                           </td>
-                           <td><?php echo $rdyToInvoice->name; ?></td>
-                           <td><?php echo $rdyToInvoice->make; ?></td>
-                           <td><?php echo $rdyToInvoice->model; ?></td>
-                            <td>
-                <div class="btn-group">
-                    <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $rdyToInvoice->jobId));?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </td>
-                       </tr>
-                       <?php endforeach; ?>
-                   </tbody>
-               </table>
+                <?php echo $this->partial('index/partials/table-data.phtml', array('jobStatuses' => $this->rdyToInvoice, 'statuses' => $this->statuses, 'processes' => $this->processes, 'stage' => false, 'postcode' => false ))?>
             </div>
         </div>
     </div>
@@ -148,37 +69,7 @@
                 <span class="title">Booked In</span>
             </div>
             <div class="box-content padded">
-                <table class="table">
-                   <thead>
-                       <tr>
-                           <th>Car Reg</th>
-                           <th>Customer</th>
-                           <th>Postcode</th>
-                           <th>Make</th>
-                           <th>Model</th>
-                            <th>Action</th>
-                       </tr>
-                   </thead>
-                   <tbody>
-                       <?php foreach ($this->bookedIn as $bookedIn): ?>
-                       <tr>
-                           <td><span class="numberPlateTable"><?php echo $bookedIn->carReg; ?></span></td>
-                           <td><?php echo $bookedIn->name; ?></td>
-                           <td><?php echo $bookedIn->postcode; ?></td>
-                           <td><?php echo $bookedIn->make; ?></td>
-                           <td><?php echo $bookedIn->model; ?></td>
-                           <td>
-                <div class="btn-group">
-                    <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $bookedIn->jobId));?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </td>
-                       </tr>
-                       <?php endforeach; ?>
-                   </tbody>
-               </table>
+                <?php echo $this->partial('index/partials/table-data.phtml', array('jobStatuses' => $this->bookedIn, 'statuses' => $this->statuses, 'processes' => $this->processes, 'stage' => false, 'postcode' => true ))?>
             </div>
         </div>
     </div>
@@ -191,39 +82,7 @@
                 <span class="title">To be Booked In</span>
             </div>
             <div class="box-content padded">
-                <table class="table">
-                   <thead>
-                       <tr>
-                           <th>Car Reg</th>
-                           <th>Customer</th>
-                           <th>Postcode</th>
-                           <th>Make</th>
-                           <th>Model</th>
-                           <th>Action</th>
-                       </tr>
-                   </thead>
-                   <tbody>
-                       <?php foreach ($this->toBeBookedIn as $toBeBookedIn): ?>
-                       <tr>
-                           <td>
-                               <span class="numberPlateTable"><?php echo $toBeBookedIn->carReg; ?></span>
-                           </td>
-                           <td><?php echo $toBeBookedIn->name; ?></td>
-                           <td><?php echo $toBeBookedIn->postcode; ?></td>
-                           <td><?php echo $toBeBookedIn->make; ?></td>
-                           <td><?php echo $toBeBookedIn->model; ?></td>
-                           <td>
-                <div class="btn-group">
-                    <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $toBeBookedIn->jobId));?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </td>
-                       </tr>
-                       <?php endforeach; ?>
-                   </tbody>
-               </table>
+                <?php echo $this->partial('index/partials/table-data.phtml', array('jobStatuses' => $this->toBeBookedIn, 'statuses' => $this->statuses, 'processes' => $this->processes, 'stage' => false, 'postcode' => true ))?>
             </div>
         </div>
     </div>
