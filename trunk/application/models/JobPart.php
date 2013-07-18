@@ -45,7 +45,7 @@ class Coda_Model_JobPart extends Doctrine_Record
         $this->hasColumn('vat', 'decimal', 5, array(
                 'type'                => 'decimal',
                 'length'              => '4',
-                'scale'               => '1'
+                'scale'               => '2'
         ));
 
         $this->hasColumn('total', 'decimal', 12, array(

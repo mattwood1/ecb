@@ -16,12 +16,18 @@ $(function(){
 	});
 	
 	$(document).on('keyup', $('#quantity'), function(){
-		$('#vat').val( parseFloat(20.0).toFixed(1) );
+		//$('#vat').val( parseFloat(20.0).toFixed(1) );
 		
+		// Qty  *  Cost
 		subtotal = parseFloat(($('#quantity').val()) * parseFloat($('#cost').val()));
-		tax = parseFloat($('#vat').val());
-		total = ((tax / 100) * subtotal) + subtotal;
 		
+		// minus discount %
+		discount = (subtotal / 100) * parseFloat($('#discount').val() );
+		
+		vat = parseFloat( (( parseFloat(subtotal) - parseFloat(discount) )/100) * 20 ).toFixed(2);
+		$('#vat').val( vat );
+		
+		total = ( ( parseFloat(subtotal) - parseFloat(discount) ) + parseFloat(vat) );
 		$('#total').val( parseFloat(total).toFixed(2) );
 	});
 });
