@@ -10,43 +10,35 @@ class Board_IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
-
-        $wip = Doctrine_Query::create()->select('*')->from('Coda_Model_Job')->where('jobStatusId = ?', '4');
+        $wip = Doctrine_Query::create()->select('*')
+                                            ->from('Coda_Model_Job')
+                                            ->where('jobStatusId = ?', '4');
 
         $strip = Doctrine_Query::create()->select('*')
                                             ->from('Coda_Model_Job')
-                                            ->where('jobStatusId = ?', '4')
-                                            ->where('jobProcessId = ?', '1'); // Repair ?
+                                            ->where('jobStatusId = 4 AND jobProcessId = ?', '1'); // Repair ?
 
         $fit = Doctrine_Query::create()->select('*')
                                             ->from('Coda_Model_Job')
-                                            ->where('jobStatusId = ?', '4')
-                                            ->where('jobProcessId = ?', '2'); // Repair ?
+                                            ->where('jobStatusId = 4 AND jobProcessId = ?', '2'); // Repair ?
 
         $paint = Doctrine_Query::create()->select('*')
                                             ->from('Coda_Model_Job')
-                                            ->where('jobStatusId = ?', '4')
-                                            ->where('jobProcessId = ?', '3'); // Prime ?
+                                            ->where('jobStatusId = 4 AND jobProcessId = ?', '3'); // Prime ?
 
         $repair = Doctrine_Query::create()->select('*')
                                             ->from('Coda_Model_Job')
-                                            ->where('jobStatusId = ?', '4')
-                                            ->where('jobProcessId = ?', '4'); // Paint ?
+                                            ->where('jobStatusId = 4 AND jobProcessId = ?', '4'); // Paint ?
 
         $prime = Doctrine_Query::create()->select('*')
                                             ->from('Coda_Model_Job')
-                                            ->where('jobStatusId = ?', '4')
-                                            ->where('jobProcessId = ?', '5'); // Fit ?
+                                            ->where('jobStatusId = 4 AND jobProcessId = ?', '5'); // Fit ?
 
         $polishWash = Doctrine_Query::create()->select('*')
                                             ->from('Coda_Model_Job')
-                                            ->where('jobStatusId = ?', '4')
-                                            ->where('jobProcessId = ?', '5') // Polish ?
-                                            ->orWhere('jobProcessId = ?', '6'); // Wash ?
+                                            ->where('jobStatusId = 4 AND (jobProcessId = 5 OR jobProcessId = 6)'); // Wash ?
 
-         $statuses = Doctrine_Core::getTable('Coda_Model_JobStatus')->findAll();
-
+        $statuses = Doctrine_Core::getTable('Coda_Model_JobStatus')->findAll();
         $processes = Doctrine_Core::getTable('Coda_Model_JobProcess')->findAll();
 
         //$this->view->wip = $wip->execute();
