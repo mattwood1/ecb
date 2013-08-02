@@ -24,18 +24,25 @@ input.numberPlateTable, .numberPlateTable {
     border: 1px solid black;
     border-radius: 3px;
 }
+.numberPlateTable td span  {
+    text-align: center;
+}
 
 /* Status Colours */
 .label.grey {
+        border-style: outset;
+        border-color: #686868;
         background: grey;
         color: #ffffff; 
 }
 tr.grey {
     background: rgba(120, 120, 120, 0.2);
-}
+    }
 .label.green {
         background: green;
         color: #ffffff; 
+        border: outset;
+        border-color: #339933;
 }
 tr.green {
     background: rgba(0,255,0,0.2);
@@ -43,24 +50,31 @@ tr.green {
 .label.blue {
         background: blue;
         color: #ffffff; 
+        border: outset;
+        border-color: #0066CC;
 }
 tr.blue {
     background: rgba(0,0,255,0.2);
 }
 .black {
         background: black;
-        color: #ffffff; 
+        color: #ffffff;
+       
 }
 .label.yellow {
         background: yellow;
         color: #000000; 
+        border: outset;
+        border-color: #FFFF00;
 }
 tr.yellow {
     background: rgba(255, 255, 0, 0.2);
 }
 .label.red {
         background: red;
-        color: #ffffff; 
+        color: #ffffff;
+        border: outset;
+        border-color: #CC0033;
 }
 tr.red {
     background: rgba(255,0,0,0.2);
@@ -68,6 +82,8 @@ tr.red {
 .label.purple {
         background: purple;
         color: #ffffff;
+        border: outset;
+        border-color: #FF99CC;
 }
 tr.purple {
     background: rgba(128, 0, 128,0.2);
@@ -131,24 +147,34 @@ td.currency, th.currency {
 }
 
 .numberPlateTable.large {
-    font-size: 23pt;
-    width: 190px;
-    height: 1.3em;
+    font-size: 18pt;
+    width: 170px;
+    height: 103em;
+    text-align: center;
 }
 .small {
-font-size: 8pt;
+font-size: 7pt;
 }
 .indexTable tr  {
     text-align: center;
-    padding: 5px;
+    padding: 4px;
 }
 
 .indexTable th {
     text-align: center;
-    padding: 5px;
+    padding: 4px;
 }
 .indexTable td{
     text-align: center;
-    padding: 9px;
+    padding: 5px;
+}
+.table tr{
+    text-align: center;
+}
+.table th{
+    text-align: center;
+}
+.table td{
+    text-align: center;
 }
 
