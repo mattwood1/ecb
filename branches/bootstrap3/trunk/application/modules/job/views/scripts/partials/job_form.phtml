@@ -1,0 +1,48 @@
+<form class="form-horizontal" action="" method="post">
+    
+    <center><h1>Add Parts</h1></center>
+    
+    <div class="row-fluid">
+    <div class="span1">
+        <?php echo $this->form->quantity; ?>
+    </div>
+    <div class="row-fluid">
+    <div class="span3">
+        <?php echo $this->form->description; ?>
+    </div>
+        <div class="row-fluid">
+    <div class="span2">
+        <?php echo $this->form->cost; ?>
+    </div>
+            <div class="row-fluid">
+    <div class="span2">
+        <?php echo $this->form->discount; ?>
+    </div>
+         <div class="row-fluid">
+    <div class="span2">
+        <?php echo $this->form->vat; ?>
+    </div>
+          <div class="span2">
+        <?php echo $this->form->total; ?>
+    </div>
+
+        <?php echo $this->form->save; ?>    
+    
+</form>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(document).on('keyup', $('#quantity'), function(){
+            $('#cost').val( parseFloat( * $('#quantity').val() ).toFixed(2) )
+
+            $('#cost').val(
+                parseFloat(
+                    parseFloat($('#discount').val()) -
+                    ).toFixed(2)
+            )
+
+            $('#vat').val( parseFloat( parseFloat($('#cost').val()) * 0.2 ).toFixed(2) )
+
+            $('#total').val( parseFloat( parseFloat($('#cost').val()) + parseFloat($('#vat').val()) ).toFixed(2) )
+        });
+    })
+</script>
