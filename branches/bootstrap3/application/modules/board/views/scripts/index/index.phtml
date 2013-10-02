@@ -1,0 +1,111 @@
+<h1><i class="icon-th-large"></i> Board</h1>
+
+<!--<p>Code pinched from '<a href="http://beer2code.com/themes/core-admin/pages/dashboard/dashboard.html" target="_blank">Core Admin</a>'</p>-->
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="box">
+            <div class="box-header">
+                <span class="title">Strip</span>
+            </div>
+            <div class="box-content padded">
+                <?php if ($this->strip->toArray()): ?>
+                    <?php echo $this->partial('index/partials/board-table.phtml', array(
+                            'data' => $this->strip,
+                            'processes' => $this->processes
+                    ))?>
+               <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="box">
+            <div class="box-header">
+                <span class="title">Fit</span>
+            </div>
+            <div class="box-content padded">
+                <?php if ($this->fit->toArray()): ?>
+                    <?php echo $this->partial('index/partials/board-table.phtml', array(
+                            'data' => $this->fit,
+                            'processes' => $this->processes
+                    ))?>
+               <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="box">
+            <div class="box-header">
+                <span class="title">Paint</span>
+            </div>
+            <div class="box-content padded">
+                <?php if ($this->paint->toArray()): ?>
+                    <?php echo $this->partial('index/partials/board-table.phtml', array(
+                            'data' => $this->paint,
+                            'processes' => $this->processes
+                    ))?>
+               <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="span6">
+        <div class="box">
+            <div class="box-header">
+                <span class="title">Repair</span>
+            </div>
+            <div class="box-content padded">
+                <?php if ($this->repair->toArray()): ?>
+                    <?php echo $this->partial('index/partials/board-table.phtml', array(
+                            'data' => $this->repair,
+                            'processes' => $this->processes
+                    ))?>
+               <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="row-fluid">
+    <div class="span6">
+        <div class="box">
+            <div class="box-header">
+                <span class="title">Prime</span>
+            </div>
+            <div class="box-content padded">
+                <?php if ($this->prime->toArray()): ?>
+                    <?php echo $this->partial('index/partials/board-table.phtml', array(
+                            'data' => $this->prime,
+                            'processes' => $this->processes
+                    ))?>
+               <?php endif; ?>
+              </div>
+        </div>
+    </div>
+
+
+    <div class="span6">
+        <div class="box">
+            <div class="box-header">
+                <span class="title">Polish / Wash</span>
+            </div>
+            <div class="box-content padded">
+                <?php if ($this->polishWash->toArray()): ?>
+                    <?php echo $this->partial('index/partials/board-table.phtml', array(
+                            'data' => $this->polishWash,
+                            'processes' => $this->processes
+                    ))?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+

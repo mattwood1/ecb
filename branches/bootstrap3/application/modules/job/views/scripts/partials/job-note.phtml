@@ -1,0 +1,23 @@
+<?php if (! empty($this->notes)): ?>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="span2">User</th>
+            <th class="span8">Note</th>
+            <th class="span2">Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->notes as $note): ?>
+        <tr>
+            <td><?php echo $note->user->name; ?></td>
+            <td class="word-wrap"><?php echo $note->note; ?></td>
+            <td><?php echo $this->date($note->dateCreated, Coda_View_Helper_Date::DATETIME); ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php else: ?>
+<p>No notes</p>
+<?php endif; ?>
