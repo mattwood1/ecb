@@ -16,16 +16,14 @@ input.numberPlateTable, .numberPlateTable {
     font-family: UKNumberPlate;
     background: yellow;
     font-size: 20px;
-    width: 110px;
+    width: 120px;
     text-align: center;
     color: black;
     display: block;
-    padding: 1px;
+    padding: 3px;
     border: 1px solid black;
     border-radius: 3px;
-    margin: 0 auto;
 }
-
 .numberPlateTable td span  {
     text-align: center;
 }
@@ -180,7 +178,3 @@ font-size: 7pt;
     text-align: center;
 }
 
-
-.table th, .table td{ 
-    line-height: 18px;
-}
