@@ -23,6 +23,13 @@ class Job_IndexController extends Coda_Controller
         $this->view->statuses = $statuses;
         $this->view->processes = $processes;
     }
+    protected function numberplateformat($numberPlate)
+    {
+        if (!strstr($numberPlate, " ")) {
+            return chunk_split(strtoupper($numberPlate), 4, ' ');
+        }
+        return $numberPlate;
+    }
 
     public function addAction()
     {
@@ -32,7 +39,8 @@ class Job_IndexController extends Coda_Controller
             $zfDate = new Zend_Date();
             $job = Doctrine_Core::getTable('Coda_Model_Job')->create(
                     array_merge($form->getValues(), array(
-                            'dateCreated' => $zfDate->get(Zend_Date::ISO_8601))
+                            'dateCreated' => $zfDate->get(Zend_Date::ISO_8601),
+                            'carReg' => $this->numberplateformat($form->getValue('carReg')))
                     ));
             $job->save();
             $this->gotoRoute(array('action' => 'index', 'job' => null));
@@ -53,7 +61,11 @@ class Job_IndexController extends Coda_Controller
             $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
 
             if ($this->_request->isPost() && $jobForm->isValid($this->_request->getPost())) {
-                $job->fromArray($jobForm->getValues());
+                $job->fromArray(array_merge(
+                        $jobForm->getValues(),
+                        array(
+                        'carReg' => $this->numberplateformat($jobForm->getValue('carReg')))
+                        ));
                 $job->save();
                 $this->gotoRoute(array('action' => 'index', 'job' => null));
                 $this->_flash('Job Updated');
