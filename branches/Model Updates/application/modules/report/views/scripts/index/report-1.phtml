@@ -1,0 +1,167 @@
+
+                <img src="/img/report/topLogoWide.png" alt="logo" class="topLogoWide" />
+                <div class="kitemark">KM 574282</div>
+
+
+                <div class="row-fluid">
+                    <div class="span5">
+                        <div class="address">
+                            Chesney Wold<br />
+                            Bleakhall<br />
+                            Milton Keynes<br />
+                            MK6 1NE<br />
+                            Tel: (01908) 235 888 Fax: 235 777<br />
+                            E-mail: mark@elitecarbody.co.uk
+                        </div>
+                    </div>
+
+                    <div class="span7">
+                        <img src="/img/report/preEstimate.png" alt="pre-estimate" />
+                    </div>
+                </div>
+
+                <div class="line"></div>
+
+                <div class="row-fluid">
+                    <div class="span3">
+                        <h4>Customer Details:</h4>
+                        <p><?php echo $this->job->name; ?></p>
+                        <p><?php echo nl2br($this->job->address); ?>
+                        <?php echo $this->job->postcode ? '<br />'.$this->job->postcode : ''; ?></p>
+                        <p>
+                        <?php echo $this->job->tel ? '<br />'.$this->job->tel: ''; ?>
+                        <?php echo $this->job->mobile ? '<br />'.$this->job->mobile: ''; ?>
+                        </p>
+
+                    </div>
+
+                    <div class="span4">
+                        <h4>Customer Insurance Details:</h4>
+                        <p><?php echo $this->job->insName; ?></p>
+                        <p><?php echo $this->job->insAdd; ?>
+                        <?php echo $this->job->insPost ? '<br />'.$this->job->insPost : ''; ?>
+                        </p>
+                        <p>
+                        <?php echo $this->job->insTel ? '<br />'.$this->job->insTel : ''; ?>
+                        <?php echo $this->job->excess ? '<br />Excess '.$this->currency($this->job->excess) : ''; ?>
+                        </p>
+
+                    </div>
+
+                    <div class="span5">
+                        <h4>Vehicle Details:</h4>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Make:</td>
+                                    <td><?php echo $this->job->make; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Model</td>
+                                    <td><?php echo $this->job->model; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Chassis No.</td>
+                                    <td><?php echo $this->job->vin; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Reg</td>
+                                    <td><?php echo $this->job->carReg; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Mileage</td>
+                                    <td><?php echo $this->job->mileage; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>VAT Reg</td>
+                                    <td><?php echo $this->job->vatRegistered == 0 ? 'No' : 'Yes'; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Paint Colour/Code</td>
+                                    <td><?php echo $this->job->colour; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Inspection</td>
+                                    <td><?php echo $this->date($this->job->insDate); ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="line"></div>
+                <div class="bodywork">
+                    <h3>Bodywork Damage Report</h3>
+
+                    <div class="comments">
+                    <?php echo nl2br($this->job->damage); ?>
+                    </div>
+
+                    <div class="specialist">
+                    <h4>SPECIALISTS CHARGES</h4>
+                    <?php echo nl2br($this->job->special); ?>
+                    </div>
+
+
+                </div>
+
+                <div class="line"></div>
+                <div class="parts">
+                    <h3>Parts</h3>
+                    <div class="partList">
+                        <?php echo nl2br($this->job->partsEst); ?>
+                    </div>
+                </div>
+
+                <div class="line"></div>
+
+                <div class="totals">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="row-fluid">
+                                <div class="span10">Total Hours Labour:</div>
+                                <div class="span2"><?php echo $this->currency($this->job->labEst)?></div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span10">Paint Sundry Materials:</div>
+                                <div class="span2"><?php echo $this->currency($this->job->pandmEst)?></div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span10">Recovery:</div>
+                                <div class="span2"><?php echo $this->currency($this->job->recovEst)?></div>
+                            </div>
+                            <div class="row-fluid subtotals">
+                                <div class="span10">Sub Total:</div>
+                                <div class="span2"><?php echo $this->currency( ($this->job->labEst + $this->job->pandmEst + $this->job->recovEst))?></div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="row-fluid">
+                                <div class="span10">Parts (at Manufacturers list price):</div>
+                                <div class="span2"><?php echo $this->currency($this->job->partsTotal)?></div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span10">Storage per day/week:</div>
+                                <div class="span2">&pound;0.00</div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span10">Specialist Charges (as rendered):</div>
+                                <div class="span2"><?php echo $this->currency($this->job->specialEst)?></div>
+                            </div>
+                            <div class="row-fluid subtotals">
+                                <div class="span2">Total:</div>
+                                <div class="span3"><?php echo $this->currency($this->job->totalEst)?></div>
+                                <div class="span7">including parts & VAT</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="footer">
+                    <p>We have pleasure in submitting our estimate for the repairs described above.
+                    Our estimate is subject to our terms &amp; conditions (availible on request). Any
+                    further damage found upon dismantling will be subject to a further estimate.</p>
+                    <p>Visit our Website: www.elitecarbody.co.uk</p>
+
+                </div>
