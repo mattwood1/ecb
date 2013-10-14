@@ -23,9 +23,6 @@ class User_AuthController extends Coda_Controller
                 }
             }
         }
-
-        var_dump($requestUrl->url);
-
         $this->view->form = $form;
     }
 
