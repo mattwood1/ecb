@@ -1,18 +1,5 @@
 <?php class Diary_IndexController extends Coda_Controller
 {
-
-    public function init()
-    {
-        /* Initialize action controller here */
-        if (! $this->_request->user) {
-            $requestUrl = new Zend_Session_Namespace('requestUrl');
-            $requestUrl->url = $this->_request->getRequestUri();
-
-            $this->_flash('Diary requires the user to be logged in', Coda_Helper_Flash::INFO);
-            $this->gotoRoute(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'));
-        }
-    }
-
     public function indexAction()
     {
         $form = new Diary_Form_Diary();
