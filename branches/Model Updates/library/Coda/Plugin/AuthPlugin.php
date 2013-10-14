@@ -7,6 +7,8 @@ class Coda_Plugin_AuthPlugin extends Zend_Controller_Plugin_Abstract
         if (! $auth->hasIdentity()) {
             // Defer more complex authentication logic to AuthController
 
+            $requestUrl = new Zend_Session_Namespace('requestUrl');
+
             if (
                     ($this->getRequest()->getModuleName() == 'user' && $this->getRequest()->getControllerName() == 'auth' && $this->getRequest()->getActionName() == 'login')
                     || ($this->getRequest()->getModuleName() == 'board')
@@ -14,6 +16,10 @@ class Coda_Plugin_AuthPlugin extends Zend_Controller_Plugin_Abstract
                 // Process normally
             } else {
                 // Login Required
+                if ($this->getRequest()->getRequestUri() != 'favicon.ico') {
+                    $requestUrl->url = $this->getRequest()->getRequestUri();
+                }
+
                 $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
                 $redirector->gotoSimple('login', 'auth', 'user');
             }
