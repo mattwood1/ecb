@@ -16,9 +16,10 @@ class Coda_Plugin_AuthPlugin extends Zend_Controller_Plugin_Abstract
                 // Process normally
             } else {
                 // Login Required
-                if ($this->getRequest()->getRequestUri() != 'favicon.ico') {
-                    $requestUrl->url = $this->getRequest()->getRequestUri();
-                }
+                $requestUrl->url = $this->getRequest()->getRequestUri();
+
+                $flash = new Coda_Helper_Flash();
+                $flash->direct($this->getRequest()->getModuleName().' requires the user to be logged in', Coda_Helper_Flash::INFO);
 
                 $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
                 $redirector->gotoSimple('login', 'auth', 'user');
