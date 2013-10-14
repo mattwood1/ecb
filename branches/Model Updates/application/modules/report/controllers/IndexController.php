@@ -20,7 +20,7 @@ class Report_IndexController extends Coda_Controller
         if (! $this->_request->getParam('jobId')) {
             $this->gotoRoute(array('action' => 'index'));
         }
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
         $this->view->job = $job;
     }
 
@@ -33,7 +33,7 @@ class Report_IndexController extends Coda_Controller
 			$printLayout->setLayoutPath( APPLICATION_PATH . '/layouts/scripts' );
 			$printLayout->setLayout('print-bootstrap');
 
-            $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+            $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
             $this->view->job = $job;
 
             if ( $job ) {

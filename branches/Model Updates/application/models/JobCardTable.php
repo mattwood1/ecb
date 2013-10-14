@@ -1,9 +1,9 @@
 <?php
-class Coda_Model_JobCardTable extends Doctrine_Record
+class ECB_Model_JobCardTable extends Doctrine_Record
 {
     public static function getInstance()
     {
-        return Doctrine_Core::getTable('Coda_Model_JobCard');
+        return Doctrine_Core::getTable('ECB_Model_JobCard');
     }
 
 }

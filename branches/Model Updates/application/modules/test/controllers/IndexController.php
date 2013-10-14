@@ -15,7 +15,7 @@ class test_IndexController extends Coda_Controller
 
     public function indexAction()
     {
-        $jobs = Doctrine_Core::getTable('Coda_Model_Job')->findAll();
+        $jobs = Doctrine_Core::getTable('ECB_Model_Job')->findAll();
         $this->view->jobs=$jobs;
          $this->_disableLayout();
          $mail = new Zend_Mail();

@@ -15,20 +15,30 @@ class Job_IndexController extends Coda_Controller
 
     public function indexAction()
     {
-        $jobs = Doctrine_Query::create()->select('*')->from('Coda_Model_Job')->orderBy('dateModified DESC');
-        $statuses = Doctrine_Core::getTable('Coda_Model_JobStatus')->findAll();
-        $processes = Doctrine_Core::getTable('Coda_Model_JobProcess')->findAll();
+        $jobTable = new ECB_Model_JobTable();
+        $jobTable->getJobs();
+
+        if ($this->_request->getParam('keyword')) {
+            $jobTable->searchJobs($this->_request->getParam('keyword'));
+        }
+
+        if ($this->_request->getParam('status')) {
+            $jobTable->filterStatus($this->_request->getParam('status'));
+        }
+
+        if ($this->_request->getParam('process')) {
+            $jobTable->filterProcess($this->_request->getParam('process'));
+        }
+
+        $jobTable->orderJobs('dateModified DESC');
+        $jobs = $jobTable->getQuery();
+
+        $statuses = Doctrine_Core::getTable('ECB_Model_JobStatus')->findAll();
+        $processes = Doctrine_Core::getTable('ECB_Model_JobProcess')->findAll();
 
         $this->view->jobs = $jobs->execute();
         $this->view->statuses = $statuses;
         $this->view->processes = $processes;
-    }
-    protected function numberplateformat($numberPlate)
-    {
-        if (!strstr($numberPlate, " ")) {
-            return chunk_split(strtoupper($numberPlate), 4, ' ');
-        }
-        return $numberPlate;
     }
 
     public function addAction()
@@ -37,7 +47,7 @@ class Job_IndexController extends Coda_Controller
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             $zfDate = new Zend_Date();
-            $job = Doctrine_Core::getTable('Coda_Model_Job')->create(
+            $job = Doctrine_Core::getTable('ECB_Model_Job')->create(
                     array_merge($form->getValues(), array(
                             'dateCreated' => $zfDate->get(Zend_Date::ISO_8601),
                             'carReg' => $this->numberplateformat($form->getValue('carReg')))
@@ -58,7 +68,7 @@ class Job_IndexController extends Coda_Controller
         $jobCardForm = new Job_Form_JobCard(array('job' => $this->_request->getParam('job')));
 
         if ($this->_request->getParam('job')) {
-            $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
+            $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
 
             if ($this->_request->isPost() && $jobForm->isValid($this->_request->getPost())) {
                 $job->fromArray(array_merge(
@@ -72,6 +82,7 @@ class Job_IndexController extends Coda_Controller
             }
 
             $jobForm->populate($job->toArray());
+
             // Job Data
             $this->view->job = $job;
 
@@ -88,7 +99,7 @@ class Job_IndexController extends Coda_Controller
 
     public function setStatusAction()
     {
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
         $job->jobStatusId = $this->_request->getParam('status');
         $job->save();
         $this->_redirectBack();
@@ -96,7 +107,7 @@ class Job_IndexController extends Coda_Controller
 
     public function setProcessAction()
     {
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
         $job->jobProcessId = $this->_request->getParam('process');
         $job->save();
         $this->_redirectBack();
@@ -106,32 +117,26 @@ class Job_IndexController extends Coda_Controller
     {
         $this->_disableLayout();
 
-        $jobs = Doctrine_Query::create()->select('*')->from('Coda_Model_Job');
+        $jobTable = new ECB_Model_JobTable();
+        $jobTable->getJobs();
 
         if ($this->_request->getParam('keyword')) {
-            //$jobs->where('MATCH (carReg, name, address, postcode, make, model ) AGAINST (? IN BOOLEAN MODE)', $this->_request->getParam('keyword'));
-            $jobs->where('carReg LIKE ?', '%'.$this->_request->getParam('keyword').'%')
-                 ->orWhere('name LIKE ?', '%'.$this->_request->getParam('keyword').'%')
-                 ->orWhere('make LIKE ?', '%'.$this->_request->getParam('keyword').'%')
-                 ->orWhere('model LIKE ?', '%'.$this->_request->getParam('keyword').'%')
-                 ->orWhere('vin LIKE ?', '%'.$this->_request->getParam('keyword').'%')
-                 ->orWhere('postcode LIKE ?', '%'.$this->_request->getParam('keyword').'%');
+            $jobTable->searchJobs($this->_request->getParam('keyword'));
         }
 
         if ($this->_request->getParam('status')) {
-            $jobs->where('jobStatusId = ?', $this->_request->getParam('status'));
+            $jobTable->filterStatus($this->_request->getParam('status'));
         }
 
         if ($this->_request->getParam('process')) {
-            $jobs->where('jobProcessId = ?', $this->_request->getParam('process'));
+            $jobTable->filterProcess($this->_request->getParam('process'));
         }
 
-        $jobs->orderBy('dateModified DESC');
+        $jobTable->orderJobs('dateModified DESC');
+        $jobs = $jobTable->getQuery();
 
-        //var_dump($jobs->getSqlQuery());exit;
-
-        $statuses = Doctrine_Core::getTable('Coda_Model_JobStatus')->findAll();
-        $processes = Doctrine_Core::getTable('Coda_Model_JobProcess')->findAll();
+        $statuses = Doctrine_Core::getTable('ECB_Model_JobStatus')->findAll();
+        $processes = Doctrine_Core::getTable('ECB_Model_JobProcess')->findAll();
 
         $this->view->jobs = $jobs->execute();
         $this->view->statuses = $statuses;
@@ -151,7 +156,7 @@ class Job_IndexController extends Coda_Controller
 
         if ($this->_request->isPost() && $jobPartForm->isValid($this->_request->getPost())) {
             $zfDate = new Zend_Date();
-            $jobPart = Doctrine_Core::getTable('Coda_Model_JobPart')->create(
+            $jobPart = Doctrine_Core::getTable('ECB_Model_JobPart')->create(
                     array_merge($jobPartForm->getValues(), array(
                             'dateCreated' => $zfDate->get(Zend_Date::ISO_8601))
                     ));
@@ -159,7 +164,7 @@ class Job_IndexController extends Coda_Controller
             $this->_flash('Part Added');
         }
 
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
 
         $this->view->job = $job;
         $this->view->parts = $job->parts;
@@ -174,10 +179,10 @@ class Job_IndexController extends Coda_Controller
     {
         $this->_disableLayout();
 
-        $jobPart = Doctrine_Core::getTable('Coda_Model_JobPart')->findBy('jobPartId', $this->_request->getParam('part'));
+        $jobPart = Doctrine_Core::getTable('ECB_Model_JobPart')->findBy('jobPartId', $this->_request->getParam('part'));
         $jobPart->delete();
 
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
 
         $this->view->parts = $job->parts;
         $this->_flash('Part Deleted');
@@ -196,7 +201,7 @@ class Job_IndexController extends Coda_Controller
 
         if ($this->_request->isPost() && $jobNoteForm->isValid($this->_request->getPost())) {
             $zfDate = new Zend_Date();
-            $jobNote = Doctrine_Core::getTable('Coda_Model_JobNote')->create(
+            $jobNote = Doctrine_Core::getTable('ECB_Model_JobNote')->create(
                     array_merge($jobNoteForm->getValues(),
                             array(
                                     'dateCreated' => $zfDate->get(Zend_Date::ISO_8601),
@@ -208,7 +213,7 @@ class Job_IndexController extends Coda_Controller
             $this->_flash('Note Added');
         }
 
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
 
         $this->view->notes = $job->notes;
 
@@ -234,7 +239,7 @@ class Job_IndexController extends Coda_Controller
 
         if ($this->_request->isPost() && $jobCardForm->isValid($this->_request->getPost())) {
             $zfDate = new Zend_Date();
-            $jobCart = Doctrine_Core::getTable('Coda_Model_JobCard')->create(
+            $jobCart = Doctrine_Core::getTable('ECB_Model_JobCard')->create(
                     array_merge($jobCardForm->getValues(), array(
                             'dateCreated' => $zfDate->get(Zend_Date::ISO_8601))
                     ));
@@ -242,13 +247,21 @@ class Job_IndexController extends Coda_Controller
             $this->_flash('Hours Added');
         }
 
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
 
         $this->view->job = $job;
         $this->view->jobCard = $job->card;
 
         $this->renderScript('partials/job-card.phtml');
 
+    }
+
+    protected function numberplateformat($numberPlate)
+    {
+        if (!strstr($numberPlate, " ")) {
+            return chunk_split(strtoupper($numberPlate), 4, ' ');
+        }
+        return $numberPlate;
     }
 
 }
