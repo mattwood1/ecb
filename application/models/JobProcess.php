@@ -1,5 +1,5 @@
 <?php
-class Coda_Model_JobProcess extends Doctrine_Record
+class ECB_Model_JobProcess extends Doctrine_Record
 {
 
     public function setTableDefinition()
@@ -25,7 +25,7 @@ class Coda_Model_JobProcess extends Doctrine_Record
     public function setUp()
     {
 
-        $this->hasMany('Coda_Model_Job', array(
+        $this->hasMany('ECB_Model_Job', array(
                 'local' =>     'jobProcessId',
                 'foreign' => 'jobProcessId'
         ));

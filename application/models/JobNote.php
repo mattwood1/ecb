@@ -1,5 +1,5 @@
 <?php
-class Coda_Model_JobNote extends Doctrine_Record
+class ECB_Model_JobNote extends Doctrine_Record
 {
 
     public function setTableDefinition()
@@ -41,14 +41,14 @@ class Coda_Model_JobNote extends Doctrine_Record
     public function setUp()
     {
 /*
-        $this->hasMany('Coda_Model_Session as sessions', array(
+        $this->hasMany('ECB_Model_Session as sessions', array(
                 'local' =>     'addressId',
                 'foreign' => 'addressId',
                 'cascade' => array('delete')
         ));
 */
 
-        $this->hasOne('Coda_Model_User as user', array(
+        $this->hasOne('ECB_Model_User as user', array(
                 'local' =>     'userId',
                 'foreign' => 'userId'
         ));
