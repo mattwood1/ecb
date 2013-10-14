@@ -1,11 +1,6 @@
 <?php
 class User_RegistrationController extends Coda_Controller
 {
-    public function init()
-    {
-        /* Initialize action controller here */
-    }
-
     public function indexAction()
     {
         $zfDate = new Zend_Date();

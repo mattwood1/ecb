@@ -1,11 +1,6 @@
 <?php
 class User_AuthController extends Coda_Controller
 {
-    public function init()
-    {
-        /* Initialize action controller here */
-    }
-
     public function loginAction()
     {
         $requestUrl = new Zend_Session_Namespace('requestUrl');
@@ -28,6 +23,8 @@ class User_AuthController extends Coda_Controller
                 }
             }
         }
+
+        var_dump($requestUrl->url);
 
         $this->view->form = $form;
     }

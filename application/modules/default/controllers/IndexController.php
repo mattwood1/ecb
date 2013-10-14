@@ -1,18 +1,6 @@
 <?php
 class IndexController extends Coda_Controller
 {
-    public function init()
-    {
-        /* Initialize action controller here */
-        if (! $this->_request->user) {
-            $requestUrl = new Zend_Session_Namespace('requestUrl');
-            $requestUrl->url = $this->_request->getRequestUri();
-
-            $this->_flash('Dashboard requires the user to be logged in', Coda_Helper_Flash::INFO);
-            $this->gotoRoute(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'));
-        }
-    }
-
     public function indexAction()
     {
         $wip = Doctrine_Query::create()->select('*')->from('ECB_Model_Job')->where('jobStatusId = ?', '4');
