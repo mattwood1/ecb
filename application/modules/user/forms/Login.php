@@ -1,16 +1,17 @@
 <?php
-class User_Form_Login extends Twitter_Form
+class User_Form_Login extends Twitter_Bootstrap_Form_Vertical
 {
     public function init()
     {
         // Make this form horizontal
-        $this->setAttrib("class", "separate-sections");
+        $this->setAttrib('class', 'separate-sections');
 
         $this->addElement("text", "email", array(
         //    "label" => "Email",
-            'required'    => true,
-            "placeholder" => "Your email address",
-            'class' => 'span12'
+                'required'    => true,
+                'placeholder' => 'Your email address',
+                'prepend'       => '@',
+                'class' => 'span12'
         ))
 
         ->addElement("password", "password", array(
