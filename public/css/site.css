@@ -142,6 +142,10 @@ td.currency, th.currency {
     padding: 15px;
 }
 
+.padded form, .padded .control-group:last-child {
+    margin-bottom: 0px;
+}
+
 .word-wrap {
     word-break: break-word;
 }
