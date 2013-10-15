@@ -10,15 +10,16 @@ class User_Form_Login extends Twitter_Bootstrap_Form_Vertical
         //    "label" => "Email",
                 'required'    => true,
                 'placeholder' => 'Your email address',
-                'prepend'       => '@',
+                'prepend'       => '<i class="icon-user"></i>',
                 'class' => 'span12'
         ))
 
         ->addElement("password", "password", array(
         //    "label" => "Password",
-            "required" => true,
-            "placeholder" => "Your password",
-            'class' => 'span12'
+                'required' => true,
+                'placeholder' => 'Your password',
+                'prepend' => '<i class="icon-lock"></i>',
+                'class' => 'span12'
         ))
 
         ->addElement("submit", "login", array("label" => 'Log in'))

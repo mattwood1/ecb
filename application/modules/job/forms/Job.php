@@ -1,5 +1,5 @@
 <?php
-class Job_Form_Job extends Twitter_Form
+class Job_Form_Job extends Twitter_Bootstrap_Form_Vertical
 {
     public function init()
     {
