@@ -1,5 +1,5 @@
 <?php
-class Job_Form_Job extends Twitter_Bootstrap_Form_Vertical
+class Job_Form_Job extends Twitter_Bootstrap_Form_Horizontal
 {
     public function init()
     {
@@ -8,11 +8,13 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Vertical
         $this->addElement('text', 'insDate', array (
                 'label'     => 'Inspection Date',
                 'required'  => true,
+                'prepend' => '<i class="icon-calendar"></i>',
                 'class' => 'span12 datepicker'
         ));
 
         $this->addElement('text', 'carReg', array(
-                'label'      => 'Car Reg',
+                'label'     => 'Car Reg',
+                'class'     => 'span12',
                 'required'  => true,
         ));
 
@@ -23,26 +25,31 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Vertical
 
         $this->addElement('textarea', 'address', array(
                 'label' => 'Address',
-                'class' => 'span12'
+                'class' => 'span12',
+                'rows'  => '3'
         ));
 
         $this->addElement('text', 'postcode', array(
                 'label' => 'Postcode',
+                'prepend' => '<i class="icon-map-marker"></i>',
                 'class' => 'span12'
         ));
 
         $this->addElement('text', 'tel', array(
                 'label' => 'Telephone',
-                'class' => 'span12'
+                'class' => 'span12',
+                'prepend' => '<i class="icon-phone"></i>'
         ));
 
         $this->addElement('text', 'mobile', array(
                 'label' => 'Mobile',
+                'prepend' => '<i class="icon-mobile-phone"></i>',
                 'class' => 'span12'
         ));
 
         $this->addElement('text', 'email', array(
                 'label' => 'Email',
+                'prepend' => '<i class="icon-envelope"></i>',
                 'class' => 'span12'
         ));
 
@@ -53,21 +60,25 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Vertical
 
         $this->addElement('textarea', 'insAdd', array(
                 'label' => 'Insurance Address',
-                'class' => 'span12'
+                'class' => 'span12',
+                'rows'  => '3'
         ));
 
         $this->addElement('text', 'insPost', array(
                 'label' => 'Insurance Postcode',
+                'prepend' => '<i class="icon-map-marker"></i>',
                 'class' => 'span12'
         ));
 
         $this->addElement('text', 'insTel', array(
                 'label' => 'Insurance Tel',
+                'prepend' => '<i class="icon-phone"></i>',
                 'class' => 'span12'
         ));
 
         $this->addElement('text', 'excess', array(
                 'label' => 'Excess Amount',
+                'prepend' => '<i class="icon-gbp"></i>',
                 'class' => 'span12'
         ));
 
@@ -165,79 +176,99 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Vertical
 
         $this->addElement('textarea', 'damage', array(
                 'label' => 'Damage Appraisal',
-                'class' => 'span12'
+                'class' => 'span12',
+                'rows'  => '3'
         ));
 
         $this->addElement('textarea', 'special', array(
                 'label' => 'Specialist Works Required',
-                'class' => 'span12'
+                'class' => 'span12',
+                'rows'  => '3'
         ));
 
         $this->addElement('textarea', 'partsEst', array(
                 'label' => 'Parts Required',
-                'class' => 'span12'
+                'class' => 'span12',
+                'rows'  => '3'
         ));
 
         $this->addElement('text', 'estPrep', array(
-                'label' => 'Estimate Prepared by:',
+                'label' => 'Prepared by:',
+                'prepend' => '<i class="icon-user"></i>',
                 'class' => 'span12'
         ));
 
         $this->addElement('text', 'labRate', array(
-                'label' => 'Labour Rate (number)',
+                'label' => 'Labour Rate',
+                'prepend' => '<i class="icon-gbp"></i>',
                 'class' => 'span12'
         ));
 
         $this->addElement('text', 'labHours', array(
-                'label' => 'Total Labour Hours (number)',
+                'label' => 'Total Labour Hours',
+                'prepend' => '<i class="icon-time"></i>',
                 'class' => 'span12'
         ));
 
         $this->addElement('text', 'labEst', array(
                 'label' => 'Total Labour',
                 'class' => 'span12',
-                'readonly' => 'readonly'
+                'readonly' => 'readonly',
+                'prepend' => '<i class="icon-gbp"></i>'
         ));
 
         $this->addElement('text', 'pandmEst', array(
-                'label' => 'Paint & Materials (estimate)',
+                'label' => 'Paint & Materials',
+                'prepend' => '<i class="icon-gbp"></i>',
                 'class' => 'span12'
         ));
 
         $this->addElement('text', 'partsTotal', array(
-                'label' => 'Total Parts £ (estimate)',
+                'label' => 'Total Parts',
+                'prepend' => '<i class="icon-gbp"></i>',
                 'class' => 'span12'
         ));
 
         $this->addElement('text', 'specialEst', array(
-                'label' => 'Specialist Charges £',
+                'label' => 'Specialist Charges',
+                'prepend' => '<i class="icon-gbp"></i>',
                 'class' => 'span12'
         ));
 
         $this->addElement('text', 'recovEst', array(
                 'label' => 'Recovery Charge',
+                'prepend' => '<i class="icon-gbp"></i>',
                 'class' => 'span12'
         ));
 
         $this->addElement('text', 'subtotEst', array(
                 'label' => 'Sub-Total Estimate',
                 'class' => 'span12',
+                'prepend' => '<i class="icon-gbp"></i>',
                 'readonly' => 'readonly'
         ));
 
         $this->addElement('text', 'vatEst', array(
                 'label' => 'VAT Total',
                 'class' => 'span12',
+                'prepend' => '<i class="icon-gbp"></i>',
                 'readonly' => 'readonly'
         ));
 
         $this->addElement('text', 'totalEst', array(
                 'label' => 'Total Estimate',
                 'class' => 'span12',
+                'prepend' => '<i class="icon-gbp"></i>',
                 'readonly' => 'readonly'
         ));
 
-
-        $this->addElement("submit", "save", array("label" => "Save"));
+        $this->addElement('button', 'save', array(
+                'type'          => 'submit',
+                'buttonType'    => 'success',
+                'icon'          => 'ok',
+                'label'         => 'Save',
+                'iconPosition'  => 'right',
+                'escape'        => false
+        ));
     }
 }

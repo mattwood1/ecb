@@ -186,3 +186,20 @@ font-size: 7pt;
     width: 90%
 }
 
+#JobForm.form-horizontal .control-label {
+    width: 100px;
+}
+
+#JobForm.form-horizontal .controls {
+    margin-left: 110px;
+}
+
+#JobForm.form-horizontal .control-group {
+    margin-bottom: 5px;
+}
+
+#JobForm label, #JobForm input, #JobForm button, #JobForm select, #JobForm textarea {
+    font-size: 12px;
+    line-height: 12px;
+    
+}
