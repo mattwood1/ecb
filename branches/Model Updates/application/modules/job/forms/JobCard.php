@@ -1,5 +1,5 @@
 <?php
-class Job_Form_JobCard extends Twitter_Form
+class Job_Form_JobCard extends Twitter_Bootstrap_Form_Vertical
 {
      protected $_jobId;
 

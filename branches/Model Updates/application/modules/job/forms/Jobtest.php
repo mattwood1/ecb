@@ -1,5 +1,5 @@
 <?php
-class Job_Form_Job extends Twitter_Form
+class Job_Form_Job extends Twitter_Bootstrap_Form_Vertical
 {
     public function init()
             {
@@ -154,37 +154,37 @@ class Job_Form_Job extends Twitter_Form
         $this->addElement('text', 'labEstimate', array(
                 'label' => 'Total Labour £ (calculated[labrate] * [labhours]'
         ));
-        
+
         $this->addElement('text', 'pandmEst', array(
                 'label' => 'Paint & Materials (estimate)'
         ));
-        
+
         $this->addElement('text', 'partsTotal', array(
                 'label' => 'Total Parts £ (estimate)'
         ));
-        
+
         $this->addElement('text', 'specialEst', array(
                 'label' => 'Specialist Charges £'
         ));
-        
+
         $this->addElement('text', 'recovEst', array(
                 'label' => 'Recovery Charge'
         ));
-        
+
         $this->addElement('text', 'subtotEst', array(
                 'label' => 'Sub-Total Estimate'
         ));
-        
+
         $this->addElement('text', 'vatEst', array(
                 'label' => 'VAT Total'
         ));
-        
+
         $this->addElement('text', 'totalEst', array(
                 'label' => 'Total Estimate'
         ));
 
 
         $this->addElement("submit", "save", array("label" => "Save"));
-    
+
     }
 }
