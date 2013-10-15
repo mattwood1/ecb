@@ -22,19 +22,13 @@ class User_Form_Login extends Twitter_Bootstrap_Form_Vertical
                 'class' => 'span12'
         ))
 
-        ->addElement("submit", "login", array("label" => 'Log in'))
-
-        /*
-        ->addElement('Link', 'forgotton', array(
-                'label' => 'Forgotton Password',
-                'url' => array('action' => 'forgotton')
-        ))
-        /*
-        ->addElement("link", 'register', array(
-                'label' => 'Registration',
-                'url' => array('action' => 'registration')
-        ))
-        */
-        ;
+        ->addElement('button', 'submit', array(
+                'type'          => 'submit',
+                'buttonType'    => 'success',
+                'icon'          => 'signin',
+                'label'         => 'Log in',
+                'iconPosition'  => 'right',
+                'escape'        => false
+        ));
     }
 }
