@@ -1,5 +1,5 @@
 LaunchURL=http\://server/folder
-Save\ Mode=ON_SAVE
+Save\ Mode=MANUALLY
 SelectedHostGUID=d7eb27fa-5619-473c-822c-fe061f067475
 UploadFolder=/subdomains/ecb/httpdocs
 eclipse.preferences.version=1

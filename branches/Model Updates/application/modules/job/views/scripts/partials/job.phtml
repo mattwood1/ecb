@@ -1,11 +1,11 @@
-<form class="form-vertical" action="" method="post">
+<form class="form-horizontal" id="JobForm" action="" method="post">
 
 <center>
     <h2>Customer Details</h2>
 </center>
 
 <div class="row-fluid">
-    <div class="span3">
+    <div class="span4">
         <h4>Customer Information</h4>
         <?php echo $this->form->insDate; ?>
         <?php echo $this->form->name; ?>
@@ -15,7 +15,7 @@
         <?php echo $this->form->mobile; ?>
         <?php echo $this->form->email; ?>
     </div>
-    <div class="span3">
+    <div class="span4">
         <h4>Insurance Info</h4>
         <?php echo $this->form->insName; ?>
         <?php echo $this->form->insAdd; ?>
@@ -24,7 +24,7 @@
         <?php echo $this->form->excess; ?>
         <?php echo $this->form->vatRegistered; ?>
     </div>
-    <div class="span3">
+    <div class="span4">
         <h4>Vehicle Information</h4>
         <?php echo $this->form->carReg; ?>
         <?php echo $this->form->make; ?>
@@ -35,12 +35,13 @@
         <?php echo $this->form->transmission; ?>
         <?php echo $this->form->fuel; ?>
     </div>
-    <div class="span3">
-        <h4>Internal Use</h4>
-        <?php echo $this->form->jobStatusId; ?>
-        <?php echo $this->form->jobProcessId; ?>
-        <?php echo $this->form->seToyota; ?>
-    </div>
+</div>
+
+<h4>Internal Use</h4>
+<div class="row-fluid">
+    <div class="span4"><?php echo $this->form->jobStatusId; ?></div>
+    <div class="span4"><?php echo $this->form->jobProcessId; ?></div>
+    <div class="span4"><?php echo $this->form->seToyota; ?></div>
 </div>
 
 <div class="row-fluid">
@@ -73,6 +74,7 @@
     </div>
 </div>
 
-<?php echo $this->form->save; ?>
+<?php //echo $this->form->save; ?>
+<button name="save" id="save" type="submit" class="btn btn-success">Save <i class="icon-ok"></i></button>
 
 </form>
