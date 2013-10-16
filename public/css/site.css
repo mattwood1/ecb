@@ -203,3 +203,6 @@ font-size: 7pt;
     line-height: 12px;
     
 }
+#JobForm label, #JobForm input, #JobForm select, #JobForm textarea {
+    width: 90%;
+}
