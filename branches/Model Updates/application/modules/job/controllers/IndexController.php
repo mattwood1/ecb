@@ -38,8 +38,10 @@ class Job_IndexController extends Coda_Controller
             $job = Doctrine_Core::getTable('ECB_Model_Job')->create(
                     array_merge($form->getValues(), array(
                             'dateCreated' => $zfDate->get(Zend_Date::ISO_8601),
-                            'carReg' => $this->numberplateformat($form->getValue('carReg')))
-                    ));
+                            'carReg' => $this->numberplateformat($form->getValue('carReg')),
+                            'postcode' => strtoupper($form->getValue('postcode'))
+                    ))
+                );
             $job->save();
             $this->gotoRoute(array('action' => 'index', 'job' => null));
             $this->_flash('Job Added');
@@ -59,11 +61,12 @@ class Job_IndexController extends Coda_Controller
             $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
 
             if ($this->_request->isPost() && $jobForm->isValid($this->_request->getPost())) {
-                $job->fromArray(array_merge(
-                        $jobForm->getValues(),
-                        array(
-                        'carReg' => $this->numberplateformat($jobForm->getValue('carReg')))
-                        ));
+                $job->fromArray(
+                        array_merge($jobForm->getValues(), array(
+                            'carReg' => $this->numberplateformat($jobForm->getValue('carReg')),
+                            'postcode' => strtoupper($jobForm->getValue('postcode'))
+                        ))
+                    );
                 $job->save();
                 $this->gotoRoute(array('action' => 'index', 'job' => null));
                 $this->_flash('Job Updated');

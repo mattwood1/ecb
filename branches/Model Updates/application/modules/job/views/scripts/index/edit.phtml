@@ -33,7 +33,9 @@
         </div>
     </div>
     <div class="tab-pane" id="jobNote">
-        <?php echo $this->jobNoteForm; ?>
+        <div class="row-fluid">
+            <?php echo $this->jobNoteForm; ?>
+        </div>
         <div class="resultContent">
             <?php echo $this->partial('partials/job-note.phtml', array('notes' => $this->job->notes));?>
         </div>
