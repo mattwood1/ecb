@@ -206,3 +206,7 @@ font-size: 7pt;
 #JobForm label, #JobForm input, #JobForm select, #JobForm textarea {
     width: 90%;
 }
+
+h2.center {
+    text-align: center;
+}

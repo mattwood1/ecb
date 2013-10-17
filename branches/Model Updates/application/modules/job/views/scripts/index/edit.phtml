@@ -2,6 +2,7 @@
     $this->headScript()->appendFile("/js/job/job.js")
                        ->appendFile("/js/job/part.js")
                        ->appendFile("/js/job/note.js")
+                       ->appendFile("/js/job/card.js")
 ?>
 
 <h1><i class="icon-wrench"></i> Edit Job</h1>
@@ -23,16 +24,17 @@
 <div class="tab-content">
     <div class="tab-pane active" id="job">
         <?php echo $this->partial('partials/job.phtml', array('form' => $this->jobForm))?>
-        <?php //echo $this->jobForm; ?>
     </div>
     <div class="tab-pane" id="jobPart">
-        <?php //echo $this->jobPartForm; ?>
-        <?php echo $this->partial('partials/addPart_form.phtml', array('form' => $this->jobPartForm)) ?>
+        <div class="row-fluid">
+            <?php echo $this->partial('partials/addPart_form.phtml', array('form' => $this->jobPartForm)) ?>
+        </div>
         <div class="resultContent">
             <?php echo $this->partial('partials/job-part.phtml', array('job' => $this->job, 'parts' => $this->job->parts));?>
         </div>
     </div>
     <div class="tab-pane" id="jobNote">
+        <h2 class="center">Job Notes</h2>
         <div class="row-fluid">
             <?php echo $this->jobNoteForm; ?>
         </div>
@@ -41,16 +43,11 @@
         </div>
     </div>
     <div class="tab-pane" id="jobImage">
-        <p>Job Image</p>
+        <h2 class="center">Job Image</h2>
     </div>
     <div class="tab-pane" id="jobCard">
-        <p>Job Card</p>
-       <?php echo $this->partial('partials/addJobCard_form.phtml', array('form' => $this->jobCardForm)) ?>
-       <?php echo $this->partial('partials/job-card.phtml', array('job' => $this->job, 'card' => $this->job->card));?>
-
-        <pre>
-        <?php ($this->job->card->toArray()); ?>
-        </pre>
-
+        <div class="row-fluid">
+            <?php echo $this->partial('partials/addJobCard_form.phtml', array('form' => $this->jobCardForm)) ?>
+        </div>
     </div>
 </div>
