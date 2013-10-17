@@ -72,12 +72,14 @@ class Job_IndexController extends Coda_Controller
                 $this->_flash('Job Updated');
             }
 
+            //Form population
             $jobForm->populate($job->toArray());
 
-            // Job Data
-            $this->view->job = $job;
+            $jobCard = Doctrine_Core::getTable('ECB_Model_JobCard')->findOneBy('jobId', $this->_request->getParam('job'));
+            $jobCardForm->populate($jobCard->toArray());
 
             // Form Elements
+            $this->view->job = $job;
             $this->view->jobForm = $jobForm;
             $this->view->jobPartForm = $jobPartForm;
             $this->view->jobCardForm = $jobCardForm;
@@ -175,6 +177,7 @@ class Job_IndexController extends Coda_Controller
 
         $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
 
+        $this->view->job = $job;
         $this->view->parts = $job->parts;
         $this->_flash('Part Deleted');
 
@@ -220,31 +223,39 @@ class Job_IndexController extends Coda_Controller
     }
 
     /**
-     * TODO: You need to explain what the job card thingy is...(job card thingy is the amount of hours allocated to each field for the job)
+     * Update the record for the JobCsrd
      */
-    public function addJobCardAction()
+    public function updateCardAction()
     {
         $this->_disableLayout();
+        $return = array();
 
         $jobCardForm = new Job_Form_JobCard(array('job' => $this->_request->getParam('jobId')));
 
         if ($this->_request->isPost() && $jobCardForm->isValid($this->_request->getPost())) {
             $zfDate = new Zend_Date();
-            $jobCart = Doctrine_Core::getTable('ECB_Model_JobCard')->create(
-                    array_merge($jobCardForm->getValues(), array(
-                            'dateCreated' => $zfDate->get(Zend_Date::ISO_8601))
-                    ));
+
+            $jobCard = Doctrine_Core::getTable('ECB_Model_JobCard')->findOneBy('jobId', $jobCardForm->getValue('jobId'));
+
+            if (!$jobCard) {
+                $jobCard = Doctrine_Core::getTable('ECB_Model_JobCard')->create(
+                    array(
+                            'jobId' => $jobCardForm->getValue('jobId'),
+                            'dateCreated' => $zfDate->get(Zend_Date::ISO_8601)
+                    )
+                );
+            }
+
+            $jobCard->setArray($jobCardForm->getValues());
+
             $jobCard->save();
-            $this->_flash('Hours Added');
+
+            $return['flash'] = 'Job Card Updated';
         }
 
-        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+        echo json_encode($return);
 
-        $this->view->job = $job;
-        $this->view->jobCard = $job->card;
-
-        $this->renderScript('partials/job-card.phtml');
-
+        exit;
     }
 
     protected function numberplateformat($numberPlate)

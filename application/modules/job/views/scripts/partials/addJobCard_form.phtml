@@ -1,7 +1,6 @@
-<form class="form-inline" action="" method="post">
+<h2 class="center">Job Card</h1>
 
-    <center><h1>Job Card</h1></center>
-
+<form class="form-vertical" action="" method="post">
     <div class="row-fluid">
         <div class="span1">
             <?php echo $this->form->mechanical; ?>
@@ -28,10 +27,9 @@
             <?php echo $this->form->dateBooked; ?>
         </div>
         <div class="span1">
-            <?php echo $this->form->jobId; ?>
-            <?php echo $this->form->save; ?>
+            <?php //echo $this->form->save; ?>
+            <button name="save" id="save" type="submit" class="btn btn-success"><nobr>Save <i class="icon-ok"></i></nobr></button>
         </div>
     </div>
+    <?php echo $this->form->jobId; ?>
 </form>
-
-  
