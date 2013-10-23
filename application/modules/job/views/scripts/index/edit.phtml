@@ -14,9 +14,9 @@
     <div class='box-header'>
 <ul class="nav nav-tabs">
   <li class="active"><a href="#job" data-toggle="tab"><i class="icon-wrench"></i> Job</a></li>
-  <li><a href="#jobPart" data-toggle="tab"><i class="icon-shopping-cart"> Parts</i></a></li>
+  <li><a href="#jobPart" data-toggle="tab"><i class="icon-shopping-cart"></i> Parts</a></li>
   <li><a href="#jobNote" data-toggle="tab"><i class="icon-comments"></i> Notes</a></li>
-  <li><a href="#jobImage" data-toggle="tab"><i class="icon-picture"> Images</i></a></li>
+  <li><a href="#jobImage" data-toggle="tab"><i class="icon-picture"></i> Images</a></li>
   <li><a href="#jobCard" data-toggle="tab"><i class="icon-time"></i> Job Card</a></li>
 </ul>
     </div>
@@ -44,6 +44,10 @@
     </div>
     <div class="tab-pane" id="jobImage">
         <h2 class="center">Job Image</h2>
+        <form action="" id="uploader" data-path="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'upload', 'job' => $this->job->jobId));?>">
+        <?php $this->plUpload()->enable();?>
+        <?php echo $this->uploader; ?>
+        </form>
     </div>
     <div class="tab-pane" id="jobCard">
         <div class="row-fluid">
