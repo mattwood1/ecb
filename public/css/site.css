@@ -210,3 +210,7 @@ font-size: 7pt;
 h2.center {
     text-align: center;
 }
+
+#images .thumb, #images .thumb > * {
+    display: inline-block;
+}

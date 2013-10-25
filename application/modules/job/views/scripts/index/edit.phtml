@@ -44,6 +44,7 @@
     </div>
     <div class="tab-pane" id="jobImage">
         <h2 class="center">Job Image</h2>
+        <?php echo $this->partial('partials/job-images.phtml', array('images' => $this->job->images));?>
         <form action="" id="uploader" data-path="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'upload', 'job' => $this->job->jobId));?>">
         <?php $this->plUpload()->enable();?>
         <?php echo $this->uploader; ?>

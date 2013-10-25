@@ -102,8 +102,12 @@ class Job_IndexController extends Coda_Controller
 
         $this->_disableLayout();
 
+        $jobId = $this->_request->getParam('job');
+
         // Settings
-        $targetDir = "tmp";
+        $rootDir = "jobUploads";
+        $targetDir = $rootDir . DIRECTORY_SEPARATOR . $jobId;
+        $thumbDir = $targetDir . DIRECTORY_SEPARATOR . 'thumbs';
 
         $cleanupTargetDir = true; // Remove old files
         $maxFileAge = 5 * 3600; // Temp file age in seconds
@@ -118,8 +122,6 @@ class Job_IndexController extends Coda_Controller
         $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
         $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
         $fileName = isset($_REQUEST["name"]) ? $_REQUEST["name"] : '';
-
-        $jobId = $this->_request->getParam('job');
 
         // Clean the fileName for security reasons
         $fileName = preg_replace('/[^\w\._]+/', '_', $fileName);
@@ -140,10 +142,19 @@ class Job_IndexController extends Coda_Controller
         }
 
         $filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
+        $thumbPath = $thumbDir . DIRECTORY_SEPARATOR . $fileName;
+
+        // Create Directories
+        if (!file_exists($rootDir))
+            @mkdir($rootDir);
 
         // Create target dir
         if (!file_exists($targetDir))
             @mkdir($targetDir);
+
+        // Create thumb dir
+        if (!file_exists($thumbDir))
+            @mkdir($thumbDir);
 
         // Remove old temp files
         if ($cleanupTargetDir && is_dir($targetDir) && ($dir = opendir($targetDir))) {
@@ -212,14 +223,31 @@ class Job_IndexController extends Coda_Controller
             // Strip the temp .part suffix off
             rename("{$filePath}.part", $filePath);
 
+            $resizer = new Coda_Image_Resizer($filePath);
+            $resizer->resizeImage(66, 55, 'crop')->save($thumbPath, 80);
 
-            //$filesize = filesize($filePath);
-            $mimetype = trim(shell_exec("file -bi ". $filePath));
-            $filesize = filesize($filePath);
-            //$newFilePath = $this->_helper->fileUpload()->save($fileName, $filePath, $targetType, $targetId);
+            $jobImageTable = new ECB_Model_JobImageTable();
+            $jobImage = $jobImageTable->getInstance();
+
+            $image = $jobImage->createQuery('i')
+                ->where('jobId = ?', $jobId)
+                ->andwhere('file = ?', DIRECTORY_SEPARATOR . $filePath)
+                ->execute();
+
+            if (!$image->toArray()) {
+                $jobImage->create(array(
+                    'jobId' => $jobId,
+                    'file'  => DIRECTORY_SEPARATOR . $filePath,
+                    'thumb' => DIRECTORY_SEPARATOR . $thumbPath,
+                    'dateCreated' => date("Y-m-d H:i:s", mktime())
+                ))->save();
+            } else {
+                $image->fromArray(array(
+                        'thumb' => DIRECTORY_SEPARATOR . $thumbPath
+                    ));
+                $image->save();
+            }
         }
-
-        echo $filePath;
         exit;
     }
 
