@@ -11,7 +11,6 @@ class Coda_Plugin_AuthPlugin extends Zend_Controller_Plugin_Abstract
 
             if (
                     ($this->getRequest()->getModuleName() == 'user' && $this->getRequest()->getControllerName() == 'auth' && $this->getRequest()->getActionName() == 'login')
-                    || ($this->getRequest()->getModuleName() == 'board')
                 ) {
                 // Process normally
             } else {
