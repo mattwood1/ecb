@@ -26,6 +26,11 @@ class ECB_Model_JobImage extends Doctrine_Record
                 'length'              => '1000'
         ));
 
+        $this->hasColumn('thumb', 'text', 1000, array(
+                'type'                => 'text',
+                'length'              => '1000'
+        ));
+
         $this->hasColumn('dateCreated', 'datetime', 1000, array(
                 'type'                => 'datetime',
                 'length'              => '1000'

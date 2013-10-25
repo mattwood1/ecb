@@ -246,6 +246,12 @@ class ECB_Model_Job extends Doctrine_Record
                 'cascade' => array('delete')
         ));
 
+        $this->hasMany('ECB_Model_JobImage as images', array(
+                'local'   => 'jobId',
+                'foreign' => 'jobId',
+                'cascade' => array('delete')
+        ));
+
         $this->hasOne('ECB_Model_JobCard as card', array(
                 'local'   =>     'jobId',
                 'foreign' =>     'jobId',
