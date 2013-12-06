@@ -1,14 +1,12 @@
-<div id="images">
 <?php if (! empty($this->images)): ?>
 
 
         <?php foreach($this->images as $image): ?>
         <div class="thumb">
-            <a href="<?php echo $image->file; ?>" target="_blank"><img src="<?php echo $image->thumb; ?>"></a>
+            <a href="<?php echo $image->file; ?>" data-lightbox="jobPhotos" target="_blank"><img src="<?php echo $image->thumb; ?>"></a>
         </div>
         <?php endforeach; ?>
 
 <?php else: ?>
 <p>No Images</p>
 <?php endif; ?>
-</div>

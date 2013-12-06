@@ -3,6 +3,8 @@
                        ->appendFile("/js/job/part.js")
                        ->appendFile("/js/job/note.js")
                        ->appendFile("/js/job/card.js")
+                       ->appendFile("/js/lightbox-2.6.min.js");
+    $this->headLink()->appendStylesheet("/css/lightbox.css");
 ?>
 
 <h1><i class="icon-wrench"></i> Edit Job</h1>
@@ -44,7 +46,9 @@
     </div>
     <div class="tab-pane" id="jobImage">
         <h2 class="center">Job Image</h2>
-        <?php echo $this->partial('partials/job-images.phtml', array('images' => $this->job->images));?>
+        <div id="images">
+            <?php echo $this->partial('partials/job-images.phtml', array('images' => $this->job->images));?>
+        </div>
         <form action="" id="uploader" data-path="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'upload', 'job' => $this->job->jobId));?>">
         <?php $this->plUpload()->enable();?>
         <?php echo $this->uploader; ?>

@@ -247,8 +247,12 @@ class Job_IndexController extends Coda_Controller
                     ));
                 $image->save();
             }
+
+            $job = ECB_Model_JobTable::getInstance()->find($jobId);
         }
-        exit;
+        $this->view->images = $job->images;
+        $this->renderScript('partials/job-images.phtml');
+        //exit;
     }
 
     public function setStatusAction()
