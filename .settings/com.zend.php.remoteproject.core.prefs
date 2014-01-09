@@ -1,6 +1,6 @@
 LaunchURL=http\://server/folder
 Save\ Mode=ON_SAVE
-SelectedHostGUID=d7eb27fa-5619-473c-822c-fe061f067475
-UploadFolder=/subdomains/ecb/httpdocs
+SelectedHostGUID=077520d8-0d3b-45ef-a9f0-1cc468ccd967
+UploadFolder=ecb
 eclipse.preferences.version=1
 isRemoteProjectEnabled=true
