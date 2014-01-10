@@ -1,0 +1,117 @@
+<style>
+body {
+    font-family: Agency;
+    color: black;
+    font-size: 20px;
+    line-height: 22px;
+}
+
+h2 {
+    font-weight: normal;
+}
+
+.title {
+    background: url("/img/mkbodytecfinalsvgblack.svg") 0 0 no-repeat transparent;
+    background-size: contain;
+    font-size: 55px;
+    height: 190px;
+    line-height: 300px;
+    vertical-align: bottom;
+    width: 480px;
+    float: left;
+    margin-right: 20px;
+}
+
+.companyAddress {
+    width: 210px;
+    font-size: 22px;
+    line-height: 25px;
+    height: 190px;
+    float: left;
+}
+.container {
+    position: relative;
+    width: 190mm;
+}
+.container:after {
+    opacity: 0.2;
+    content:'';
+    background: url(/img/sportscar.jpg) top right no-repeat transparent;
+    background-size: contain;
+    width:430px;
+    height:520px;
+    position:absolute;
+    top:0;
+    right:0;
+    z-index: -1;
+}
+
+.span4 {
+    width: 219px;
+}
+
+.line {
+    border-bottom: 3px solid black;
+height: 3px;
+background: none;
+}
+
+.right {
+    text-align: right;
+    padding-right: 10px;
+}
+
+
+</style>
+
+<div class="title">
+Accident Repair Specialists
+</div>
+
+<div class="companyAddress">
+    1st line of company address<br />
+    2nd line of company address<br />
+    3rd line of company address<br />
+    4th line of company address<br />
+    telephone<br />
+    email<br />
+    website
+</div>
+<div class="clearfix"></div>
+<div class="line"></div>
+
+<div class="row">
+    <div class="span4">
+        <h2>Bill To:</h2>
+        <?php echo nl2br($this->job->address); ?>
+        <?php echo $this->job->postcode ? $this->job->postcode.'<br />' : ''; ?>
+        <?php echo $this->job->tel ? $this->job->tel.'<br />' : ''; ?>
+        <?php echo $this->job->mobile ? $this->job->mobile.'<br />' : ''; ?>
+        <?php echo $this->job->email ? $this->job->email.'<br />' : ''; ?>
+    </div>
+    <div class="span4">
+        <h2>Insurance Details:</h2>
+        <?php echo $this->job->insName ? $this->job->insName.'<br />' : ''; ?>
+        <?php echo $this->job->insAdd ? nl2br($this->job->insAdd).'<br />' : ''; ?>
+        <?php echo $this->job->insPost ? $this->job->insPost.'<br />' : ''; ?>
+        <?php echo $this->job->insTel ? $this->job->insTel.'<br />' : ''; ?>
+
+    </div>
+    <div class="span4">
+        <h2>Vechile Details:</h2>
+        <table>
+            <tr><td class="right">Vechicle Reg:</td><td><?php echo $this->job->carReg; ?></td></tr>
+            <tr><td class="right">VIN Number:</td><td><?php echo $this->job->vin; ?></td></tr>
+            <tr><td class="right">Make:</td><td><?php echo $this->job->make; ?></td></tr>
+            <tr><td class="right">Model:</td><td><?php echo $this->job->model; ?></td></tr>
+            <tr><td class="right">Colour:</td><td><?php echo $this->job->colour; ?></td></tr>
+            <tr><td class="right">Man / Auto:</td><td><?php echo $this->job->transmission; ?></td></tr>
+            <tr><td class="right">Mileage:</td><td><?php echo $this->job->mileage; ?></td></tr>
+        </table>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+
+<?php var_dump($this->job->toArray()); ?>
