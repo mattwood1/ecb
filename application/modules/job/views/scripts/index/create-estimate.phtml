@@ -113,35 +113,5 @@ Accident Repair Specialists
 
 <div class="clearfix"></div>
 
-<?php if ($this->job->parts): ?>
-<div class="parts">
-    <h1>Invoice</h1>
-    <table>
-        <thead>
-            <tr>
-                <td>Quantity</td>
-                <td>Description</td>
-                <td>Cost</td>
-                <td>Discount</td>
-                <td>Vat</td>
-                <td>Total</td>
-            </tr>
-        </thead>
-        <body>
-        <?php foreach ($this->job->parts as $part): ?>
-            <tr>
-                <td><?php $part->quantity; ?></td>
-                <td><?php $part->description; ?></td>
-                <td><?php $part->cost; ?></td>
-                <td><?php $part->discount; ?></td>
-                <td><?php $part->vat; ?></td>
-                <td><?php $part->total; ?></td>
-            </tr>
-        <?php endforeach; ?>
-        </body>
-    </table>
-</div>
-<?php endif; ?>
 
-
-<?php //var_dump($this->job->toArray()); ?>
+<?php var_dump($this->job->toArray()); ?>

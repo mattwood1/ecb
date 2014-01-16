@@ -427,9 +427,12 @@ class Job_IndexController extends Coda_Controller
     {
         $this->_helper->layout()->setLayout('print-bootstrap');
 
-        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')
+
+        ->findOneBy('jobId', $this->_request->getParam('job'));
 
         $this->view->job = $job;
+        $this->view->parts = $job->parts;
     }
 
     protected function numberplateformat($numberPlate)
