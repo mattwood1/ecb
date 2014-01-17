@@ -6,8 +6,10 @@ body {
     line-height: 22px;
 }
 
-h2 {
-    font-weight: normal;
+h3 {
+    font-weight: font-weight: bold;
+    line-height: 28px;
+    margin:0;
 }
 
 .title {
@@ -46,6 +48,10 @@ h2 {
     z-index: -1;
 }
 
+.row, .row-fluid {
+    margin-bottom: 30px;
+}
+
 .span4 {
     width: 219px;
 }
@@ -56,9 +62,8 @@ height: 3px;
 background: none;
 }
 
-.right {
+.number {
     text-align: right;
-    padding-right: 10px;
 }
 
 
@@ -80,7 +85,7 @@ Accident Repair Specialists
 <div class="clearfix"></div>
 <div class="line"></div>
 
-<div class="row">
+<div class="row-fluid">
     <div class="span4">
         <h2>Bill To:</h2>
         <?php echo nl2br($this->job->address); ?>
@@ -100,13 +105,13 @@ Accident Repair Specialists
     <div class="span4">
         <h2>Vechile Details:</h2>
         <table>
-            <tr><td class="right">Vechicle Reg:</td><td><?php echo $this->job->carReg; ?></td></tr>
-            <tr><td class="right">VIN Number:</td><td><?php echo $this->job->vin; ?></td></tr>
-            <tr><td class="right">Make:</td><td><?php echo $this->job->make; ?></td></tr>
-            <tr><td class="right">Model:</td><td><?php echo $this->job->model; ?></td></tr>
-            <tr><td class="right">Colour:</td><td><?php echo $this->job->colour; ?></td></tr>
-            <tr><td class="right">Man / Auto:</td><td><?php echo $this->job->transmission; ?></td></tr>
-            <tr><td class="right">Mileage:</td><td><?php echo $this->job->mileage; ?></td></tr>
+            <tr><td class="number">Vechicle Reg:</td><td><?php echo $this->job->carReg; ?></td></tr>
+            <tr><td class="number">VIN Number:</td><td><?php echo $this->job->vin; ?></td></tr>
+            <tr><td class="number">Make:</td><td><?php echo $this->job->make; ?></td></tr>
+            <tr><td class="number">Model:</td><td><?php echo $this->job->model; ?></td></tr>
+            <tr><td class="number">Colour:</td><td><?php echo $this->job->colour; ?></td></tr>
+            <tr><td class="number">Man / Auto:</td><td><?php echo $this->job->transmission; ?></td></tr>
+            <tr><td class="number">Mileage:</td><td><?php echo $this->job->mileage; ?></td></tr>
         </table>
     </div>
 </div>
@@ -114,31 +119,60 @@ Accident Repair Specialists
 <div class="clearfix"></div>
 
 <?php if ($this->job->parts): ?>
-<div class="parts">
+<?php
+$subTotal = 0;
+$vat = 0;
+$total = 0;
+?>
+<div class="row-fluid">
     <h1>Invoice</h1>
-    <table>
+    <table width="100%">
         <thead>
             <tr>
                 <td>Quantity</td>
                 <td>Description</td>
-                <td>Cost</td>
-                <td>Discount</td>
-                <td>Vat</td>
-                <td>Total</td>
+                <td class="number">Cost</td>
+                <td class="number">Discount</td>
+                <td class="number">Vat</td>
+                <td class="number">Total</td>
             </tr>
         </thead>
-        <body>
+        <tbody>
         <?php foreach ($this->job->parts as $part): ?>
             <tr>
-                <td><?php $part->quantity; ?></td>
-                <td><?php $part->description; ?></td>
-                <td><?php $part->cost; ?></td>
-                <td><?php $part->discount; ?></td>
-                <td><?php $part->vat; ?></td>
-                <td><?php $part->total; ?></td>
+                <td><?php echo $part->quantity; ?></td>
+                <td><?php echo $part->description; ?></td>
+                <td class="number">&pound;<?php echo $part->cost; ?></td>
+                <td class="number"><?php echo $part->discount; ?>%</td>
+                <td class="number">&pound;<?php echo $part->vat; ?></td>
+                <td class="number">&pound;<?php echo $part->total; ?></td>
             </tr>
+        <?php
+            $subTotal = $subTotal + $part->cost;
+            $vat = $vat + $part->vat;
+            $total = $total + $part->total;
+        ?>
         <?php endforeach; ?>
-        </body>
+        </tbody>
+    </table>
+</div>
+
+<div class="row pull-right">
+    <table class="number">
+        <tbody>
+            <tr>
+                <td><h3>Sub-Total</h3></td>
+                <td><h3>&pound;<?php echo $subTotal; ?></h3></td>
+            </tr>
+            <tr>
+                <td><h3>VAT</h3></td>
+                <td><h3>&pound;<?php echo $vat; ?></h3></td>
+            </tr>
+            <tr>
+                <td><h3>Total to pay</h3></td>
+                <td><h3>&pound;<?php echo $total; ?></h3></td>
+            </tr>
+        </tbody>
     </table>
 </div>
 <?php endif; ?>
