@@ -6,7 +6,7 @@ class Coda_Helper_Flash extends Zend_Controller_Action_Helper_Abstract
     const ERROR   = 'error';
 
     var $_session;
-
+    
     /**
      * Add a new flash message to the session
      *
