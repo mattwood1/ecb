@@ -10,15 +10,43 @@ class Purchase_Form_Purchase extends Twitter_Bootstrap_Form_Horizontal
                 'class' => 'datepicker'
         ));
         
-        $this->addElement('text', 'invoiceNumber', array (
-                'label'     => 'Invoice Number',
-                'required'  => true,
+        $this->addElement('text', 'company', array(
+                'label' => 'Company',
+                'required' => true
         ));
         
-        $this->addElement('text', 'cost', array (
+        $this->addElement('text', 'invoiceNumber', array (
                 'label'     => 'Invoice Number',
+                'required'  => true
+        ));
+        
+        $this->addElement('text', 'referenceNumber', array (
+                'label'     => 'Reference Number',
+        ));
+        
+        $this->addElement('text', 'amount', array (
+                'label'     => 'Amount',
                 'required'  => true,
                 'prepend' => '<i class="icon-gbp"></i>',
+        ));
+        
+        $this->addElement('text', 'vat', array (
+                'label'     => 'VAT',
+                'required'  => true,
+                'prepend' => '<i class="icon-gbp"></i>',
+        ));
+        
+        $this->addElement('text', 'total', array (
+                'label'     => 'Total',
+                'required'  => true,
+                'prepend' => '<i class="icon-gbp"></i>',
+        ));
+        
+        $this->addElement('text', 'dueDate', array (
+                'label'     => 'Due Date',
+                'required'  => true,
+                'prepend' => '<i class="icon-calendar"></i>',
+                'class' => 'datepicker'
         ));
         
         $this->addElement('button', 'save', array(
