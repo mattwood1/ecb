@@ -3,6 +3,12 @@
     public function indexAction()
     {
         // List recent purchases
+        $purchaseTable = new ECB_Model_PurchaseTable();
+        $purchaseQuery = $purchaseTable->getInstance()
+                ->createQuery('p')
+                ->orderBy('dateCreated ASC');
+        
+        $this->view->purchase = $purchaseQuery->execute();
         
         // Paginated
     }
@@ -26,6 +32,7 @@
             $purchase->save();
             
             // redirect to the index
+            $this->_flash('Purchase Added');
             $this->gotoRoute(array('action' => 'index'));
         }
         
