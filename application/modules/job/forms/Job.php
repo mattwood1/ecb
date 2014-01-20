@@ -3,8 +3,6 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Horizontal
 {
     public function init()
     {
-        $this->setAttrib('vertical', true);
-
         $this->addElement('text', 'insDate', array (
                 'label'     => 'Inspection Date',
                 'required'  => true,
