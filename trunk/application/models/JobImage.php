@@ -1,5 +1,5 @@
 <?php
-class Coda_Model_JobImage extends Doctrine_Record
+class ECB_Model_JobImage extends Doctrine_Record
 {
 
     public function setTableDefinition()
@@ -26,6 +26,11 @@ class Coda_Model_JobImage extends Doctrine_Record
                 'length'              => '1000'
         ));
 
+        $this->hasColumn('thumb', 'text', 1000, array(
+                'type'                => 'text',
+                'length'              => '1000'
+        ));
+
         $this->hasColumn('dateCreated', 'datetime', 1000, array(
                 'type'                => 'datetime',
                 'length'              => '1000'
@@ -36,14 +41,14 @@ class Coda_Model_JobImage extends Doctrine_Record
     public function setUp()
     {
 /*
-        $this->hasMany('Coda_Model_Session as sessions', array(
+        $this->hasMany('ECB_Model_Session as sessions', array(
                 'local' =>     'addressId',
                 'foreign' => 'addressId',
                 'cascade' => array('delete')
         ));
 */
 
-      /*  $this->hasOne('Coda_Model_Job', array(
+      /*  $this->hasOne('ECB_Model_Job', array(
                 'local' =>     'jobId',
                 'foreign' => 'jobId'
         ));

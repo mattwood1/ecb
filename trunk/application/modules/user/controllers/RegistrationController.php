@@ -1,11 +1,6 @@
 <?php
 class User_RegistrationController extends Coda_Controller
 {
-    public function init()
-    {
-        /* Initialize action controller here */
-    }
-
     public function indexAction()
     {
         $zfDate = new Zend_Date();
@@ -14,7 +9,7 @@ class User_RegistrationController extends Coda_Controller
         if ($this->_request->isPost() && $form->isValid($this->_getAllParams())) {
             //process form
 
-            $user = Doctrine_Core::getTable('Coda_Model_User')->create(array(
+            $user = Doctrine_Core::getTable('ECB_Model_User')->create(array(
                     'username'    => $form->getValue('username'),
                     'name'        => $form->getValue('name'),
                     'email'       => $form->getValue('email'),

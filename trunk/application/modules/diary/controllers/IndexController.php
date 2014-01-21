@@ -1,29 +1,16 @@
 <?php class Diary_IndexController extends Coda_Controller
 {
-
-    public function init()
-    {
-        /* Initialize action controller here */
-        if (! $this->_request->user) {
-            $requestUrl = new Zend_Session_Namespace('requestUrl');
-            $requestUrl->url = $this->_request->getRequestUri();
-
-            $this->_flash('Diary requires the user to be logged in', Coda_Helper_Flash::INFO);
-            $this->gotoRoute(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'));
-        }
-    }
-
     public function indexAction()
     {
         $form = new Diary_Form_Diary();
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
-            $diary = Doctrine_Core::getTable('Coda_Model_Diary')->create($form->getValues());
+            $diary = Doctrine_Core::getTable('ECB_Model_Diary')->create($form->getValues());
             $diary->save();
             $form->reset();
         }
 
-        $diarys = Doctrine_Core::getTable('Coda_Model_Diary')->findAll();
+        $diarys = Doctrine_Core::getTable('ECB_Model_Diary')->findAll();
 
         $this->view->form = $form;
         $this->view->diarys = $diarys;
@@ -39,13 +26,13 @@
             $form = new Diary_Form_Diary();
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
-            $diary = Doctrine_Core::getTable('Coda_Model_Diary')->create($form->getValues());
+            $diary = Doctrine_Core::getTable('ECB_Model_Diary')->create($form->getValues());
             $diary->save();
             $form->reset();
             $this->gotoRoute(array('action' => 'index', 'Diary' => null));
         }
 
-        $Diarys = Doctrine_Core::getTable('Coda_Model_Diary')->findAll();
+        $Diarys = Doctrine_Core::getTable('ECB_Model_Diary')->findAll();
 
         $this->view->form = $form;
         $this->view->diarys = $Diarys;
@@ -55,7 +42,7 @@
    public function editAction()
     {
         $form = new Diary_Form_Diary();
-        $diary = Doctrine_Core::getTable('Coda_Model_Diary')->findOneBy('diaryId', $this->_request->getParam('diaryId'));
+        $diary = Doctrine_Core::getTable('ECB_Model_Diary')->findOneBy('diaryId', $this->_request->getParam('diaryId'));
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             $diary->fromArray($form->getValues());
@@ -73,7 +60,7 @@
 
     public function deleteAction()
     {
-        $diary = Doctrine_Core::getTable('Coda_Model_Diary')->findOneBy('diaryId', $this->_request->getParam('diaryId'));
+        $diary = Doctrine_Core::getTable('ECB_Model_Diary')->findOneBy('diaryId', $this->_request->getParam('diaryId'));
         $diary->delete();
         $this->gotoRoute(array('action' => 'index', 'diaryId' => null));
     }
