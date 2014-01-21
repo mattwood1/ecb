@@ -1,18 +1,6 @@
 <?php
 class Report_IndexController extends Coda_Controller
 {
-    public function indexAction()
-    {
-        /* Initialize action controller here */
-        if (! $this->_request->user) {
-            $requestUrl = new Zend_Session_Namespace('requestUrl');
-            $requestUrl->url = $this->_request->getRequestUri();
-
-            $this->_flash('Reports requires the user to be logged in', Coda_Helper_Flash::INFO);
-            $this->gotoRoute(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'));
-        }
-    }
-
     public function report1Action()
     {
         $this->_disableLayout();
@@ -20,7 +8,7 @@ class Report_IndexController extends Coda_Controller
         if (! $this->_request->getParam('jobId')) {
             $this->gotoRoute(array('action' => 'index'));
         }
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
         $this->view->job = $job;
     }
 
@@ -33,7 +21,7 @@ class Report_IndexController extends Coda_Controller
 			$printLayout->setLayoutPath( APPLICATION_PATH . '/layouts/scripts' );
 			$printLayout->setLayout('print-bootstrap');
 
-            $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+            $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
             $this->view->job = $job;
 
             if ( $job ) {

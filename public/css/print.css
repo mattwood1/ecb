@@ -1,3 +1,11 @@
+@CHARSET "UTF-8";
+
+@font-face
+{
+	font-family: Agency;
+	src: url(AgencyR.ttf);
+}
+
 body {
     margin: 0px;
 }
