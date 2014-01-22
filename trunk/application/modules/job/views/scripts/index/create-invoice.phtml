@@ -142,10 +142,10 @@ $total = 0;
             <tr>
                 <td><?php echo $part->quantity; ?></td>
                 <td><?php echo $part->description; ?></td>
-                <td class="number">&pound;<?php echo $part->cost; ?></td>
+                <td class="number"><?php echo $this->currency($part->cost); ?></td>
                 <td class="number"><?php echo $part->discount; ?>%</td>
-                <td class="number">&pound;<?php echo $part->vat; ?></td>
-                <td class="number">&pound;<?php echo $part->total; ?></td>
+                <td class="number"><?php echo $this->currency($part->vat); ?></td>
+                <td class="number"><?php echo $this->currency($part->total); ?></td>
             </tr>
         <?php
             $subTotal = $subTotal + $part->cost;
@@ -162,15 +162,15 @@ $total = 0;
         <tbody>
             <tr>
                 <td><h3>Sub-Total</h3></td>
-                <td><h3>&pound;<?php echo $subTotal; ?></h3></td>
+                <td><h3><?php echo $this->currency($subTotal); ?></h3></td>
             </tr>
             <tr>
                 <td><h3>VAT</h3></td>
-                <td><h3>&pound;<?php echo $vat; ?></h3></td>
+                <td><h3><?php echo $this->currency($vat); ?></h3></td>
             </tr>
             <tr>
                 <td><h3>Total to pay</h3></td>
-                <td><h3>&pound;<?php echo $total; ?></h3></td>
+                <td><h3><?php echo $this->currency($total); ?></h3></td>
             </tr>
         </tbody>
     </table>
