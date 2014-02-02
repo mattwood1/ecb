@@ -4,12 +4,10 @@ class Coda_Helper_Flash extends Zend_Controller_Action_Helper_Abstract
 	const INFO    = 'info';
     const SUCCESS = 'success';
     const ERROR   = 'error';
-
-    var $_session;
     
     /**
      * Add a new flash message to the session
-     *
+     * 
      * @param string $message
      * @param string $type
      * @return Xigen_Helper_Flash
@@ -20,23 +18,23 @@ class Coda_Helper_Flash extends Zend_Controller_Action_Helper_Abstract
             'message' => $message,
             'type'    => $type
         );
-
+        
         return $this;
     }
-
+    
     /**
      * Get all of the messages currently in the session
-     *
+     * 
      * @return array
      */
     public function getMessages()
     {
         return $this->_getSession()->messages;
     }
-
+    
     /**
      * Clear all flash messages out of the session
-     *
+     * 
      * @return Xigen_Helper_Flash
      */
     public function clean()
@@ -44,7 +42,7 @@ class Coda_Helper_Flash extends Zend_Controller_Action_Helper_Abstract
         $this->_getSession()->messages = array();
         return $this;
     }
-
+    
     /**
      * @return Zend_Session_Namespace
      */
@@ -56,7 +54,7 @@ class Coda_Helper_Flash extends Zend_Controller_Action_Helper_Abstract
                 $this->_session->messages = array();
             }
         }
-
+        
         return $this->_session;
     }
 }

@@ -1,5 +1,5 @@
 <?php
-class ECB_Model_Todo extends Doctrine_Record
+class Coda_Model_Todo extends Doctrine_Record
 {
 
     public function setTableDefinition()
@@ -47,7 +47,7 @@ class ECB_Model_Todo extends Doctrine_Record
 
     public function setUp()
     {
-        $this->hasOne('ECB_Model_User as user', array(
+        $this->hasOne('Coda_Model_User as user', array(
                 'local'     => 'userId',
                 'foreign'   => 'userId'
         ));

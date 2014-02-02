@@ -10,9 +10,14 @@
             <div class=" nav-collapse collapse">
                 <ul class="nav nav-pills">
                     <li><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index')); ?>"><i class="icon-dashboard"></i> Dashboard</a></li>
-                    <li><a href="<?php echo $this->url(array('module' => 'board', 'controller' => 'index', 'action' => 'index')); ?>"><i class="icon-th-large"></i> Board</a></li>
-                    <li><a href="<?php echo $this->url(array('module' => 'report', 'controller' => 'index', 'action' => 'report-1', 'jobId' => '1')); ?>"><i class="icon-bar-chart"></i> Report</a></li>
-                    <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'index')); ?>"><i class="icon-wrench"></i> Jobs</a></li>
+                    <li><a href="<?php echo $this->url (array('module' => 'board', 'controller' => 'index', 'action' => 'index')); ?>"><i class="icon-th-large"></i> Board</a></li>
+                    <li><a href="<?php echo $this->url (array('module' => 'report', 'controller' => 'index', 'action' => 'index')); ?>"><i class="icon-bar-chart"></i> Report</a></li>
+                     <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-wrench"></i> Jobs <i class="icon-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'index')); ?>"><i class="icon-wrench"></i> Jobs</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-gears"></i> Admin <i class="icon-caret-down"></i></a>
                         <ul class="dropdown-menu">
@@ -21,7 +26,6 @@
                             <li><a href="<?php echo $this->url(array('module' => 'ccars', 'controller' => 'index', 'action' => 'index'), 'default', true); ?>"><i class="icon-truck"></i> Courtesy Cars</a></li>
                             <li><a href="<?php echo $this->url(array('module' => 'diary', 'controller' => 'index', 'action' => 'index'), 'default', true); ?>"><i class="icon-calendar"></i> Diary</a></li>
                             <li><a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'index', 'action' => 'index'), 'default', true); ?>"><i class="icon-user"></i> Users</a></li>
-                            <li><a href="<?php echo $this->url(array('module' => 'purchase', 'controller' => 'index', 'action' => 'index'), 'default', true); ?>"><i class="icon-shopping-cart"></i> Purchases</a></li>
                         </ul>
                     </li>
                     <li>

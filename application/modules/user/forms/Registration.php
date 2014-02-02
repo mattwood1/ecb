@@ -26,7 +26,7 @@ class User_Form_Registration extends Twitter_Form
                 "placeholder" => "Your email address",
                 "validators" => array(
                         'EmailAddress',
-                        'validator'        => new Coda_Doctrine_Validate_NoRecordExists('ECB_Model_User', 'email')
+                        'validator'        => new Coda_Doctrine_Validate_NoRecordExists('Coda_Model_User', 'email')
                 )
         ))
 

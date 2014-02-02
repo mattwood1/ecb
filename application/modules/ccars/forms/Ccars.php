@@ -1,5 +1,5 @@
 <?php
-class ccars_Form_Ccars extends Twitter_Bootstrap_Form_Vertical
+class ccars_Form_Ccars extends Twitter_Form
 {
     public function init()
     {
@@ -8,7 +8,7 @@ class ccars_Form_Ccars extends Twitter_Bootstrap_Form_Vertical
         $this->addElement('text', 'reg', array (
                 'label'     => 'Registration',
         ));
-
+        
         $this->addElement('text', 'description', array (
                 'label'     => 'Make - Model - Fuel - Sepc',
         ));

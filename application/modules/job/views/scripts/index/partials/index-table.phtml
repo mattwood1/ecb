@@ -1,8 +1,7 @@
 <?php if ($this->jobs): ?>
-<table class="indexTable padded table-condensed">
+<table class="table">
     <thead>
         <tr>
-            <th><i class="icon-file-text-alt"></i></th>
             <th>Car Reg</th>
             <th>Customer</th>
             <th>Make</th>
@@ -10,6 +9,7 @@
             <th>Status</th>
             <th class="hidden-phone hidden-tablet">Vin No.</th>
             <th class="hidden-phone hidden-tablet">Postcode</th>
+            <th>Stage</th>
             <th class="hidden-phone hidden-tablet">Modified</th>
             <th class="hidden-phone hidden-tablet">Created</th>
             <th>Action</th>
@@ -17,8 +17,7 @@
     </thead>
     <tbody>
     <?php foreach ($this->jobs as $job): ?>
-        <tr class="<?php echo strtolower($job->status->class); ?>">
-            <td><?php echo count($job->notes); ?></td>
+        <tr>
             <td><span class="numberPlateTable"><?php echo $job->carReg; ?></span></td>
             <td><?php echo $job->name; ?></td>
             <td><?php echo $job->make; ?></td>
@@ -26,10 +25,11 @@
             <td>
                 <span class="label <?php echo strtolower($job->status->class); ?>"><?php echo $job->status->label; ?></span>
             </td>
-            <td class="small hidden-phone hidden-tablet"><?php echo $job->vin; ?></td>
+            <td class="hidden-phone hidden-tablet"><?php echo $job->vin; ?></td>
             <td class="hidden-phone hidden-tablet"><?php echo $job->postcode; ?></td>
-            <td class="small hidden-phone hidden-tablet"><?php echo $this->date($job->dateModified, Coda_View_Helper_Date::DATETIME); ?></td>
-            <td class="small hidden-phone hidden-tablet"><?php echo $this->date($job->dateCreated, Coda_View_Helper_Date::DATETIME); ?></td>
+            <td><?php echo $job->process->label; ?></td>
+            <td class="hidden-phone hidden-tablet"><?php echo $job->dateModified; ?></td>
+            <td class="hidden-phone hidden-tablet"><?php echo $job->dateCreated; ?></td>
 
             <td>
                 <div class="btn-group">

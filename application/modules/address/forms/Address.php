@@ -1,5 +1,5 @@
 <?php
-class Address_Form_Address extends Twitter_Bootstrap_Form_Vertical
+class Address_Form_Address extends Twitter_Form
 {
     public function init()
     {

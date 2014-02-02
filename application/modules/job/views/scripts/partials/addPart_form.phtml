@@ -1,6 +1,7 @@
-<h2 class="center">Add Parts</h2>
-
 <form class="form-inline" action="" method="post">
+
+    <center><h1>Add Parts</h1></center>
+
     <div class="row-fluid">
         <div class="span1">
             <?php echo $this->form->quantity; ?>
@@ -21,9 +22,8 @@
             <?php echo $this->form->total; ?>
         </div>
         <div class="span1">
-            <?php //echo $this->form->save; ?>
-            <button name="save" id="save" type="submit" class="btn btn-success">Save</button>
+            <?php echo $this->form->jobId; ?>
+            <?php echo $this->form->save; ?>
         </div>
     </div>
-    <?php echo $this->form->jobId; ?>
 </form>

@@ -12,9 +12,9 @@ echo $this->doctype(); ?>
                                  ->appendStylesheet($this->baseUrl().'//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css')
                                  ->appendStylesheet('//code.jquery.com/ui/1.10.3/themes/ui-darkness/jquery-ui.css')
                                  ->appendStylesheet($this->baseUrl().'/css/site.css'); ?>
-    <?php echo $this->headScript()->prependFile("//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+    <?php echo $this->headScript()->prependFile("//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
                                    ->appendFile("//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js")
-                                   ->appendFile('//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js')
+                                   ->appendFile($this->baseUrl().'//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js')
                                    ->appendFile($this->baseUrl().'/js/site.js'); ?>
 <script src=""></script>
     <meta charset="utf-8">

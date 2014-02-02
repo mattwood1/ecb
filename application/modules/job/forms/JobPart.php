@@ -1,5 +1,5 @@
 <?php
-class Job_Form_JobPart extends Twitter_Bootstrap_Form_Vertical
+class Job_Form_JobPart extends Twitter_Form
 {
     protected $_jobId;
 
@@ -43,7 +43,7 @@ class Job_Form_JobPart extends Twitter_Bootstrap_Form_Vertical
         ));
 
         $this->addElement("submit", "save", array("label" => "Save"));
-
-
+        
+        
     }
 }
