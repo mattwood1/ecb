@@ -1,5 +1,5 @@
 <?php
-class diary_Form_Diary extends Twitter_Bootstrap_Form_Vertical
+class diary_Form_Diary extends Twitter_Form
 {
     public function init()
     {

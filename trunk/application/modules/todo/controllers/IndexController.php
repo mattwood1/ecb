@@ -1,12 +1,24 @@
 <?php
 class Todo_IndexController extends Coda_Controller
 {
+    public function init()
+    {
+        /* Initialize action controller here */
+        if (! $this->_request->user) {
+            $requestUrl = new Zend_Session_Namespace('requestUrl');
+            $requestUrl->url = $this->_request->getRequestUri();
+
+            $this->_flash('To Do requires the user to be logged in', Coda_Helper_Flash::INFO);
+            $this->gotoRoute(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'));
+        }
+    }
+
     public function indexAction()
     {
         // Nothing really unless database driven
-        //$todos = Doctrine_Core::getTable('ECB_Model_Todo')->findAll()->order('todoId DESC');
+        //$todos = Doctrine_Core::getTable('Coda_Model_Todo')->findAll()->order('todoId DESC');
 
-        $todos = Doctrine_Query::create()->select('*')->from('ECB_Model_Todo')->orderBy('CASE Status WHEN "FAULT" THEN 1 WHEN "INFO" THEN 2 WHEN "TODO" THEN 3 ELSE 4 END, todoId ASC');
+        $todos = Doctrine_Query::create()->select('*')->from('Coda_Model_Todo')->orderBy('CASE Status WHEN "FAULT" THEN 1 WHEN "INFO" THEN 2 WHEN "TODO" THEN 3 ELSE 4 END, todoId ASC');
 
         $this->view->todos = $todos->execute();
     }
@@ -17,7 +29,7 @@ class Todo_IndexController extends Coda_Controller
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             $zfDate = new Zend_Date();
-            $todo = Doctrine_Core::getTable('ECB_Model_Todo')->create(
+            $todo = Doctrine_Core::getTable('Coda_Model_Todo')->create(
                     array_merge(
                             $form->getValues(),
                             array(
@@ -39,7 +51,7 @@ class Todo_IndexController extends Coda_Controller
         $form = new Todo_Form_Todo();
 
         if ($this->_request->getParam('todoId')) {
-            $todo = Doctrine_Core::getTable('ECB_Model_Todo')->findOneBy('todoId', $this->_request->getParam('todoId'));
+            $todo = Doctrine_Core::getTable('Coda_Model_Todo')->findOneBy('todoId', $this->_request->getParam('todoId'));
 
             if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
                 $todo->fromArray($form->getValues());
@@ -60,7 +72,7 @@ class Todo_IndexController extends Coda_Controller
 
     public function deleteAction()
     {
-        $todo = Doctrine_Core::getTable('ECB_Model_Todo')->findOneBy('todoId', $this->_request->getParam('todoId'));
+        $todo = Doctrine_Core::getTable('Coda_Model_Todo')->findOneBy('todoId', $this->_request->getParam('todoId'));
         $todo->delete();
         $this->gotoRoute(array('action' => 'index', 'todoId' => null));
     }

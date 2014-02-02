@@ -16,10 +16,10 @@
         <tr>
             <td><?php echo $part->quantity; ?></td>
             <td><?php echo $part->description; ?></td>
-            <td><?php echo $this->currency($part->cost); ?></td>
+            <td>&pound;<?php echo $part->cost; ?></td>
             <td><?php echo $part->discount; ?>%</td>
-            <td><?php echo $this->currency($part->vat); ?></td>
-            <td><?php echo $this->currency($part->total); ?></td>
+            <td>&pound;<?php echo $part->vat; ?></td>
+            <td>&pound;<?php echo $part->total; ?></td>
             <td>
                 <a href="<?php echo $this->url(array('action' => 'delete-part', 'job' => $this->job->jobId, 'part' => $part->jobPartId)); ?>" class="btn btn-mini ajax">Delete</a>
             </td>

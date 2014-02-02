@@ -1,6 +1,11 @@
 <?php
 class User_AuthController extends Coda_Controller
 {
+    public function init()
+    {
+        /* Initialize action controller here */
+    }
+
     public function loginAction()
     {
         $requestUrl = new Zend_Session_Namespace('requestUrl');
@@ -12,7 +17,7 @@ class User_AuthController extends Coda_Controller
             if ($result = $this->_performLogin($form->getValues())) {
                 // login sucessful
                 $zfDate = new Zend_Date();
-                $user = Doctrine_Core::getTable('ECB_Model_User')->findOneBy('userId', $result->userId);
+                $user = Doctrine_Core::getTable('Coda_Model_User')->findOneBy('userId', $result->userId);
                 $user->dateLoggedIn = $zfDate->get(Zend_Date::ISO_8601);
                 $user->save();
 
@@ -23,6 +28,7 @@ class User_AuthController extends Coda_Controller
                 }
             }
         }
+
         $this->view->form = $form;
     }
 
@@ -66,7 +72,7 @@ class User_AuthController extends Coda_Controller
     /**
      *
      * @param array $credentials
-     * @return ECB_Model_User | boolean
+     * @return Coda_Model_User | boolean
      */
     protected function _performLogin( $credentials )
     {
@@ -98,10 +104,10 @@ class User_AuthController extends Coda_Controller
      */
     protected function _getAuthAdapter() {
 
-        $authAdapter = new Coda_Doctrine_Auth_Adapter(Doctrine_Core::getConnectionByTableName('ECB_Model_User'));
+        $authAdapter = new Coda_Doctrine_Auth_Adapter(Doctrine_Core::getConnectionByTableName('Coda_Model_User'));
 
         $authAdapter
-            ->setTableName('ECB_Model_User')
+            ->setTableName('Coda_Model_User')
             ->setIdentityColumn('email')
             ->setCredentialColumn('password')
             ->setCredentialTreatment('MD5(?)');

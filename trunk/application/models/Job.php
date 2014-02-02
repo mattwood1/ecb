@@ -1,5 +1,5 @@
 <?php
-class ECB_Model_Job extends Doctrine_Record
+class Coda_Model_Job extends Doctrine_Record
 {
 
     public function setTableDefinition()
@@ -234,36 +234,30 @@ class ECB_Model_Job extends Doctrine_Record
     public function setUp()
     {
 
-        $this->hasMany('ECB_Model_JobPart as parts', array(
+        $this->hasMany('Coda_Model_JobPart as parts', array(
                 'local'   => 'jobId',
                 'foreign' => 'jobId',
                 'cascade' => array('delete')
         ));
 
-        $this->hasMany('ECB_Model_JobNote as notes', array(
+        $this->hasMany('Coda_Model_JobNote as notes', array(
                 'local'   => 'jobId',
                 'foreign' => 'jobId',
                 'cascade' => array('delete')
         ));
 
-        $this->hasMany('ECB_Model_JobImage as images', array(
-                'local'   => 'jobId',
-                'foreign' => 'jobId',
-                'cascade' => array('delete')
-        ));
-
-        $this->hasOne('ECB_Model_JobCard as card', array(
+        $this->hasOne('Coda_Model_JobCard as card', array(
                 'local'   =>     'jobId',
                 'foreign' =>     'jobId',
                 'cascade' =>      array('delete')
         ));
 
-        $this->hasOne('ECB_Model_JobStatus as status', array(
+        $this->hasOne('Coda_Model_JobStatus as status', array(
                 'local'   =>     'jobStatusId',
                 'foreign' =>     'jobStatusId'
         ));
 
-        $this->hasOne('ECB_Model_JobProcess as process', array(
+        $this->hasOne('Coda_Model_JobProcess as process', array(
                 'local' =>     'jobProcessId',
                 'foreign' => 'jobProcessId'
         ));

@@ -1,5 +1,5 @@
 <?php
-class ECB_Model_Diary extends Doctrine_Record
+class Coda_Model_Diary extends Doctrine_Record
 {
 
     public function setTableDefinition()
@@ -46,14 +46,14 @@ class ECB_Model_Diary extends Doctrine_Record
     public function setUp()
     {
 /*
-        $this->hasMany('ECB_Model_Session as sessions', array(
+        $this->hasMany('Coda_Model_Session as sessions', array(
                 'local' =>     'addressId',
                 'foreign' => 'addressId',
                 'cascade' => array('delete')
         ));
 */
 
-      /*  $this->hasOne('ECB_Model_Job', array(
+      /*  $this->hasOne('Coda_Model_Job', array(
                 'local' =>     'jobId',
                 'foreign' => 'jobId'
         ));

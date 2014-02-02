@@ -48,7 +48,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         // get an instance of our manager and configure
         $manager = Doctrine_Manager::getInstance();
-        $manager->setAttribute(Doctrine_Core::ATTR_MODEL_CLASS_PREFIX, 'ECB_Model_');
+        $manager->setAttribute(Doctrine_Core::ATTR_MODEL_CLASS_PREFIX, 'Coda_Model_');
         $manager->setAttribute(Doctrine_Core::ATTR_MODEL_LOADING, Doctrine_Core::MODEL_LOADING_PEAR);
         $manager->setAttribute(Doctrine_Core::ATTR_VALIDATE, Doctrine_Core::VALIDATE_ALL & ~Doctrine_Core::VALIDATE_TYPES);
         $manager->setAttribute(Doctrine_Core::ATTR_USE_DQL_CALLBACKS, true);

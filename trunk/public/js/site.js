@@ -47,5 +47,5 @@ $(function(){
         return false;
     });
     
-    $(".datepicker").datepicker({ dateFormat: "yy-mm-dd", minDate: 0 });
+    $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd", minDate: 0 });
 });
