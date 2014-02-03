@@ -1,0 +1,530 @@
+-- phpMyAdmin SQL Dump
+-- version 3.5.8.2
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost:3306
+-- Generation Time: Jan 09, 2014 at 10:36 PM
+-- Server version: 5.5.33-cll-lve
+-- PHP Version: 5.4.16
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `ecb`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `addressbook`
+--
+
+CREATE TABLE IF NOT EXISTS `addressbook` (
+  `description` text,
+  `name` text NOT NULL,
+  `address` text NOT NULL,
+  `postcode` text NOT NULL,
+  `homeTel` text NOT NULL,
+  `mobileTel` text NOT NULL,
+  `email` text NOT NULL,
+  `addressId` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`addressId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+
+--
+-- Dumping data for table `addressbook`
+--
+
+INSERT INTO `addressbook` (`description`, `name`, `address`, `postcode`, `homeTel`, `mobileTel`, `email`, `addressId`) VALUES
+('Another', 'me again l', 'this is an address\r\nin a text area box\r\non my laptop', 'mk67', '091829812098', '89123872091739', 'laptop@work.com', 9),
+('TEST', 'Myself', '39 at my home', 'mk45', '01908', '07979', 'here@mylaptop.com', 8),
+('test 2', 'fjskl', 'kfldsfjls', 'jfkdsljfl', 'jk3943', '90-32932-', 'me@em.uk', 13),
+('working', '', '', '', '', '', '', 14),
+('test', '', '', '', '', '', '', 15);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ccars`
+--
+
+CREATE TABLE IF NOT EXISTS `ccars` (
+  `carId` int(11) NOT NULL AUTO_INCREMENT,
+  `reg` varchar(10) NOT NULL,
+  `motDue` date NOT NULL,
+  `taxDue` date NOT NULL,
+  `service` date NOT NULL,
+  `bookedOut` date DEFAULT NULL,
+  `dueIn` date DEFAULT NULL,
+  `description` varchar(50) NOT NULL,
+  PRIMARY KEY (`carId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `ccars`
+--
+
+INSERT INTO `ccars` (`carId`, `reg`, `motDue`, `taxDue`, `service`, `bookedOut`, `dueIn`, `description`) VALUES
+(1, 'EF55 YHZ', '2031-03-14', '0000-00-00', '0000-00-00', NULL, '2029-06-13', 'Vauxhall Corsa Active 1.0 Petrol Manual'),
+(2, 'LR06 KJF', '2013-06-09', '0000-00-00', '0000-00-00', NULL, '0000-00-00', 'VW Touran 1.9 Manual Diesel');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `diary`
+--
+
+CREATE TABLE IF NOT EXISTS `diary` (
+  `diaryId` int(11) NOT NULL AUTO_INCREMENT,
+  `subject` varchar(40) NOT NULL,
+  `details` varchar(1000) NOT NULL,
+  `dateBegin` date NOT NULL,
+  `dateEnd` date NOT NULL,
+  `time` time NOT NULL,
+  PRIMARY KEY (`diaryId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `diary`
+--
+
+INSERT INTO `diary` (`diaryId`, `subject`, `details`, `dateBegin`, `dateEnd`, `time`) VALUES
+(1, 'Lung function', 'Marcin has lung function today', '2013-06-27', '2013-06-27', '16:30:00'),
+(2, 'test', 'pick up car from Wayside from geoff', '2013-06-06', '2013-06-06', '00:00:00'),
+(3, 'Calibration', 'Octoral paint Scales need Calibrating', '2013-07-01', '2013-07-01', '08:15:00'),
+(4, 'Luke is gay', 'Today', '0000-00-00', '0000-00-00', '00:00:00'),
+(6, 'wayside', 'golf front bumper\r\nmust be back friday', '2013-07-03', '2013-07-05', '00:00:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice`
+--
+
+CREATE TABLE IF NOT EXISTS `invoice` (
+  `invoiceId` int(11) NOT NULL,
+  `invNum` int(11) NOT NULL AUTO_INCREMENT,
+  `invDate` date NOT NULL,
+  `orderNum` varchar(50) NOT NULL,
+  `jobId` int(11) NOT NULL,
+  PRIMARY KEY (`invNum`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job`
+--
+
+CREATE TABLE IF NOT EXISTS `job` (
+  `jobId` int(11) NOT NULL AUTO_INCREMENT,
+  `carReg` text NOT NULL,
+  `name` text NOT NULL,
+  `address` text NOT NULL,
+  `postcode` text NOT NULL,
+  `tel` text NOT NULL,
+  `mobile` text NOT NULL,
+  `email` text NOT NULL,
+  `make` text NOT NULL,
+  `model` text NOT NULL,
+  `mileage` int(11) NOT NULL,
+  `vin` text NOT NULL,
+  `transmission` enum('Auto','Manual','Unknown') NOT NULL,
+  `fuel` enum('Petrol','Diesel','LPG','Hybrid','Unknown','Electric') NOT NULL,
+  `colour` text NOT NULL,
+  `damage` text NOT NULL,
+  `special` text NOT NULL,
+  `partsEst` text NOT NULL,
+  `excess` decimal(10,2) NOT NULL,
+  `vatRegistered` tinyint(4) NOT NULL,
+  `seToyota` tinyint(4) NOT NULL,
+  `jobStatusId` int(2) NOT NULL DEFAULT '1',
+  `jobProcessId` int(2) NOT NULL DEFAULT '0',
+  `insDate` date NOT NULL,
+  `insName` text NOT NULL,
+  `insAdd` text NOT NULL,
+  `insPost` text NOT NULL,
+  `insTel` text NOT NULL,
+  `labRate` decimal(10,2) NOT NULL,
+  `labHours` decimal(10,2) NOT NULL,
+  `labEst` decimal(10,2) NOT NULL,
+  `pandmEst` decimal(10,2) NOT NULL,
+  `partsTotal` decimal(10,2) NOT NULL,
+  `specialEst` decimal(10,2) NOT NULL,
+  `vatEst` decimal(10,2) NOT NULL,
+  `subtotEst` decimal(10,2) NOT NULL,
+  `totalEst` decimal(10,2) NOT NULL,
+  `recovEst` decimal(10,2) NOT NULL,
+  `estPrep` text NOT NULL,
+  `dateCreated` datetime NOT NULL,
+  `dateModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`jobId`),
+  KEY `jobStatusId` (`jobStatusId`),
+  KEY `jobProcessId` (`jobProcessId`),
+  FULLTEXT KEY `carReg` (`carReg`,`name`,`address`,`postcode`,`make`,`model`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+
+--
+-- Dumping data for table `job`
+--
+
+INSERT INTO `job` (`jobId`, `carReg`, `name`, `address`, `postcode`, `tel`, `mobile`, `email`, `make`, `model`, `mileage`, `vin`, `transmission`, `fuel`, `colour`, `damage`, `special`, `partsEst`, `excess`, `vatRegistered`, `seToyota`, `jobStatusId`, `jobProcessId`, `insDate`, `insName`, `insAdd`, `insPost`, `insTel`, `labRate`, `labHours`, `labEst`, `pandmEst`, `partsTotal`, `specialEst`, `vatEst`, `subtotEst`, `totalEst`, `recovEst`, `estPrep`, `dateCreated`, `dateModified`) VALUES
+(1, 'KC05 GYR ', '', '', 'NN3 5LH', '0123456790', '0756465465', 'matthew.john.wood@gmail.com', 'Vauxhall', 'Zafira', 0, 'WOLF3478327509', 'Manual', 'Diesel', 'White', 'None', 'none', 'none', '0.00', 0, 0, 1, 1, '2013-10-16', 'none', 'none', 'none', 'none', '30.00', '4.00', '120.00', '267.00', '10.00', '20.00', '89.40', '447.00', '536.40', '30.00', 'Current User!?', '2013-06-18 23:10:59', '2013-10-16 22:53:41'),
+(8, 'TE66 EST', 'T. EST', 'NONE', 'MKTEST', '', '', '', '', '', 0, '', 'Auto', 'LPG', '', '', '', '', '0.00', 1, 0, 3, 1, '2013-07-01', '', '', '', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '2013-07-01 15:58:39', '2013-10-07 12:46:06'),
+(5, 'MK10 EFP', 'Test', '', '', '', '', '', 'Vauxhall', 'Corsa', 0, '', 'Unknown', 'Unknown', '', '', '', '', '0.00', 1, 0, 7, 4, '2013-02-26', '', '', '', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '2013-06-27 23:47:23', '2013-11-18 09:49:47'),
+(2, 'EK08 ZVZ', '', '', '', '', '', '', 'this', 'monkey', 0, '', 'Manual', 'Diesel', '', '', '', '', '0.00', 0, 0, 1, 5, '2013-06-18', '', '', '', '', '32.00', '10.00', '320.00', '122.10', '860.00', '22.46', '279.91', '1399.56', '1679.47', '75.00', '', '2013-06-18 23:56:07', '2013-10-17 09:21:29'),
+(3, 'kp13 xha', 'Joe Blogs mate', '', '', '', '', '', 'Nissan', 'NV200', 0, '', 'Auto', 'Petrol', '', '', '', '', '500.00', 0, 0, 7, 3, '0000-00-00', '', '', '', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '2013-06-19 00:18:48', '2013-11-18 09:49:52'),
+(4, 'TEST REG ', '', '', 'MK13 7DY', '', '', '', '', '', 0, '', 'Unknown', 'Unknown', '', '', '', '', '0.00', 0, 0, 3, 4, '2013-06-06', '', '', '', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '2013-06-19 09:41:07', '2013-10-25 21:42:31'),
+(6, 'EF55 YHZ', 'Chris Wood', '37 Howitt Drive\r\nMilton Keynes\r\nBucks', 'MK137DY', '01908225116', '07525028166', 'chrisw6152@yahoo.co.uk', 'Hyundai', 'Getz', 123456, 'WVWZZZXC5768393021', 'Manual', 'Diesel', 'Silver', 'Strip out and remove trims, OS front wing, Front Bumper, OS quarter panel.\r\nCut off OS quarter panel, prepare new panel & weld in, Seal prior to painting.\r\nRe-shape OS wing and front bumper, try and plastic weld the split in the centre of the bumper as best as possible **painters be careful when handling**\r\nPrepare and paint, Front bumper, OSF wing, OS quarter panel, blend OS front door.\r\nRe-fit using parts listed, Polish out any imperfections in the paintwork.Strip out and remove trims, OS front wing, Front Bumper, OS quarter panel.\r\nCut off OS quarter panel, prepare new panel & weld in, Seal prior to painting.\r\nRe-shape OS wing and front bumper, try and plastic weld the split in the centre of the bumper as best as possible **painters be careful when handling**\r\nPrepare and paint, Front bumper, OSF wing, OS quarter panel, blend OS front door.\r\nRe-fit using parts listed, Polish out any imperfections in the paintwork.', 'none', '5 x spot weld drill bits  £6.78   :  OS quarter panel  £192.45  :  OS door and Quarter mouldings £32.90  :  OS foil  £42.10 : new bonnet : ns & OS bonnet hinges : NSF door drop glass: NSF door window regulator : OS sill panel repair section : ns side repeater housing', '250.00', 0, 0, 1, 1, '2013-04-05', 'none', 'none', 'none', 'n/a', '29.00', '19.00', '551.00', '130.00', '286.75', '0.00', '193.55', '967.75', '1161.30', '0.00', 'Chris', '2013-06-27 23:50:49', '2013-07-17 08:49:24'),
+(7, 'LR06 KJF', '', '', '', '', '', '', '', '', 0, '', 'Auto', 'Petrol', '', '', '', '', '0.00', 1, 0, 5, 1, '2013-06-18', '', '', '', '', '32.00', '15.00', '480.00', '45.98', '67.52', '22.90', '123.28', '616.40', '739.68', '0.00', '', '2013-06-30 21:44:31', '2013-11-22 19:18:36'),
+(9, 'TE77 EST', '', '', '', '', '', '', '', '', 0, '', 'Manual', 'Electric', '', '', '', '', '0.00', 1, 0, 1, 3, '2013-07-07', '', '', '', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '2013-07-01 15:59:06', '2013-07-10 07:16:05'),
+(10, 'BL07 YVZ', '', '', '', '', '', '', '', '', 0, '', 'Auto', 'Petrol', '', '', '', '', '0.00', 1, 0, 4, 3, '2013-06-18', '', '', '', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '2013-07-03 00:06:53', '2013-07-21 21:28:19'),
+(11, 'KU10 GXD ', '', '', '', '', '', '', 'VAUXHALL', 'COMBO', 67007, 'WOLOXCF25A4151051', 'Manual', 'Diesel', 'WHITE', 'STRIP OUT & REMOVE NS SIDE PANEL, PREPARE & WELD IN NEW NS SIDE PANEL. RESHAPE OS SIDE PANEL & OS SILL PANEL.\r\nSTRIP FOR PAINT, NS SIDE PANEL, NS DOOR (NEW) OS SIDE PANEL, OS DOOR.\r\nPREPARE & PAINT NS SIDE COMPLETE (NEW DOOR), OS SIDE PANEL, OS SILL & BLEND OS DOOR.\r\nREMOVE STICKERS AND FULL MOP.\r\nREFIT USING PARTS LISTED', 'NONE', 'NS SIDE PANEL , COMPLETE MOULDING SET, NS DOOR SHELL, 2 X WHEEL CENTRE CAPS, NS A PILLAR SEAL, NSR ARCH, REAR BUMPER', '0.00', 1, 0, 7, 5, '2013-07-10', '', '', '', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', 'CHRIS', '2013-07-10 11:02:49', '2013-10-29 09:00:38'),
+(12, 'KP55 UED', 'SE TOYOTA', '', '', '', '', '', 'TOYOTA', 'PRIUS', 119878, 'VHADJLFHASLFHWELFHAEJLW', '', '', 'SILVER', 'NONE', 'NONE', 'NONE', '0.00', 0, 1, 1, 1, '2013-07-30', '', '', '', '', '28.00', '10.90', '0.00', '80.00', '210.00', '0.00', '0.00', '0.00', '0.00', '0.00', 'CHRIS', '2013-07-30 13:50:54', '2013-07-30 12:50:54'),
+(13, 'TEST 100 ', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '0.00', 0, 0, 1, 1, '2013-09-29', '', '', '', '', '21.00', '9.50', '199.50', '147.00', '0.00', '100.00', '89.30', '446.50', '535.80', '0.00', '', '2013-09-29 14:44:13', '2013-10-11 19:17:42'),
+(14, 'Fe55 dds', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '0.00', 0, 0, 4, 1, '2013-09-30', '', '', '', '', '22.00', '10.00', '220.00', '0.00', '0.00', '0.00', '44.00', '220.00', '264.00', '0.00', 'Chris', '2013-09-29 14:49:20', '2013-10-07 12:46:21'),
+(15, 'TEST55777', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '0.00', 0, 0, 1, 1, '2013-10-11', '', '', '', '', '20.00', '18.00', '0.00', '112.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '2013-10-11 19:08:50', '2013-10-11 18:08:50'),
+(16, 'ABCD   EF G    ', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '0.00', 0, 0, 1, 1, '2013-10-11', '', '', '', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '2013-10-11 20:08:11', '2013-10-11 19:17:33'),
+(17, 'EF55 YHZ ', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '0.00', 0, 0, 1, 1, '2013-10-11', '', '', '', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '2013-10-11 20:08:52', '2013-10-11 19:25:28'),
+(18, '1234 56 ', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '0.00', 0, 0, 4, 1, '2013-10-15', '', '', '', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '2013-10-15 22:50:45', '2013-10-15 21:51:56'),
+(19, 'this will be', 'better', 'at home', 'mk', '01908', '225116', 'me@me.com', '', '', 0, '', '', '', '', '', '', '', '0.00', 0, 0, 2, 1, '2013-10-16', 'none', 'none', 'lu', '', '22.00', '12.50', '275.00', '112.00', '0.00', '0.00', '77.40', '387.00', '464.40', '0.00', 'chris', '2013-10-16 08:40:40', '2013-10-17 09:21:17'),
+(20, 'CE56 YTA ', 'nick', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '0.00', 0, 0, 1, 1, '2013-10-25', '', '', '', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '2013-10-25 22:52:30', '2013-10-25 21:53:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobCard`
+--
+
+CREATE TABLE IF NOT EXISTS `jobCard` (
+  `jobCardId` int(11) NOT NULL,
+  `jobId` int(11) NOT NULL,
+  `mechanical` int(11) DEFAULT NULL,
+  `panel` int(11) DEFAULT NULL,
+  `strip` int(11) DEFAULT NULL,
+  `prep` int(11) DEFAULT NULL,
+  `polish` int(11) DEFAULT NULL,
+  `fit` int(11) DEFAULT NULL,
+  `paint` int(11) DEFAULT NULL,
+  `clean` int(11) DEFAULT NULL,
+  `dateBooked` date DEFAULT NULL,
+  `dateCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateModified` datetime NOT NULL,
+  PRIMARY KEY (`jobCardId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `jobCard`
+--
+
+INSERT INTO `jobCard` (`jobCardId`, `jobId`, `mechanical`, `panel`, `strip`, `prep`, `polish`, `fit`, `paint`, `clean`, `dateBooked`, `dateCreated`, `dateModified`) VALUES
+(0, 1, 1, 1, 0, 0, 0, NULL, 0, 1, '2013-10-17', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobImage`
+--
+
+CREATE TABLE IF NOT EXISTS `jobImage` (
+  `imageJobId` int(11) NOT NULL AUTO_INCREMENT,
+  `jobId` int(11) NOT NULL,
+  `file` text NOT NULL,
+  `thumb` text NOT NULL,
+  `dateCreated` datetime NOT NULL,
+  PRIMARY KEY (`imageJobId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+
+--
+-- Dumping data for table `jobImage`
+--
+
+INSERT INTO `jobImage` (`imageJobId`, `jobId`, `file`, `thumb`, `dateCreated`) VALUES
+(1, 2, '/jobUploads/2/abstract_red_background.jpg', '/jobUploads/2/thumbs/abstract_red_background.jpg', '2013-10-24 23:58:15'),
+(2, 2, '/jobUploads/2/615003_424500564268217_1575473247_o.jpg', '/jobUploads/2/thumbs/615003_424500564268217_1575473247_o.jpg', '2013-10-25 00:12:59'),
+(3, 2, '/jobUploads/2/243640_420105521374388_49423137_o.jpg', '/jobUploads/2/thumbs/243640_420105521374388_49423137_o.jpg', '2013-10-25 00:23:58'),
+(4, 2, '/jobUploads/2/277798_422538837797723_1240565149_o.jpg', '/jobUploads/2/thumbs/277798_422538837797723_1240565149_o.jpg', '2013-10-25 00:43:00'),
+(5, 1, '/jobUploads/1/277808_425220640862876_964618584_o.jpg', '/jobUploads/1/thumbs/277808_425220640862876_964618584_o.jpg', '2013-10-25 00:58:58'),
+(6, 2, '/jobUploads/2/image.jpg', '/jobUploads/2/thumbs/image.jpg', '2013-10-25 06:53:56'),
+(7, 7, '/jobUploads/7/IMG_1788.PNG', '/jobUploads/7/thumbs/IMG_1788.PNG', '2013-10-25 22:46:03'),
+(8, 20, '/jobUploads/20/IMG_1750.PNG', '/jobUploads/20/thumbs/IMG_1750.PNG', '2013-10-25 22:53:27'),
+(9, 3, '/jobUploads/3/blacksata1.jpg', '/jobUploads/3/thumbs/blacksata1.jpg', '2013-11-18 09:50:54'),
+(10, 3, '/jobUploads/3/ata_aacredited.png', '/jobUploads/3/thumbs/ata_aacredited.png', '2013-11-18 09:51:50'),
+(11, 3, '/jobUploads/3/autoCaseBMWHybrid.jpg', '/jobUploads/3/thumbs/autoCaseBMWHybrid.jpg', '2013-11-18 09:51:52'),
+(12, 3, '/jobUploads/3/car_mop.jpg', '/jobUploads/3/thumbs/car_mop.jpg', '2013-11-22 19:13:20'),
+(13, 3, '/jobUploads/3/dmaged_car.jpg', '/jobUploads/3/thumbs/dmaged_car.jpg', '2013-11-22 19:13:46'),
+(14, 10, '/jobUploads/10/Craig_in_the_Snow.JPG', '/jobUploads/10/thumbs/Craig_in_the_Snow.JPG', '2013-12-05 23:09:21'),
+(15, 10, '/jobUploads/10/euston_star_wars.jpg', '/jobUploads/10/thumbs/euston_star_wars.jpg', '2013-12-05 23:53:48'),
+(16, 10, '/jobUploads/10/life.png', '/jobUploads/10/thumbs/life.png', '2013-12-06 00:02:46'),
+(17, 10, '/jobUploads/10/00B8FB011F8C_M601W__1_20131205233354_2848.jpg', '/jobUploads/10/thumbs/00B8FB011F8C_M601W__1_20131205233354_2848.jpg', '2013-12-06 00:03:39'),
+(18, 10, '/jobUploads/10/00B8FB011F8C_M601W__1_20131026134057_914.jpg', '/jobUploads/10/thumbs/00B8FB011F8C_M601W__1_20131026134057_914.jpg', '2013-12-06 00:05:09'),
+(19, 10, '/jobUploads/10/00B8FB011F8C_M601W__1_20131026134106_921.jpg', '/jobUploads/10/thumbs/00B8FB011F8C_M601W__1_20131026134106_921.jpg', '2013-12-06 00:57:06'),
+(20, 10, '/jobUploads/10/00B8FB011F8C_M601W__1_20131026134102_918.jpg', '/jobUploads/10/thumbs/00B8FB011F8C_M601W__1_20131026134102_918.jpg', '2013-12-06 00:59:28'),
+(21, 10, '/jobUploads/10/00B8FB011F8C_M601W__1_20131026140454_966.jpg', '/jobUploads/10/thumbs/00B8FB011F8C_M601W__1_20131026140454_966.jpg', '2013-12-06 01:03:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobNote`
+--
+
+CREATE TABLE IF NOT EXISTS `jobNote` (
+  `jobNoteId` int(11) NOT NULL AUTO_INCREMENT,
+  `jobId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `note` text NOT NULL,
+  `dateCreated` datetime NOT NULL,
+  PRIMARY KEY (`jobNoteId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
+
+--
+-- Dumping data for table `jobNote`
+--
+
+INSERT INTO `jobNote` (`jobNoteId`, `jobId`, `userId`, `note`, `dateCreated`) VALUES
+(1, 6, 2, 'test note', '2013-06-29 23:39:58'),
+(2, 6, 2, 'test note', '2013-06-29 23:39:58'),
+(3, 1, 2, 'Test note', '2013-06-29 23:46:44'),
+(4, 1, 2, 'Test note', '2013-06-29 23:46:44'),
+(5, 1, 2, 'test', '2013-06-29 23:50:23'),
+(6, 1, 2, 'test', '2013-06-29 23:50:23'),
+(7, 1, 2, 'test2', '2013-06-29 23:51:03'),
+(8, 1, 2, 'test2', '2013-06-29 23:51:08'),
+(9, 1, 2, 'Test note', '2013-06-30 00:01:35'),
+(10, 2, 3, 'Added parts to this from Blah Blah Blah, need to check the NSR alloy', '2013-06-30 11:27:36'),
+(11, 2, 3, 'Notes work really well', '2013-06-30 21:41:35'),
+(12, 2, 3, 'need the ability to delete them though / and edit as spelling mistakes and obvious mistakes or putting note on the incorrect car..', '2013-06-30 21:42:11'),
+(13, 2, 3, 'notes that are too long are not being displayed either', '2013-06-30 21:42:30'),
+(14, 7, 3, 'add a note to this job', '2013-07-01 09:59:15'),
+(15, 7, 3, 'parts added', '2013-07-01 09:59:22'),
+(16, 4, 3, 'added parts', '2013-07-01 13:21:18'),
+(17, 9, 3, 'FLASH TEST', '2013-07-01 15:59:19'),
+(18, 1, 2, 'This is a test note', '2013-07-02 13:08:21'),
+(19, 1, 3, 'aqnother\r\n', '2013-07-02 16:00:34'),
+(20, 8, 3, 'this is my bro fjhdsafhjjdsafklhlads he is a think thats yestrfgjkhdsjkgjfjflsdjakjdaljk', '2013-07-02 23:03:36'),
+(21, 8, 2, '1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890', '2013-07-02 23:06:14'),
+(22, 8, 2, '1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890', '2013-07-02 23:06:29'),
+(23, 8, 3, '123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960', '2013-07-02 23:06:59'),
+(24, 8, 3, 'on the n\r\nnote\r\ndidi\r\nyou \r\npress \r\nenter?', '2013-07-02 23:07:41'),
+(25, 7, 4, 'extra note', '2013-07-03 11:45:29'),
+(26, 10, 4, 'added parts', '2013-07-03 13:13:04'),
+(27, 6, 4, 'have updated the job description\r\n', '2013-07-10 09:13:18'),
+(28, 8, 4, 'no', '2013-07-17 17:03:22'),
+(29, 5, 4, 'added parts', '2013-07-18 15:40:26'),
+(30, 12, 4, 'this now has 1 in the note section\r\n', '2013-07-31 09:05:14'),
+(31, 12, 4, 'Added parts to JOB', '2013-07-31 09:06:01'),
+(32, 3, 4, 'vehicle came to us', '2013-08-20 07:36:38'),
+(33, 3, 4, 'called Zoe and spoke about extra damage around car, she will call customer', '2013-08-20 07:37:02'),
+(34, 3, 4, 'customer does not want extra damage to be repaired, continue work as agreed from original insurance quotation', '2013-08-20 07:37:30'),
+(35, 3, 4, 'customer does not want extra damage to be repaired, continue work as agreed from original insurance quotation	customer does not want extra damage to be repaired, continue work as agreed from original insurance quotation	', '2013-08-20 07:37:39'),
+(36, 2, 4, 'notes can be added to the job easily like this.. it will keep everything in one place for the job and date and timestamp it all too so we can trace it', '2013-08-22 16:10:16'),
+(37, 2, 4, 'notes can be added to the job easily like this.. it will keep everything in one place for the job and date and timestamp it all too so we can trace itnotes can be added to the job easily like this.. it will keep everything in one place for the job and date and timestamp it all too so we can trace itnotes can be added to the job easily like this.. it will keep everything in one place for the job and date and timestamp it all too so we can trace itnotes can be added to the job easily like this.. it will keep everything in one place for the job and date and timestamp it all too so we can trace it', '2013-08-22 16:10:28'),
+(38, 5, 4, 'note added\r\n', '2013-09-03 11:27:05'),
+(39, 2, 4, 'need to be able to add & delete notes', '2013-09-13 13:54:30'),
+(40, 15, 4, 'they work', '2013-10-11 19:21:18'),
+(41, 1, 0, 'add note', '2013-10-17 01:11:24'),
+(42, 1, 0, 'Test', '2013-10-17 10:13:18'),
+(43, 1, 0, 'about the time we drinking\r\n', '2013-10-17 10:20:21'),
+(44, 7, 0, '', '2013-10-25 22:46:06'),
+(45, 7, 0, 'still needs adjust', '2014-01-08 09:26:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobPart`
+--
+
+CREATE TABLE IF NOT EXISTS `jobPart` (
+  `jobPartId` int(11) NOT NULL AUTO_INCREMENT,
+  `jobId` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `cost` decimal(10,2) NOT NULL,
+  `discount` int(11) NOT NULL,
+  `vat` decimal(4,2) NOT NULL,
+  `total` decimal(10,2) NOT NULL,
+  `dateCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateModified` datetime NOT NULL,
+  `invoiceId` int(11) NOT NULL,
+  PRIMARY KEY (`jobPartId`),
+  KEY `jobId` (`jobId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=105 ;
+
+--
+-- Dumping data for table `jobPart`
+--
+
+INSERT INTO `jobPart` (`jobPartId`, `jobId`, `quantity`, `description`, `cost`, `discount`, `vat`, `total`, `dateCreated`, `dateModified`, `invoiceId`) VALUES
+(103, 1, 1, 'clip', '2.35', 0, '0.47', '2.82', '2013-10-22 14:30:48', '0000-00-00 00:00:00', 0),
+(104, 19, 1, 'wing', '18.90', 0, '3.78', '22.68', '2013-11-29 20:40:37', '0000-00-00 00:00:00', 0),
+(62, 4, 1, 'front b', '28.96', 0, '0.00', '23.00', '2013-07-01 12:20:42', '0000-00-00 00:00:00', 0),
+(49, 6, 1, 'NSF wing', '22.12', 10, '0.00', '22.12', '2013-06-30 10:14:44', '0000-00-00 00:00:00', 0),
+(50, 2, 1, 'flash test', '22.00', 0, '0.00', '22.00', '2013-06-30 20:30:08', '0000-00-00 00:00:00', 0),
+(51, 2, 1, 'flash test 2', '22.00', 0, '0.00', '22.00', '2013-06-30 20:31:52', '0000-00-00 00:00:00', 0),
+(53, 2, 2, 'Flash test 3', '33.00', 0, '0.00', '33.00', '2013-06-30 20:34:25', '0000-00-00 00:00:00', 0),
+(54, 2, 4, 'Flash Test 4', '44.00', 0, '0.00', '44.00', '2013-06-30 20:38:48', '0000-00-00 00:00:00', 0),
+(55, 2, 5, 'Flash Test 5', '55.00', 0, '0.00', '55.00', '2013-06-30 20:41:16', '0000-00-00 00:00:00', 0),
+(57, 7, 1, 'test', '1.00', 1, '0.00', '1.00', '2013-06-30 20:52:16', '0000-00-00 00:00:00', 0),
+(71, 0, 2, 'Test', '10.00', 0, '20.00', '50.00', '2013-07-02 21:56:18', '0000-00-00 00:00:00', 0),
+(59, 7, 3, 'test 3', '0.00', 0, '0.00', '0.00', '2013-06-30 20:53:05', '0000-00-00 00:00:00', 0),
+(72, 8, 1, 'clip', '22.94', 0, '0.00', '22.94', '2013-07-02 22:00:13', '0000-00-00 00:00:00', 0),
+(73, 8, 1, 'Door', '20.00', 0, '20.00', '24.00', '2013-07-02 22:00:49', '0000-00-00 00:00:00', 0),
+(78, 6, 1, 'ns wing', '22.96', 0, '0.00', '0.00', '2013-07-08 07:25:27', '0000-00-00 00:00:00', 0),
+(75, 10, 1, 'P & M', '80.00', 0, '0.00', '0.00', '2013-07-02 23:23:54', '0000-00-00 00:00:00', 0),
+(79, 6, 1, 'ewewq', '21.00', 21, '21.00', '12.00', '2013-07-08 07:42:33', '0000-00-00 00:00:00', 0),
+(80, 5, 1, 'test', '22.90', 0, '0.00', '0.00', '2013-07-15 21:41:21', '0000-00-00 00:00:00', 0),
+(81, 5, 2, 'kl;k;', '22.86', 0, '0.00', '0.00', '2013-07-15 21:46:25', '0000-00-00 00:00:00', 0),
+(85, 5, 20, 'Clips', '0.50', 0, '20.00', '12.00', '2013-07-15 23:21:29', '0000-00-00 00:00:00', 0),
+(86, 5, 3, 'Tests', '12.46', 0, '20.00', '44.86', '2013-07-16 06:35:26', '0000-00-00 00:00:00', 0),
+(87, 2, 3, 'Clips', '2.50', 0, '20.00', '9.00', '2013-07-17 06:32:54', '0000-00-00 00:00:00', 0),
+(88, 8, 1, 'instead of VAT being 20% it needs to be £4.00', '20.00', 0, '20.00', '24.00', '2013-07-17 08:52:14', '0000-00-00 00:00:00', 0),
+(89, 8, 1, 'discount needs to change the total figure', '20.00', 10, '20.00', '24.00', '2013-07-17 08:52:40', '0000-00-00 00:00:00', 0),
+(90, 3, 5, 'clip - 7902-897456', '2.84', 0, '20.00', '17.04', '2013-07-18 14:47:18', '0000-00-00 00:00:00', 0),
+(91, 5, 5, 'screws', '1.00', 0, '1.00', '6.00', '2013-07-18 23:23:13', '0000-00-00 00:00:00', 0),
+(92, 3, 1, 'Clips', '10.00', 10, '1.80', '10.80', '2013-07-20 09:31:50', '0000-00-00 00:00:00', 0),
+(93, 11, 1, 'clip', '22.94', 0, '4.59', '27.53', '2013-07-29 21:18:34', '0000-00-00 00:00:00', 0),
+(94, 11, 3, 'NSF wings', '194.00', 0, '99.99', '698.40', '2013-07-29 21:19:08', '0000-00-00 00:00:00', 0),
+(95, 11, 11, 'Labour hours', '32.00', 0, '71.68', '430.08', '2013-07-29 21:19:25', '0000-00-00 00:00:00', 0),
+(96, 11, 1, 'Labour', '432.80', 0, '86.56', '519.36', '2013-07-29 21:19:42', '0000-00-00 00:00:00', 0),
+(97, 12, 1, 'rear silencer (exhaust)', '296.78', 0, '59.36', '356.14', '2013-07-31 08:05:41', '0000-00-00 00:00:00', 0),
+(98, 2, 1, 'now working', '10.00', 0, '2.00', '12.00', '2013-09-13 12:54:09', '0000-00-00 00:00:00', 0),
+(99, 3, 1, 'Door rh', '198.34', 0, '39.67', '238.01', '2013-09-29 14:02:53', '0000-00-00 00:00:00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobProcess`
+--
+
+CREATE TABLE IF NOT EXISTS `jobProcess` (
+  `jobProcessId` int(11) NOT NULL AUTO_INCREMENT,
+  `label` text NOT NULL,
+  PRIMARY KEY (`jobProcessId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `jobProcess`
+--
+
+INSERT INTO `jobProcess` (`jobProcessId`, `label`) VALUES
+(1, 'Strip'),
+(2, 'Fit'),
+(3, 'Paint'),
+(4, 'Repair'),
+(5, 'Prime'),
+(6, 'Polish/Wash'),
+(7, 'Complete');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobStatus`
+--
+
+CREATE TABLE IF NOT EXISTS `jobStatus` (
+  `jobStatusId` int(11) NOT NULL AUTO_INCREMENT,
+  `label` text NOT NULL,
+  `class` text NOT NULL,
+  PRIMARY KEY (`jobStatusId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `jobStatus`
+--
+
+INSERT INTO `jobStatus` (`jobStatusId`, `label`, `class`) VALUES
+(1, 'Estimate', 'Grey'),
+(2, 'To Book In', 'Red'),
+(3, 'Booked In', 'Yellow'),
+(4, 'W I P', 'Blue'),
+(5, 'Ready to Invoice', 'Green'),
+(6, 'Invoiced Out', 'Black'),
+(7, 'Archived', 'Purple');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `todo`
+--
+
+CREATE TABLE IF NOT EXISTS `todo` (
+  `todoId` int(11) NOT NULL AUTO_INCREMENT,
+  `status` enum('TODO','DONE','INFO','FAULT') NOT NULL,
+  `note` text NOT NULL,
+  `userId` int(11) NOT NULL,
+  `dateCreated` datetime NOT NULL,
+  `dateModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`todoId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=71 ;
+
+--
+-- Dumping data for table `todo`
+--
+
+INSERT INTO `todo` (`todoId`, `status`, `note`, `userId`, `dateCreated`, `dateModified`) VALUES
+(70, 'FAULT', '<a href="https://code.google.com/p/ecb/issues/list" target="_blank">Google Code issues management</a>\r\n\r\nDo not add any further issues here.', 2, '2013-10-03 00:22:41', '2013-10-02 23:27:02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `userId` int(11) NOT NULL AUTO_INCREMENT,
+  `username` text NOT NULL,
+  `password` text NOT NULL,
+  `name` text NOT NULL,
+  `email` text NOT NULL,
+  `dateCreated` datetime NOT NULL,
+  `dateModified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `dateLoggedIn` datetime NOT NULL,
+  PRIMARY KEY (`userId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`userId`, `username`, `password`, `name`, `email`, `dateCreated`, `dateModified`, `dateLoggedIn`) VALUES
+(1, 'chris', '6b34fe24ac2ff8103f6fce1f0da2ef57', 'chris', 'chrisw6152@yahoo.co.uk', '0000-00-00 00:00:00', '2013-06-29 22:08:13', '0000-00-00 00:00:00'),
+(2, 'matt', '9dc5b8a7732196248f978dcce7de708e', 'Matthew Wood', 'matthew.john.wood@gmail.com', '2013-06-29 00:11:23', '2013-12-05 22:59:09', '2013-12-05 22:59:09'),
+(3, 'woodc84', 'd00f4d6137c71d64a74e099680529d3f', 'chris', 'chris@cwtkd.co.uk', '2013-06-30 11:12:44', '2013-07-03 09:57:50', '2013-07-03 10:57:50'),
+(4, 'chrisw6152', '1a1dc91c907325c69271ddf0c944bc72', 'Chris Wood', 'none@none.com', '2013-07-03 11:45:03', '2014-01-09 20:27:33', '2014-01-09 20:27:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `zone99`
+--
+
+CREATE TABLE IF NOT EXISTS `zone99` (
+  `z99Id` int(11) NOT NULL AUTO_INCREMENT,
+  `image` text NOT NULL,
+  `make` text NOT NULL,
+  `description` text NOT NULL,
+  `partNo` text NOT NULL COMMENT 'this will be inserted with the price to the invoice',
+  `price` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`z99Id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `zone99`
+--
+
+INSERT INTO `zone99` (`z99Id`, `image`, `make`, `description`, `partNo`, `price`) VALUES
+(9, '/uploads/zone99/image.jpg', 'GUEHRING', 'Spot weld drill bit', '30723', '1.00'),
+(7, '/uploads/zone99/IMG_4354_1200x900.jpg', 'Matt', 'Image is no longer being removed...', '213214qsdd', '2.86'),
+(6, '/uploads/zone99/IMG_4356_786x641.jpg', 'VW', 'PUSH CLIP', '1H0819055B01C', '3.65'),
+(8, '/uploads/zone99/FE61 CZJ-001_1600x1131.jpg', 'Toyota', 'Auris', 'no idea', '0.00');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
