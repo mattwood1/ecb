@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" media="screen" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="<?php echo str_replace('/srv/www/htdocs/ecb/public', '', realpath( APPLICATION_PATH . '/../public' )); ?>/css/print.css" />
+    </head>
+
+    <body>
+        <div class="container">
+            <?php echo $this->layout()->content; ?>
+        </div>
+    </body>
+</html>

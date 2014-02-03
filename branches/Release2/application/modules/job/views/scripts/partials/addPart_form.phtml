@@ -1,0 +1,29 @@
+<h2 class="center">Add Parts</h2>
+
+<form class="form-inline" action="" method="post">
+    <div class="row-fluid">
+        <div class="span1">
+            <?php echo $this->form->quantity; ?>
+        </div>
+        <div class="span3">
+            <?php echo $this->form->description; ?>
+        </div>
+        <div class="span2">
+            <?php echo $this->form->cost; ?>
+        </div>
+        <div class="span2">
+            <?php echo $this->form->discount; ?>
+        </div>
+        <div class="span1">
+            <?php echo $this->form->vat; ?>
+        </div>
+        <div class="span2">
+            <?php echo $this->form->total; ?>
+        </div>
+        <div class="span1">
+            <?php //echo $this->form->save; ?>
+            <button name="save" id="save" type="submit" class="btn btn-success">Save</button>
+        </div>
+    </div>
+    <?php echo $this->form->jobId; ?>
+</form>

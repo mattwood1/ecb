@@ -1,0 +1,63 @@
+<?php
+    $this->headScript()->appendFile("/js/job/job.js")
+                       ->appendFile("/js/job/part.js")
+                       ->appendFile("/js/job/note.js")
+                       ->appendFile("/js/job/card.js")
+                       ->appendFile("/js/lightbox-2.6.min.js");
+    $this->headLink()->appendStylesheet("/css/lightbox.css")
+                     ->appendStylesheet("/css/screen.css");
+?>
+
+<h1><i class="icon-wrench"></i> Edit Job</h1>
+<center>
+    <p><span class="numberPlateTable"><?php echo $this->job->carReg; ?></span></p>
+</center>
+
+<div class='box'>
+    <div class='box-header'>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#job" data-toggle="tab"><i class="icon-wrench"></i> Job</a></li>
+  <li><a href="#jobPart" data-toggle="tab"><i class="icon-shopping-cart"></i> Parts</a></li>
+  <li><a href="#jobNote" data-toggle="tab"><i class="icon-comments"></i> Notes</a></li>
+  <li><a href="#jobImage" data-toggle="tab"><i class="icon-picture"></i> Images</a></li>
+  <li><a href="#jobCard" data-toggle="tab"><i class="icon-time"></i> Job Card</a></li>
+</ul>
+    </div>
+</div>
+<div class="tab-content">
+    <div class="tab-pane active" id="job">
+        <?php echo $this->partial('partials/job.phtml', array('form' => $this->jobForm))?>
+    </div>
+    <div class="tab-pane" id="jobPart">
+        <div class="row-fluid">
+            <?php echo $this->partial('partials/addPart_form.phtml', array('form' => $this->jobPartForm)) ?>
+        </div>
+        <div class="resultContent">
+            <?php echo $this->partial('partials/job-part.phtml', array('job' => $this->job, 'parts' => $this->job->parts));?>
+        </div>
+    </div>
+    <div class="tab-pane" id="jobNote">
+        <h2 class="center">Job Notes</h2>
+        <div class="row-fluid">
+            <?php echo $this->jobNoteForm; ?>
+        </div>
+        <div class="resultContent">
+            <?php echo $this->partial('partials/job-note.phtml', array('notes' => $this->job->notes));?>
+        </div>
+    </div>
+    <div class="tab-pane" id="jobImage">
+        <h2 class="center">Job Image</h2>
+        <div id="images">
+            <?php echo $this->partial('partials/job-images.phtml', array('images' => $this->job->images));?>
+        </div>
+        <form action="" id="uploader" data-path="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'upload', 'job' => $this->job->jobId));?>">
+        <?php $this->plUpload()->enable();?>
+        <?php echo $this->uploader; ?>
+        </form>
+    </div>
+    <div class="tab-pane" id="jobCard">
+        <div class="row-fluid">
+            <?php echo $this->partial('partials/addJobCard_form.phtml', array('form' => $this->jobCardForm)) ?>
+        </div>
+    </div>
+</div>
