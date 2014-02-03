@@ -7,12 +7,4 @@ $(function(){
 		});
 		return false;
 	});
-	/*
-	$('#jobNote').on('click', ' a.ajax', function(e){
-		e.preventDefault();
-		$.post($(this).attr('href'), function(data){
-			$('#jobPart .resultContent').html(data);
-		});
-	});
-	*/
 });

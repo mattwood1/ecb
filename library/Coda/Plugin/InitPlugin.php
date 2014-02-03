@@ -27,7 +27,7 @@ class Coda_Plugin_InitPlugin extends Zend_Controller_Plugin_Abstract
     {
         $this->_view->addHelperPath(APPLICATION_PATH . '/../library/Coda/View/Helper/', 'Coda_View_Helper_');
         $this->_view->addHelperPath(APPLICATION_PATH . '/../library/Coda/Form/Element/', 'Coda_Form_Element_');
-        //$this->_view->addHelperPath(APPLICATION_PATH . '/../models/View/Helper/', 'View_Helper_');
+        $this->_view->addHelperPath(APPLICATION_PATH . '/../models/View/Helper/', 'View_Helper_');
 
         //var_dump($this->_view);
         Zend_Controller_Action_HelperBroker::addPath('Coda/Helper/', 'Coda_Helper_');

@@ -1,0 +1,181 @@
+<style>
+body {
+    font-family: Agency;
+    color: black;
+    font-size: 20px;
+    line-height: 22px;
+}
+
+h3 {
+    font-weight: bold;
+    line-height: 28px;
+    margin:0;
+}
+
+.title {
+    background: url("/img/mkbodytecfinalsvgblack.svg") 0 0 no-repeat transparent;
+    background-size: contain;
+    font-size: 55px;
+    height: 190px;
+    line-height: 300px;
+    vertical-align: bottom;
+    width: 480px;
+    float: left;
+    margin-right: 20px;
+}
+
+.companyAddress {
+    width: 210px;
+    font-size: 22px;
+    line-height: 25px;
+    height: 190px;
+    float: left;
+}
+.container {
+    position: relative;
+    width: 190mm;
+}
+.container:after {
+    opacity: 0.2;
+    content:'';
+    background: url(/img/sportscar.jpg) top right no-repeat transparent;
+    background-size: contain;
+    width:430px;
+    height:520px;
+    position:absolute;
+    top:0;
+    right:0;
+    z-index: -1;
+}
+
+.row, .row-fluid {
+    margin-bottom: 30px;
+}
+
+.span4 {
+    width: 219px;
+}
+
+.line {
+    border-bottom: 3px solid black;
+height: 3px;
+background: none;
+}
+
+.number {
+    text-align: right;
+}
+
+
+</style>
+
+<div class="title">
+Accident Repair Specialists
+</div>
+
+<div class="companyAddress">
+    1st line of company address<br />
+    2nd line of company address<br />
+    3rd line of company address<br />
+    4th line of company address<br />
+    telephone<br />
+    email<br />
+    website
+</div>
+<div class="clearfix"></div>
+<div class="line"></div>
+
+<div class="row-fluid">
+    <div class="span4">
+        <h2>Bill To:</h2>
+        <?php echo nl2br($this->job->address); ?>
+        <?php echo $this->job->postcode ? $this->job->postcode.'<br />' : ''; ?>
+        <?php echo $this->job->tel ? $this->job->tel.'<br />' : ''; ?>
+        <?php echo $this->job->mobile ? $this->job->mobile.'<br />' : ''; ?>
+        <?php echo $this->job->email ? $this->job->email.'<br />' : ''; ?>
+    </div>
+    <div class="span4">
+        <h2>Insurance Details:</h2>
+        <?php echo $this->job->insName ? $this->job->insName.'<br />' : ''; ?>
+        <?php echo $this->job->insAdd ? nl2br($this->job->insAdd).'<br />' : ''; ?>
+        <?php echo $this->job->insPost ? $this->job->insPost.'<br />' : ''; ?>
+        <?php echo $this->job->insTel ? $this->job->insTel.'<br />' : ''; ?>
+
+    </div>
+    <div class="span4">
+        <h2>Vechile Details:</h2>
+        <table>
+            <tr><td class="number">Vechicle Reg:</td><td><?php echo $this->job->carReg; ?></td></tr>
+            <tr><td class="number">VIN Number:</td><td><?php echo $this->job->vin; ?></td></tr>
+            <tr><td class="number">Make:</td><td><?php echo $this->job->make; ?></td></tr>
+            <tr><td class="number">Model:</td><td><?php echo $this->job->model; ?></td></tr>
+            <tr><td class="number">Colour:</td><td><?php echo $this->job->colour; ?></td></tr>
+            <tr><td class="number">Man / Auto:</td><td><?php echo $this->job->transmission; ?></td></tr>
+            <tr><td class="number">Mileage:</td><td><?php echo $this->job->mileage; ?></td></tr>
+        </table>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<?php if ($this->job->parts): ?>
+<?php
+$subTotal = 0;
+$vat = 0;
+$total = 0;
+?>
+<div class="row-fluid">
+    <h1>Invoice</h1>
+    <table width="100%">
+        <thead>
+            <tr>
+                <td>Quantity</td>
+                <td>Description</td>
+                <td class="number">Cost</td>
+                <td class="number">Discount</td>
+                <td class="number">Vat</td>
+                <td class="number">Total</td>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->job->parts as $part): ?>
+            <tr>
+                <td><?php echo $part->quantity; ?></td>
+                <td><?php echo $part->description; ?></td>
+                <td class="number">&pound;<?php echo $part->cost; ?></td>
+                <td class="number"><?php echo $part->discount; ?>%</td>
+                <td class="number">&pound;<?php echo $part->vat; ?></td>
+                <td class="number">&pound;<?php echo $part->total; ?></td>
+            </tr>
+        <?php
+            $subTotal = $subTotal + $part->cost;
+            $vat = $vat + $part->vat;
+            $total = $total + $part->total;
+        ?>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="row pull-right">
+    <table class="number">
+        <tbody>
+            <tr>
+                <td><h3>Sub-Total</h3></td>
+                <td><h3>&pound;<?php echo $subTotal; ?></h3></td>
+            </tr>
+            <tr>
+                <td><h3>VAT</h3></td>
+                <td><h3>&pound;<?php echo $vat; ?></h3></td>
+            </tr>
+            <tr>
+                <td><h3>Total to pay</h3></td>
+                <td><h3>&pound;<?php echo $total; ?></h3></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<?php endif; ?>
+
+
+<?php //var_dump($this->job->toArray()); ?>

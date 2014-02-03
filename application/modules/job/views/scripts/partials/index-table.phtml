@@ -1,5 +1,5 @@
 <?php if ($this->jobs): ?>
-<table class="indexTable padded table-condensed">
+<table class="indexTable table padded table-condensed">
     <thead>
         <tr>
             <th><i class="icon-file-text-alt"></i></th>
@@ -52,6 +52,11 @@
                                 <?php endforeach; ?>
                             </ul>
                         </li>
+                        <?php if ($job->jobStatusId == ECB_Model_JobStatusTable::READY_TO_INVOICE): ?>
+                        <li>
+                            <a href="<?php echo $this->url(array('action' => 'create-invoice', 'job' => $job->jobId)); ?>">Create Invoice</a>
+                        </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </td>

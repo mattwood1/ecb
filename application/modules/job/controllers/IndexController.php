@@ -1,34 +1,32 @@
 <?php
 class Job_IndexController extends Coda_Controller
 {
-    public function init()
-    {
-        /* Initialize action controller here */
-        if (! $this->_request->user) {
-            $requestUrl = new Zend_Session_Namespace('requestUrl');
-            $requestUrl->url = $this->_request->getRequestUri();
-
-            $this->_flash('To view Jobs A user must be Logged in', Coda_Helper_Flash::INFO);
-            $this->gotoRoute(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'));
-        }
-    }
-
     public function indexAction()
     {
-        $jobs = Doctrine_Query::create()->select('*')->from('Coda_Model_Job')->orderBy('dateModified DESC');
-        $statuses = Doctrine_Core::getTable('Coda_Model_JobStatus')->findAll();
-        $processes = Doctrine_Core::getTable('Coda_Model_JobProcess')->findAll();
+        $jobTable = new ECB_Model_JobTable();
+        $jobTable->getJobs();
+
+        if ($this->_request->getParam('keyword')) {
+            $jobTable->searchJobs($this->_request->getParam('keyword'));
+        }
+
+        if ($this->_request->getParam('status')) {
+            $jobTable->filterStatus($this->_request->getParam('status'));
+        }
+
+        if ($this->_request->getParam('process')) {
+            $jobTable->filterProcess($this->_request->getParam('process'));
+        }
+
+        $jobTable->orderJobs('dateModified DESC');
+        $jobs = $jobTable->getQuery();
+
+        $statuses = Doctrine_Core::getTable('ECB_Model_JobStatus')->findAll();
+        $processes = Doctrine_Core::getTable('ECB_Model_JobProcess')->findAll();
 
         $this->view->jobs = $jobs->execute();
         $this->view->statuses = $statuses;
         $this->view->processes = $processes;
-    }
-    protected function numberplateformat($numberPlate)
-    {
-        if (!strstr($numberPlate, " ")) {
-            return chunk_split(strtoupper($numberPlate), 4, ' ');
-        }
-        return $numberPlate;
     }
 
     public function addAction()
@@ -37,11 +35,13 @@ class Job_IndexController extends Coda_Controller
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             $zfDate = new Zend_Date();
-            $job = Doctrine_Core::getTable('Coda_Model_Job')->create(
+            $job = Doctrine_Core::getTable('ECB_Model_Job')->create(
                     array_merge($form->getValues(), array(
                             'dateCreated' => $zfDate->get(Zend_Date::ISO_8601),
-                            'carReg' => $this->numberplateformat($form->getValue('carReg')))
-                    ));
+                            'carReg' => $this->numberplateformat($form->getValue('carReg')),
+                            'postcode' => strtoupper($form->getValue('postcode'))
+                    ))
+                );
             $job->save();
             $this->gotoRoute(array('action' => 'index', 'job' => null));
             $this->_flash('Job Added');
@@ -58,24 +58,29 @@ class Job_IndexController extends Coda_Controller
         $jobCardForm = new Job_Form_JobCard(array('job' => $this->_request->getParam('job')));
 
         if ($this->_request->getParam('job')) {
-            $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
+            $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
 
             if ($this->_request->isPost() && $jobForm->isValid($this->_request->getPost())) {
-                $job->fromArray(array_merge(
-                        $jobForm->getValues(),
-                        array(
-                        'carReg' => $this->numberplateformat($jobForm->getValue('carReg')))
-                        ));
+                $job->fromArray(
+                        array_merge($jobForm->getValues(), array(
+                            'carReg' => $this->numberplateformat($jobForm->getValue('carReg')),
+                            'postcode' => strtoupper($jobForm->getValue('postcode'))
+                        ))
+                    );
                 $job->save();
                 $this->gotoRoute(array('action' => 'index', 'job' => null));
                 $this->_flash('Job Updated');
             }
 
+            //Form population
             $jobForm->populate($job->toArray());
-            // Job Data
-            $this->view->job = $job;
+            $jobCard = Doctrine_Core::getTable('ECB_Model_JobCard')->findOneBy('jobId', $this->_request->getParam('job'));
+            if ($jobCard) {
+                $jobCardForm->populate($jobCard->toArray());
+            }
 
             // Form Elements
+            $this->view->job = $job;
             $this->view->jobForm = $jobForm;
             $this->view->jobPartForm = $jobPartForm;
             $this->view->jobCardForm = $jobCardForm;
@@ -86,9 +91,173 @@ class Job_IndexController extends Coda_Controller
         }
     }
 
+    public function uploadAction()
+    {
+        // HTTP headers for no cache etc
+        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+        header("Cache-Control: no-store, no-cache, must-revalidate");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+
+        $this->_disableLayout();
+
+        $jobId = $this->_request->getParam('job');
+
+        // Settings
+        $rootDir = "jobUploads";
+        $targetDir = $rootDir . DIRECTORY_SEPARATOR . $jobId;
+        $thumbDir = $targetDir . DIRECTORY_SEPARATOR . 'thumbs';
+
+        $cleanupTargetDir = true; // Remove old files
+        $maxFileAge = 5 * 3600; // Temp file age in seconds
+
+        // 5 minutes execution time
+        @set_time_limit(5 * 60);
+
+        // Uncomment this one to fake upload time
+        // usleep(5000);
+
+        // Get parameters
+        $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
+        $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
+        $fileName = isset($_REQUEST["name"]) ? $_REQUEST["name"] : '';
+
+        // Clean the fileName for security reasons
+        $fileName = preg_replace('/[^\w\._]+/', '_', $fileName);
+
+        $origFilename = $fileName;
+
+        // Make sure the fileName is unique but only if chunking is disabled
+        if ($chunks < 2 && file_exists($targetDir . DIRECTORY_SEPARATOR . $fileName)) {
+            $ext = strrpos($fileName, '.');
+            $fileName_a = substr($fileName, 0, $ext);
+            $fileName_b = substr($fileName, $ext);
+
+            $count = 1;
+            while (file_exists($targetDir . DIRECTORY_SEPARATOR . $fileName_a . '_' . $count . $fileName_b))
+                $count++;
+
+            $fileName = $fileName_a . '_' . $count . $fileName_b;
+        }
+
+        $filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
+        $thumbPath = $thumbDir . DIRECTORY_SEPARATOR . $fileName;
+
+        // Create Directories
+        if (!file_exists($rootDir))
+            @mkdir($rootDir);
+
+        // Create target dir
+        if (!file_exists($targetDir))
+            @mkdir($targetDir);
+
+        // Create thumb dir
+        if (!file_exists($thumbDir))
+            @mkdir($thumbDir);
+
+        // Remove old temp files
+        if ($cleanupTargetDir && is_dir($targetDir) && ($dir = opendir($targetDir))) {
+            while (($file = readdir($dir)) !== false) {
+                $tmpfilePath = $targetDir . DIRECTORY_SEPARATOR . $file;
+
+                // Remove temp file if it is older than the max age and is not the current file
+                if (preg_match('/\.part$/', $file) && (filemtime($tmpfilePath) < time() - $maxFileAge) && ($tmpfilePath != "{$filePath}.part")) {
+                    @unlink($tmpfilePath);
+                }
+            }
+
+            closedir($dir);
+        } else
+            die('{"jsonrpc" : "2.0", "error" : {"code": 100, "message": "Failed to open temp directory."}, "id" : "id"}');
+
+        // Look for the content type header
+        if (isset($_SERVER["HTTP_CONTENT_TYPE"]))
+            $contentType = $_SERVER["HTTP_CONTENT_TYPE"];
+
+        if (isset($_SERVER["CONTENT_TYPE"]))
+            $contentType = $_SERVER["CONTENT_TYPE"];
+
+        // Handle non multipart uploads older WebKit versions didn't support multipart in HTML5
+        if (strpos($contentType, "multipart") !== false) {
+            if (isset($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
+                // Open temp file
+                $out = fopen("{$filePath}.part", $chunk == 0 ? "wb" : "ab");
+                if ($out) {
+                    // Read binary input stream and append it to temp file
+                    $in = fopen($_FILES['file']['tmp_name'], "rb");
+
+                    if ($in) {
+                        while ($buff = fread($in, 4096))
+                            fwrite($out, $buff);
+                    } else
+                        die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
+                    fclose($in);
+                    fclose($out);
+                    @unlink($_FILES['file']['tmp_name']);
+                } else
+                    die('{"jsonrpc" : "2.0", "error" : {"code": 102, "message": "Failed to open output stream."}, "id" : "id"}');
+            } else
+                die('{"jsonrpc" : "2.0", "error" : {"code": 103, "message": "Failed to move uploaded file."}, "id" : "id"}');
+        } else {
+            // Open temp file
+            $out = fopen("{$filePath}.part", $chunk == 0 ? "wb" : "ab");
+            if ($out) {
+                // Read binary input stream and append it to temp file
+                $in = fopen("php://input", "rb");
+
+                if ($in) {
+                    while ($buff = fread($in, 4096))
+                        fwrite($out, $buff);
+                } else
+                    die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
+
+                fclose($in);
+                fclose($out);
+            } else
+                die('{"jsonrpc" : "2.0", "error" : {"code": 102, "message": "Failed to open output stream."}, "id" : "id"}');
+        }
+
+        // Check if file has been uploaded
+        if (!$chunks || $chunk == $chunks - 1) {
+            // Strip the temp .part suffix off
+            rename("{$filePath}.part", $filePath);
+
+            $resizer = new Coda_Image_Resizer($filePath);
+            $resizer->resizeImage(66, 55, 'crop')->save($thumbPath, 80);
+
+            $jobImageTable = new ECB_Model_JobImageTable();
+            $jobImage = $jobImageTable->getInstance();
+
+            $image = $jobImage->createQuery('i')
+                ->where('jobId = ?', $jobId)
+                ->andwhere('file = ?', DIRECTORY_SEPARATOR . $filePath)
+                ->execute();
+
+            if (!$image->toArray()) {
+                $jobImage->create(array(
+                    'jobId' => $jobId,
+                    'file'  => DIRECTORY_SEPARATOR . $filePath,
+                    'thumb' => DIRECTORY_SEPARATOR . $thumbPath,
+                    'dateCreated' => date("Y-m-d H:i:s", mktime())
+                ))->save();
+            } else {
+                $image->fromArray(array(
+                        'thumb' => DIRECTORY_SEPARATOR . $thumbPath
+                    ));
+                $image->save();
+            }
+
+            $job = ECB_Model_JobTable::getInstance()->find($jobId);
+        }
+        $this->view->images = $job->images;
+        $this->renderScript('partials/job-images.phtml');
+        //exit;
+    }
+
     public function setStatusAction()
     {
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
         $job->jobStatusId = $this->_request->getParam('status');
         $job->save();
         $this->_redirectBack();
@@ -96,7 +265,7 @@ class Job_IndexController extends Coda_Controller
 
     public function setProcessAction()
     {
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
         $job->jobProcessId = $this->_request->getParam('process');
         $job->save();
         $this->_redirectBack();
@@ -106,32 +275,26 @@ class Job_IndexController extends Coda_Controller
     {
         $this->_disableLayout();
 
-        $jobs = Doctrine_Query::create()->select('*')->from('Coda_Model_Job');
+        $jobTable = new ECB_Model_JobTable();
+        $jobTable->getJobs();
 
         if ($this->_request->getParam('keyword')) {
-            //$jobs->where('MATCH (carReg, name, address, postcode, make, model ) AGAINST (? IN BOOLEAN MODE)', $this->_request->getParam('keyword'));
-            $jobs->where('carReg LIKE ?', '%'.$this->_request->getParam('keyword').'%')
-                 ->orWhere('name LIKE ?', '%'.$this->_request->getParam('keyword').'%')
-                 ->orWhere('make LIKE ?', '%'.$this->_request->getParam('keyword').'%')
-                 ->orWhere('model LIKE ?', '%'.$this->_request->getParam('keyword').'%')
-                 ->orWhere('vin LIKE ?', '%'.$this->_request->getParam('keyword').'%')
-                 ->orWhere('postcode LIKE ?', '%'.$this->_request->getParam('keyword').'%');
+            $jobTable->searchJobs($this->_request->getParam('keyword'));
         }
 
         if ($this->_request->getParam('status')) {
-            $jobs->where('jobStatusId = ?', $this->_request->getParam('status'));
+            $jobTable->filterStatus($this->_request->getParam('status'));
         }
 
         if ($this->_request->getParam('process')) {
-            $jobs->where('jobProcessId = ?', $this->_request->getParam('process'));
+            $jobTable->filterProcess($this->_request->getParam('process'));
         }
 
-        $jobs->orderBy('dateModified DESC');
+        $jobTable->orderJobs('dateModified DESC');
+        $jobs = $jobTable->getQuery();
 
-        //var_dump($jobs->getSqlQuery());exit;
-
-        $statuses = Doctrine_Core::getTable('Coda_Model_JobStatus')->findAll();
-        $processes = Doctrine_Core::getTable('Coda_Model_JobProcess')->findAll();
+        $statuses = Doctrine_Core::getTable('ECB_Model_JobStatus')->findAll();
+        $processes = Doctrine_Core::getTable('ECB_Model_JobProcess')->findAll();
 
         $this->view->jobs = $jobs->execute();
         $this->view->statuses = $statuses;
@@ -151,7 +314,7 @@ class Job_IndexController extends Coda_Controller
 
         if ($this->_request->isPost() && $jobPartForm->isValid($this->_request->getPost())) {
             $zfDate = new Zend_Date();
-            $jobPart = Doctrine_Core::getTable('Coda_Model_JobPart')->create(
+            $jobPart = Doctrine_Core::getTable('ECB_Model_JobPart')->create(
                     array_merge($jobPartForm->getValues(), array(
                             'dateCreated' => $zfDate->get(Zend_Date::ISO_8601))
                     ));
@@ -159,7 +322,7 @@ class Job_IndexController extends Coda_Controller
             $this->_flash('Part Added');
         }
 
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
 
         $this->view->job = $job;
         $this->view->parts = $job->parts;
@@ -174,11 +337,12 @@ class Job_IndexController extends Coda_Controller
     {
         $this->_disableLayout();
 
-        $jobPart = Doctrine_Core::getTable('Coda_Model_JobPart')->findBy('jobPartId', $this->_request->getParam('part'));
+        $jobPart = Doctrine_Core::getTable('ECB_Model_JobPart')->findBy('jobPartId', $this->_request->getParam('part'));
         $jobPart->delete();
 
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
 
+        $this->view->job = $job;
         $this->view->parts = $job->parts;
         $this->_flash('Part Deleted');
 
@@ -196,7 +360,7 @@ class Job_IndexController extends Coda_Controller
 
         if ($this->_request->isPost() && $jobNoteForm->isValid($this->_request->getPost())) {
             $zfDate = new Zend_Date();
-            $jobNote = Doctrine_Core::getTable('Coda_Model_JobNote')->create(
+            $jobNote = Doctrine_Core::getTable('ECB_Model_JobNote')->create(
                     array_merge($jobNoteForm->getValues(),
                             array(
                                     'dateCreated' => $zfDate->get(Zend_Date::ISO_8601),
@@ -208,7 +372,7 @@ class Job_IndexController extends Coda_Controller
             $this->_flash('Note Added');
         }
 
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
 
         $this->view->notes = $job->notes;
 
@@ -224,31 +388,59 @@ class Job_IndexController extends Coda_Controller
     }
 
     /**
-     * TODO: You need to explain what the job card thingy is...(job card thingy is the amount of hours allocated to each field for the job)
+     * Update the record for the JobCsrd
      */
-    public function addJobCardAction()
+    public function updateCardAction()
     {
         $this->_disableLayout();
+        $return = array();
 
         $jobCardForm = new Job_Form_JobCard(array('job' => $this->_request->getParam('jobId')));
 
         if ($this->_request->isPost() && $jobCardForm->isValid($this->_request->getPost())) {
             $zfDate = new Zend_Date();
-            $jobCart = Doctrine_Core::getTable('Coda_Model_JobCard')->create(
-                    array_merge($jobCardForm->getValues(), array(
-                            'dateCreated' => $zfDate->get(Zend_Date::ISO_8601))
-                    ));
+
+            $jobCard = Doctrine_Core::getTable('ECB_Model_JobCard')->findOneBy('jobId', $jobCardForm->getValue('jobId'));
+
+            if (!$jobCard) {
+                $jobCard = Doctrine_Core::getTable('ECB_Model_JobCard')->create(
+                    array(
+                            'jobId' => $jobCardForm->getValue('jobId'),
+                            'dateCreated' => $zfDate->get(Zend_Date::ISO_8601)
+                    )
+                );
+            }
+
+            $jobCard->setArray($jobCardForm->getValues());
+
             $jobCard->save();
-            $this->_flash('Hours Added');
+
+            $return['flash'] = 'Job Card Updated';
         }
 
-        $job = Doctrine_Core::getTable('Coda_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+        echo json_encode($return);
+
+        exit;
+    }
+
+    public function createInvoiceAction()
+    {
+        $this->_helper->layout()->setLayout('print-bootstrap');
+
+        $job = Doctrine_Core::getTable('ECB_Model_Job')
+
+        ->findOneBy('jobId', $this->_request->getParam('job'));
 
         $this->view->job = $job;
-        $this->view->jobCard = $job->card;
+        $this->view->parts = $job->parts;
+    }
 
-        $this->renderScript('partials/job-card.phtml');
-
+    protected function numberplateformat($numberPlate)
+    {
+        if (!strstr($numberPlate, " ")) {
+            return chunk_split(strtoupper($numberPlate), 4, ' ');
+        }
+        return $numberPlate;
     }
 
 }

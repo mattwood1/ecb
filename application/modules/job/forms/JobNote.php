@@ -1,5 +1,5 @@
 <?php
-class Job_Form_JobNote extends Twitter_Form
+class Job_Form_JobNote extends Twitter_Bootstrap_Form_Vertical
 {
     protected $_jobId;
 
@@ -13,13 +13,22 @@ class Job_Form_JobNote extends Twitter_Form
         $this->setAttrib('horizontal', true);
 
         $this->addElement('textarea', 'note', array (
-                'label'     => 'Note',
+                'label'    => 'Note',
+                'rows'     => '5',
+                'class'    => 'span12'
         ));
 
         $this->addElement('hidden', 'jobId', array (
                 'value'     => $this->_jobId
         ));
 
-        $this->addElement("submit", "save", array("label" => "Save"));
+        $this->addElement('button', 'save', array(
+                'type'          => 'submit',
+                'buttonType'    => 'success',
+                'icon'          => 'ok',
+                'label'         => 'Save',
+                'iconPosition'  => 'right',
+                'escape'        => false
+        ));
     }
 }
