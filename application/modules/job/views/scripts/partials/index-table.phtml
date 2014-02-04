@@ -3,9 +3,7 @@
     <thead>
         <tr>
             <th><i class="icon-file-text-alt"></i></th>
-            <th>Car Reg</th>
             <th>Customer</th>
-            <th>Make</th>
             <th>Model</th>
             <th>Status</th>
             <th class="hidden-phone hidden-tablet">Vin No.</th>
@@ -19,9 +17,10 @@
     <?php foreach ($this->jobs as $job): ?>
         <tr class="<?php echo strtolower($job->status->class); ?>">
             <td><?php echo count($job->notes); ?></td>
-            <td><span class="numberPlateTable"><?php echo $job->carReg; ?></span></td>
-            <td><?php echo $job->name; ?></td>
-            <td><?php echo $job->make; ?></td>
+            <td>
+                <span class="customer"><?php echo $job->name; ?></span>
+                <span class="numberPlateTable"><?php echo $job->carReg; ?></span>
+            </td>
             <td><?php echo $job->model; ?></td>
             <td>
                 <span class="label <?php echo strtolower($job->status->class); ?>"><?php echo $job->status->label; ?></span>
@@ -45,16 +44,13 @@
                                 <?php endforeach; ?>
                             </ul>
                         </li>
+                        <?php if ($job->jobStatusId == ECB_Model_JobStatusTable::WIP): ?>
                         <li class="dropdown-submenu pull-left"><a>Stage</a>
                             <ul class="dropdown-menu">
                                 <?php foreach ($this->processes as $process): ?>
                                 <li><a href="<?php echo $this->url(array('action' => 'set-process', 'job' => $job->jobId, 'process' => $process->jobProcessId));?>" class="modalConfirm" data-modalmessage="You are changing this to <?php echo $process->label; ?>"><?php echo $process->label; ?></a></li>
                                 <?php endforeach; ?>
                             </ul>
-                        </li>
-                        <?php if ($job->jobStatusId == ECB_Model_JobStatusTable::READY_TO_INVOICE): ?>
-                        <li>
-                            <a href="<?php echo $this->url(array('action' => 'create-invoice', 'job' => $job->jobId)); ?>">Create Invoice</a>
                         </li>
                         <?php endif; ?>
                     </ul>
