@@ -1,5 +1,5 @@
 <?php
-class Auth_Form_ForgetPassword extends Xigen_Form
+class Auth_Form_ForgetPassword extends Twitter_Bootstrap_Form_Horizontal
 {
     public function setup()
     {

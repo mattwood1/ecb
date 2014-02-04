@@ -1,20 +1,20 @@
 <?php
-class User_Form_ChangeEmail extends Twitter_Form
+class User_Form_ChangeEmail extends Twitter_Bootstrap_Form_Horizontal
 {
     public function init()
     {
     	// Make this form horizontal
     	$this->setAttrib("horizontal", true);
-    	
+
 
         $this
-        
+
         ->addElement("text", "email", array(
 				"label" => "Email Address",
 				"required" => true,
 				"placeholder" => "Your current email address",
 		))
-        
+
         ->addElement("text", "emailNew", array(
 				"label" => "New Email Address",
 				"required" => true,
@@ -24,7 +24,7 @@ class User_Form_ChangeEmail extends Twitter_Form
 						'validator'		=> new Coda_Doctrine_Validate_NoRecordExists('ECB_Model_User', 'email')
 				)
 		))
-		
+
 		->addElement("submit", "submit", array(
 				"label" => "Change Email"
 		));

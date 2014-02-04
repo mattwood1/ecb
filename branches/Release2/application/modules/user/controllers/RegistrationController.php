@@ -18,7 +18,7 @@ class User_RegistrationController extends Coda_Controller
             ));
             if ($user->isValid()) {
                 $user->save();
-                $this->renderScript('registration/registered.phtml');
+                $this->gotoRoute(array('controller' => 'index', 'action' => 'index'));
             }
         }
 

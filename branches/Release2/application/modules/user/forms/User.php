@@ -1,5 +1,5 @@
 <?php
-class User_Form_User extends Twitter_Form
+class User_Form_User extends Twitter_Bootstrap_Form_Horizontal
 {
     public function init()
     {
@@ -17,7 +17,7 @@ class User_Form_User extends Twitter_Form
         $this->addElement('text', 'email', array (
                 'label'     => 'Email Address'
         ));
-        
+
         $this->addElement('hidden', 'userId', array (
                 'value'           => $this->_userId
         ));

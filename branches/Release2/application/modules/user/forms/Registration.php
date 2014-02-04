@@ -1,14 +1,9 @@
 <?php
-class User_Form_Registration extends Twitter_Form
+class User_Form_Registration extends Twitter_Bootstrap_Form_Horizontal
 {
     public function init()
     {
-        // Make this form horizontal
-        $this->setAttrib("horizontal", true);
-
-        $this
-
-        ->addElement("text", "name", array(
+        $this->addElement("text", "name", array(
                 "label" => "Name",
                 "placeholder" => "Your name",
                 "required" => true
@@ -35,9 +30,7 @@ class User_Form_Registration extends Twitter_Form
                 "required" => true,
                 "placeholder" => "Your password",
                 "validators"  => array(array('StringLength', false, array(4,15))),
-                "errorMessage" => array(
-                        array('Please choose a password between 4-15 characters')
-                )
+                "errorMessage" => array('Please choose a password between 4-15 characters')
 
         ))
 
@@ -46,13 +39,13 @@ class User_Form_Registration extends Twitter_Form
                 "required" => true,
                 "placeholder" => "Confirm your password",
                 "validators" => array(array("identical", false, array("token" => "password"))),
-                "errorMessage" => array(
-                        array("Please choose a password between 4-15 characters")
-                )
+                "errorMessage" => array("Please choose a password between 4-15 characters")
         ))
 
-        ->addElement("submit", "register", array(
-                "label" => "Register"
+        ->addElement("submit", "submit", array(
+                'buttonType' => Twitter_Bootstrap_Form_Element_Submit::BUTTON_SUCCESS,
+                "label" => "Save"
         ));
+
     }
 }
