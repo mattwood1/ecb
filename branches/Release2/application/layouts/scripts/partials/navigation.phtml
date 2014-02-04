@@ -9,9 +9,19 @@
 
             <div class=" nav-collapse collapse">
                 <ul class="nav nav-pills">
-                    <li><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index')); ?>"><i class="icon-dashboard"></i> Dashboard</a></li>
-                    <li><a href="<?php echo $this->url(array('module' => 'board', 'controller' => 'index', 'action' => 'index')); ?>"><i class="icon-th-large"></i> Board</a></li>
-                    <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'index')); ?>"><i class="icon-wrench"></i> Jobs</a></li>
+                    <li><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index'), 'default', true); ?>"><i class="icon-dashboard"></i> Dashboard</a></li>
+                    <li><a href="<?php echo $this->url(array('module' => 'board', 'controller' => 'index', 'action' => 'index'), 'default', true); ?>"><i class="icon-th-large"></i> Board</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-wrench"></i> Jobs <i class="icon-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'index'), 'default', true); ?>">All Jobs</a></li>
+                            <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'index', 'status' => '4'), 'default', true); ?>">WIP</a></li>
+                            <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'index', 'status' => '3'), 'default', true); ?>">Booked In</a></li>
+                            <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'index', 'status' => '2'), 'default', true); ?>">To Book In</a></li>
+                            <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'index', 'status' => '1'), 'default', true); ?>">Estimate</a></li>
+                            <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'index', 'status' => '5'), 'default', true); ?>">Complete</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-gears"></i> Admin <i class="icon-caret-down"></i></a>
                         <ul class="dropdown-menu">
@@ -20,54 +30,33 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="<?php echo $this->url(array('module' => 'todo', 'controller' => 'index', 'action' => 'index'))?>"><i class="icon-tasks"></i> To Do</a>
+                        <a href="<?php echo $this->url(array('module' => 'todo', 'controller' => 'index', 'action' => 'index'), 'default', true); ?>"><i class="icon-tasks"></i> To Do</a>
                     </li>
                 </ul>
             </div>
 
-                <div class="pull-right">
-                    <ul class="nav">
+            <div class="pull-right">
+                <ul class="nav">
 
-                    <?php if ($this->auth()->isLoggedIn()): ?>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="icon-user"></i>
-                                <?php echo $this->auth()->getUser()->name; ?>
-                                <i class="icon-caret-down"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li>
-                                  <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'auth', 'action' => 'change-password'));?>">Change Password</a>
-                              </li>
-                            </ul>
-                        </li>
+                <?php if ($this->auth()->isLoggedIn()): ?>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="icon-user"></i>
+                            <?php echo $this->auth()->getUser()->name; ?>
+                            <i class="icon-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li>
+                              <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'auth', 'action' => 'change-password'), 'default', true); ?>">Change Password</a>
+                          </li>
+                        </ul>
+                    </li>
 
-                        <li><a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'auth', 'action' => 'logout'), 'default', true); ?>">Log out <i class="icon-signout"></i></a></li>
-                    <?php else: ?>
-                        <li><a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'), 'default', true); ?>">Log in <i class="icon-signin"></i></a></li>
-                    <?php endif; ?>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-
-
-<div class="navbar navbar-inverse navbar-fixed-bottom hidden-phone hidden-tablet">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-
-            <div class=" nav-collapse collapse">
-                  <ul class="nav">
-example:         panel: 132 hours        paint: 221hours        fit: 98 hours        strip: 108 hours         total hours: 559 hours
-                    </ul>
+                    <li><a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'auth', 'action' => 'logout'), 'default', true); ?>">Log out <i class="icon-signout"></i></a></li>
+                <?php else: ?>
+                    <li><a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'auth', 'action' => 'login'), 'default', true); ?>">Log in <i class="icon-signin"></i></a></li>
+                <?php endif; ?>
+                </ul>
             </div>
         </div>
     </div>
