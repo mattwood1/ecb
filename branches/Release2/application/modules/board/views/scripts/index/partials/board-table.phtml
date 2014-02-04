@@ -1,9 +1,10 @@
 <table class="table">
    <thead>
        <tr>
-           <th>Car Reg</th>
-           <th>Make</th>
+           <th>Notes</th>
+           <th>Customer</th>
            <th>Model</th>
+           <th>ETA</th>
            <?php if ($this->auth()->isLoggedIn()): ?>
                <th>Action</th>
            <?php endif; ?>
@@ -13,10 +14,16 @@
        <?php foreach ($this->data as $data): ?>
        <tr>
            <td>
+               <?php // TODO: Note Count ?>
+               0</td>
+           <td>
+               <span class="customer"><?php echo $data->name; ?></span>
                <span class="numberPlateTable"><?php echo $data->carReg; ?>
            </td>
-           <td><?php echo $data->make; ?></td>
            <td><?php echo $data->model; ?></td>
+           <td>
+               <?php // TODO: ETA ?>
+               Days (INTEGER)</td>
            <?php if ($this->auth()->isLoggedIn()): ?>
                <td>
                     <div class="btn-group">
