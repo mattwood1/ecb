@@ -1,5 +1,5 @@
 <?php
-class Todo_Form_Todo extends Twitter_Form
+class Todo_Form_Todo extends Twitter_Bootstrap_Form_Horizontal
 {
     public function init()
     {
