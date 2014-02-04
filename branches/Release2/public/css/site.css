@@ -6,6 +6,10 @@
 	src: url(UKNumberPlate.ttf);
 }
 
+body {
+    background: linear-gradient(red 40%,black 60%);
+}
+
 /* Bootstrap Overrides */
 .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
     max-width: 1020px;
@@ -40,27 +44,21 @@ input.numberPlateTable, .numberPlateTable {
         background: grey;
         color: #ffffff; 
 }
-tr.grey {
-    background: rgba(120, 120, 120, 0.2);
-    }
+
 .label.green {
         background: green;
         color: #ffffff; 
         border: outset;
         border-color: #339933;
 }
-tr.green {
-    background: rgba(0,255,0,0.2);
-}
+
 .label.blue {
         background: blue;
         color: #ffffff; 
         border: outset;
         border-color: #0066CC;
 }
-tr.blue {
-    background: rgba(0,0,255,0.2);
-}
+
 .black {
         background: black;
         color: #ffffff;
@@ -72,18 +70,14 @@ tr.blue {
         border: outset;
         border-color: #FFFF00;
 }
-tr.yellow {
-    background: rgba(255, 255, 0, 0.2);
-}
+
 .label.red {
         background: red;
         color: #ffffff;
         border: outset;
         border-color: #CC0033;
 }
-tr.red {
-    background: rgba(255,0,0,0.2);
-}
+
 .label.purple {
         background: purple;
         color: #ffffff;
