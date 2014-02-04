@@ -1,7 +1,7 @@
 <table class="table">
    <thead>
        <tr>
-           <th>Notes</th>
+           <th><i class="icon-file-text-alt"></i></th>
            <th>Customer</th>
            <th>Model</th>
            <th>ETA</th>
@@ -13,9 +13,7 @@
    <tbody>
        <?php foreach ($this->data as $data): ?>
        <tr>
-           <td>
-               <?php // TODO: Note Count ?>
-               0</td>
+           <td><?php echo count($data->notes); ?></td>
            <td>
                <span class="customer"><?php echo $data->name; ?></span>
                <span class="numberPlateTable"><?php echo $data->carReg; ?>
