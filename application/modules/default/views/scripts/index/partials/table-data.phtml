@@ -4,14 +4,14 @@
         <tr>
             <th>Customer</th>
             <th>Site</th>
-            <th>Job source</th>
+            <th>Job Source</th>
             <th>Model</th>
             <?php if ($this->stage):?>
             <th>Stage</th>
             <?php endif; ?>
             <th>Days till ETA</th>
             <?php if ($this->dateBookedIn): ?>
-            <td>Date Booked In</td>
+            <th>Date Booked In</th>
             <?php endif; ?>
             <th>Action</th>
         </tr>
@@ -29,7 +29,7 @@
             </td>
             <td>
                 <?php // TODO: JOB SOURCE ?>
-                Job Source
+                Need DB Column
             </td>
             <td><?php echo $jobStatus->model; ?></td>
             <?php if ($this->stage): ?>
