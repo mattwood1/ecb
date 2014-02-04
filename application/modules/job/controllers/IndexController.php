@@ -58,7 +58,14 @@ class Job_IndexController extends Coda_Controller
         $jobCardForm = new Job_Form_JobCard(array('job' => $this->_request->getParam('job')));
 
         if ($this->_request->getParam('job')) {
-            $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('job'));
+            $jobQuery = ECB_Model_JobTable::getInstance()
+                ->createQuery('j')
+                ->innerJoin('j.notes n')
+                ->where('j.jobId = ?', $this->_request->getParam('job'))
+                ->orderBy('n.dateCreated DESC')
+            ;
+            $job = $jobQuery->execute();
+            $job = $job[0];
 
             if ($this->_request->isPost() && $jobForm->isValid($this->_request->getPost())) {
                 $job->fromArray(
@@ -372,7 +379,13 @@ class Job_IndexController extends Coda_Controller
             $this->_flash('Note Added');
         }
 
-        $job = Doctrine_Core::getTable('ECB_Model_Job')->findOneBy('jobId', $this->_request->getParam('jobId'));
+        $jobQuery = ECB_Model_JobTable::getInstance()
+            ->createQuery('j')
+            ->innerJoin('j.notes n')
+            ->where('j.jobId = ?', $this->_request->getParam('jobId'))
+            ->orderBy('n.dateCreated DESC');
+        $job = $jobQuery->execute();
+        $job = $job[0];
 
         $this->view->notes = $job->notes;
 
