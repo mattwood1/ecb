@@ -23,9 +23,14 @@ input.numberPlateTable, .numberPlateTable {
     padding: 3px;
     border: 1px solid black;
     border-radius: 3px;
+    margin: 0 auto;
 }
 .numberPlateTable td span  {
     text-align: center;
+}
+
+.customer {
+    font-weight: bold;
 }
 
 /* Status Colours */

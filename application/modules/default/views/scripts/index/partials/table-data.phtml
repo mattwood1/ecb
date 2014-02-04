@@ -2,15 +2,16 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Car Reg</th>
             <th>Customer</th>
-            <?php if ($this->postcode): ?>
-            <th>Postcode</th>
-            <?php endif; ?>
-            <th>Make</th>
+            <th>Site</th>
+            <th>Job source</th>
             <th>Model</th>
             <?php if ($this->stage):?>
             <th>Stage</th>
+            <?php endif; ?>
+            <th>Days till ETA</th>
+            <?php if ($this->dateBookedIn): ?>
+            <td>Date Booked In</td>
             <?php endif; ?>
             <th>Action</th>
         </tr>
@@ -19,17 +20,30 @@
         <?php foreach ($this->jobStatuses as $jobStatus): ?>
         <tr>
             <td>
+                <span class="customer"><?php echo $jobStatus->name; ?></span>
                 <span class="numberPlateTable"><?php echo $jobStatus->carReg; ?></span>
             </td>
-            <td><?php echo $jobStatus->name; ?></td>
-            <?php if ($this->postcode): ?>
-            <td><?php echo $jobStatus->postcode; ?></td>
-            <?php endif; ?>
-            <td><?php echo $jobStatus->make; ?></td>
+            <td>
+                <?php // TODO: SITE ?>
+                Need DB Column
+            </td>
+            <td>
+                <?php // TODO: JOB SOURCE ?>
+                Job Source
+            </td>
             <td><?php echo $jobStatus->model; ?></td>
             <?php if ($this->stage): ?>
-            <td><?php echo $jobStatus->process->label; ?></td>
+                <td><?php echo $jobStatus->process->label; ?></td>
             <?php endif; ?>
+            <td>
+                <?php // TODO: DAYS TILL ETA ?>
+                Days (INTEGER)
+            </td>
+            <?php if ($this->dateBookedIn): ?>
+                <td>
+                <?php // TODO: DATE BOOKED IN ?>
+                Need DB Column</td>
+            <?php endif;?>
             <td>
                 <div class="btn-group">
                     <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $jobStatus->jobId));?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
