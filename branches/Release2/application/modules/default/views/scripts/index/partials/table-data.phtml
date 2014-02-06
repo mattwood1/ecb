@@ -2,6 +2,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th><i class="icon-file-text-alt"></i></th>
             <th>Customer</th>
             <th>Site</th>
             <th>Job Source</th>
@@ -19,30 +20,20 @@
     <tbody>
         <?php foreach ($this->jobStatuses as $jobStatus): ?>
         <tr>
+            <td><?php echo count($jobStatus->notes); ?></td>
             <td>
                 <span class="customer"><?php echo $jobStatus->name; ?></span>
                 <span class="numberPlateTable"><?php echo $jobStatus->carReg; ?></span>
             </td>
-            <td>
-                <?php // TODO: SITE ?>
-                Need DB Column
-            </td>
-            <td>
-                <?php // TODO: JOB SOURCE ?>
-                Need DB Column
-            </td>
+            <td><?php echo $jobStatus->site ?></td>
+            <td><?php echo $jobStatus->jobSource; ?></td>
             <td><?php echo $jobStatus->model; ?></td>
             <?php if ($this->stage): ?>
                 <td><?php echo $jobStatus->process->label; ?></td>
             <?php endif; ?>
-            <td>
-                <?php // TODO: DAYS TILL ETA ?>
-                Days (INTEGER)
-            </td>
+            <td><?php $this->date($jobStatus->eta); ?></td>
             <?php if ($this->dateBookedIn): ?>
-                <td>
-                <?php // TODO: DATE BOOKED IN ?>
-                Need DB Column</td>
+                <td><?php echo $this->date($jobStatus->onSite); ?></td>
             <?php endif;?>
             <td>
                 <div class="btn-group">

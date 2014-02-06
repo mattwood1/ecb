@@ -16,6 +16,18 @@ class ECB_Model_Job extends Doctrine_Record
                 'length'              => '11',
         ));
 
+
+        $this->hasColumn('site', 'enum', null, array(
+                'type'                => 'enum',
+                'values'              => array('MK', 'Bedford', 'Northampton', 'Luton', 'Ayelsbury', 'St. Albans', 'Watford')
+        ));
+
+
+        $this->hasColumn('jobSource', 'enum', null, array(
+                'type'                => 'enum',
+                'values'              => array('CASH', 'TMI', 'INSURANCE', 'WARRANTY', 'INTERNAL', 'EASIDRIVE', 'OTHER')
+        ));
+
         $this->hasColumn('carReg', 'string', 1000, array(
                 'type'                => 'string',
                 'length'              => '1000',
@@ -217,6 +229,14 @@ class ECB_Model_Job extends Doctrine_Record
         $this->hasColumn('estPrep', 'string', 1000, array(
                 'type'                => 'string',
                 'length'              => '1000'
+        ));
+
+        $this->hasColumn('eta', 'date', null, array(
+                'type'                => 'date'
+        ));
+
+        $this->hasColumn('onSite', 'date', null, array(
+                'type'                => 'date'
         ));
 
         // Default Columns
