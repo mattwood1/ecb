@@ -3,18 +3,11 @@ class IndexController extends Coda_Controller
 {
     public function indexAction()
     {
-        $wip = Doctrine_Query::create()->select('*')->from('ECB_Model_Job')->where('jobStatusId = ?', '4');
-        $bookedIn = Doctrine_Query::create()->select('*')->from('ECB_Model_Job')->where('jobStatusId = ?', '3');
-        $toBeBookedIn = Doctrine_Query::create()->select('*')->from('ECB_Model_Job')->where('jobStatusId = ?', '2');
-        $rdyToInvoice = Doctrine_Query::create()->select('*')->from('ECB_Model_Job')->where('jobStatusId = ?', '5');
-        $statuses = Doctrine_Core::getTable('ECB_Model_JobStatus')->findAll();
-        $processes = Doctrine_Core::getTable('ECB_Model_JobProcess')->findAll();
+        $this->view->wip          = ECB_Model_JobTable::getInstance()->findBy('jobStatusId', ECB_Model_JobTable::WIP);
+        $this->view->bookedIn     = ECB_Model_JobTable::getInstance()->findBy('jobStatusId', ECB_Model_JobTable::BOOKED_IN);
+        $this->view->toBeBookedIn = ECB_Model_JobTable::getInstance()->findBy('jobStatusId', ECB_Model_JobTable::TO_BOOK_IN);
 
-        $this->view->wip = $wip->execute();
-        $this->view->rdyToInvoice = $rdyToInvoice->execute();
-        $this->view->bookedIn = $bookedIn->execute();
-        $this->view->toBeBookedIn = $toBeBookedIn->execute();
-        $this->view->statuses = $statuses;
-        $this->view->processes = $processes;
+        $this->view->statuses     = ECB_Model_JobStatusTable::getInstance()->findAll();;
+        $this->view->processes    = ECB_Model_JobProcessTable::getInstance()->findAll();
     }
 }
