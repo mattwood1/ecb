@@ -8,9 +8,7 @@ class ECB_Model_JobTable extends Doctrine_Record
     const TO_BOOK_IN = 2;
     const BOOKED_IN = 3;
     const WIP = 4;
-    const READY_TO_INVOICE = 5;
-    const INVOICED_OUT = 6;
-    const ARCHIVED = 7;
+    const COMPLETE = 5;
 
     public static function getInstance()
     {

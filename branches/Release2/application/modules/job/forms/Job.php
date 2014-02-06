@@ -3,6 +3,9 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Horizontal
 {
     public function init()
     {
+        $jobStatuses = new ECB_Model_JobStatusTable();
+        $jobProcesses = new ECB_Model_JobProcessTable();
+
         $this->addElement('text', 'insDate', array (
                 'label'     => 'Inspection Date',
                 'required'  => true,
@@ -142,29 +145,14 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Horizontal
         ));
 
         $this->addElement('select', 'jobStatusId', array(
-                'label' => 'Status',
-                 'multiOptions' => array(
-                        '1'      => 'Estimate',
-                        '2'      => 'To Book In',
-                        '3'      => 'Booked In',
-                        '4'      => 'W I P',
-                        '5'      => 'Ready To Invoice',
-                        '6'      => 'Invoiced Out',
-                        '7'      => 'Archived',),
-                'class' => 'span12'
+                'label'        => 'Status',
+                'multiOptions' => $jobStatuses->getPairs(),
+                'class'        => 'span12'
         ));
 
         $this->addElement('select', 'jobProcessId', array(
                 'label' => 'Stage of Process',
-                'multiOptions' => array (
-                        '1'      => 'Strip',
-                        '2'      => 'Fit',
-                        '3'      => 'Paint',
-                        '4'      => 'Repair',
-                        '5'      => 'Prime',
-                        '6'      => 'Polish / Wash',
-                        '7'      => 'Complete',),
-
+                'multiOptions' => $jobProcesses->getPairs(),
                 'class' => 'span12'
         ));
 
