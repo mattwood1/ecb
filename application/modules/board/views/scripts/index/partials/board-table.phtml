@@ -1,45 +1,60 @@
-<table class="table">
-   <thead>
-       <tr>
-           <th><i class="icon-file-text-alt"></i></th>
-           <th>Customer</th>
-           <th>Model</th>
-           <th>ETA</th>
-           <?php if ($this->auth()->isLoggedIn()): ?>
-               <th>Action</th>
-           <?php endif; ?>
-       </tr>
-   </thead>
-   <tbody>
-       <?php foreach ($this->data as $data): ?>
-       <tr>
-           <td><?php echo count($data->notes); ?></td>
-           <td>
-               <span class="customer"><?php echo $data->name; ?></span>
-               <span class="numberPlateTable"><?php echo $data->carReg; ?>
-           </td>
-           <td><?php echo $data->model; ?></td>
-           <td><?php echo $this->date($data->eta); ?></td>
-           <?php if ($this->auth()->isLoggedIn()): ?>
-               <td>
-                    <div class="btn-group">
-                        <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $data->jobId));?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
-                        <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-submenu pull-left"><a>Stage</a>
+<?php
+$jobTable = new ECB_Model_JobTable();
+$jobProcess = ECB_Model_JobProcessTable::getInstance()->findOneBy('jobProcessId', $this->jobProcesses);
+$jobs = $jobTable->getJobs(array(ECB_Model_JobStatus::WIP), $this->jobProcesses);
+
+
+?>
+
+<div class="box">
+    <div class="box-header">
+        <span class="title"><?php echo $jobProcess->label; ?></span>
+    </div>
+    <div class="box-content padded">
+        <table class="table">
+           <thead>
+               <tr>
+                   <th><i class="icon-file-text-alt"></i></th>
+                   <th>Customer</th>
+                   <th>Model</th>
+                   <th>ETA</th>
+                   <?php if ($this->auth()->isLoggedIn()): ?>
+                       <th>Action</th>
+                   <?php endif; ?>
+               </tr>
+           </thead>
+           <tbody>
+               <?php foreach ($jobs as $data): ?>
+               <tr class="<?php echo strtolower($data->jobSource); ?>">
+                   <td><?php echo count($data->notes); ?></td>
+                   <td>
+                       <span class="customer"><?php echo $data->name; ?></span>
+                       <span class="numberPlateTable"><?php echo $data->carReg; ?>
+                   </td>
+                   <td><?php echo $data->model; ?></td>
+                   <td><?php echo $this->date($data->eta); ?></td>
+                   <?php if ($this->auth()->isLoggedIn()): ?>
+                       <td>
+                            <div class="btn-group">
+                                <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $data->jobId));?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
+                                <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                </button>
                                 <ul class="dropdown-menu">
-                                    <?php foreach ($this->processes as $process): ?>
-                                    <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'set-process', 'job' => $data->jobId, 'process' => $process->jobProcessId));?>" class="modalConfirm" data-modalmessage="You are changing this to <?php echo $process->label; ?>"><?php echo $process->label; ?></a></li>
-                                    <?php endforeach; ?>
+                                    <li class="dropdown-submenu pull-left"><a>Stage</a>
+                                        <ul class="dropdown-menu">
+                                            <?php foreach ($this->processes as $process): ?>
+                                            <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'set-process', 'job' => $data->jobId, 'process' => $process->jobProcessId));?>" class="modalConfirm" data-modalmessage="You are changing this to <?php echo $process->label; ?>"><?php echo $process->label; ?></a></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </li>
                                 </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-            <?php endif; ?>
-       </tr>
-       <?php endforeach; ?>
-   </tbody>
-</table>
+                            </div>
+                        </td>
+                    <?php endif; ?>
+               </tr>
+               <?php endforeach; ?>
+           </tbody>
+        </table>
+    </div>
+</div>
