@@ -85,6 +85,10 @@ input.numberPlateTable, .numberPlateTable {
         border: outset;
         border-color: #FF99CC;
 }
+tr.tmi {
+    background: rgba(255,0,0,0.2);
+}
+
 tr.purple {
     background: rgba(128, 0, 128,0.2);
 }
