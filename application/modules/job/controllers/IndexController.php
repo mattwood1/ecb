@@ -4,27 +4,27 @@ class Job_IndexController extends Coda_Controller
     public function indexAction()
     {
         $jobTable = new ECB_Model_JobTable();
-        $jobTable->getJobs();
+        $jobs = $jobTable->getJobs(array($this->_request->getParam('status')));
 
         if ($this->_request->getParam('keyword')) {
             $jobTable->searchJobs($this->_request->getParam('keyword'));
         }
-
+/*
         if ($this->_request->getParam('status')) {
             $jobTable->filterStatus($this->_request->getParam('status'));
         }
-
+*/
         if ($this->_request->getParam('process')) {
             $jobTable->filterProcess($this->_request->getParam('process'));
         }
 
-        $jobTable->orderJobs('dateModified DESC');
-        $jobs = $jobTable->getQuery();
+        //$jobTable->orderJobs('dateModified DESC');
+        //$jobs = $jobTable->getQuery();
 
-        $statuses = Doctrine_Core::getTable('ECB_Model_JobStatus')->findAll();
-        $processes = Doctrine_Core::getTable('ECB_Model_JobProcess')->findAll();
+        $statuses = ECB_Model_JobStatusTable::getInstance()->findAll();
+        $processes = ECB_Model_JobProcessTable::getInstance()->findAll();
 
-        $this->view->jobs = $jobs->execute();
+        $this->view->jobs = $jobs;
         $this->view->statuses = $statuses;
         $this->view->processes = $processes;
     }

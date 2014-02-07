@@ -15,7 +15,7 @@
     </thead>
     <tbody>
     <?php foreach ($this->jobs as $job): ?>
-        <tr class="<?php echo strtolower($job->status->class); ?>">
+        <tr class="<?php echo strtolower($job->jobSource); ?>">
             <td><?php echo count($job->notes); ?></td>
             <td>
                 <span class="customer"><?php echo $job->name; ?></span>
@@ -44,7 +44,7 @@
                                 <?php endforeach; ?>
                             </ul>
                         </li>
-                        <?php if ($job->jobStatusId == ECB_Model_JobStatusTable::WIP): ?>
+                        <?php if ($job->jobStatusId == ECB_Model_JobStatus::WIP): ?>
                         <li class="dropdown-submenu pull-left"><a>Stage</a>
                             <ul class="dropdown-menu">
                                 <?php foreach ($this->processes as $process): ?>
