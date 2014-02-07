@@ -1,70 +1,87 @@
-<?php if ($this->jobStatuses->toArray()): ?>
-<table class="table">
-    <thead>
-        <tr>
-            <th><i class="icon-file-text-alt"></i></th>
-            <th>Customer</th>
-            <th>Site</th>
-            <th>Job Source</th>
-            <th>Model</th>
-            <?php if ($this->stage):?>
-            <th>Stage</th>
+<?php
+$jobTable = new ECB_Model_JobTable();
+$jobStatus = ECB_Model_JobStatusTable::getInstance()->findOneBy('jobStatusId', $this->jobStatus);
+$this->jobs = $jobTable->getJobs($this->jobStatus);
+
+?>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box">
+            <div class="box-header">
+                <span class="title"><?php echo $jobStatus->label; ?></span>
+            </div>
+            <div class="box-content padded">
+            <?php if ($this->jobs->toArray()): ?>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><i class="icon-file-text-alt"></i></th>
+                            <th>Customer</th>
+                            <th>Site</th>
+                            <th>Job Source</th>
+                            <th>Model</th>
+                            <?php if ($this->stage):?>
+                            <th>Stage</th>
+                            <?php endif; ?>
+                            <th>Days till ETA</th>
+                            <?php if ($this->dateBookedIn): ?>
+                            <th>Date Booked In</th>
+                            <?php endif; ?>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->jobs as $jobStatus): ?>
+                        <tr class="<?php echo strtolower($jobStatus->jobSource); ?>">
+                            <td><?php echo count($jobStatus->notes); ?></td>
+                            <td>
+                                <span class="customer"><?php echo $jobStatus->name; ?></span>
+                                <span class="numberPlateTable"><?php echo $jobStatus->carReg; ?></span>
+                            </td>
+                            <td><?php echo $jobStatus->site ?></td>
+                            <td><?php echo $jobStatus->jobSource; ?></td>
+                            <td><?php echo $jobStatus->model; ?></td>
+                            <?php if ($this->stage): ?>
+                                <td><?php echo $jobStatus->process->label; ?></td>
+                            <?php endif; ?>
+                            <td><?php echo $this->date($jobStatus->eta); ?></td>
+                            <?php if ($this->dateBookedIn): ?>
+                                <td><?php echo $this->date($jobStatus->onSite); ?></td>
+                            <?php endif;?>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $jobStatus->jobId));?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
+                                    <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-submenu pull-left"><a>Status</a>
+                                            <ul class="dropdown-menu">
+                                                <?php foreach ($this->statuses as $status): ?>
+                                                <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'set-status', 'job' => $jobStatus->jobId, 'status' => $status->jobStatusId));?>" class="modalConfirm" data-modalmessage="You are changing this to <?php echo $status->label; ?>"><?php echo $status->label; ?></a></li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </li>
+                                        <?php if ($this->stage): ?>
+                                        <li class="dropdown-submenu pull-left"><a>Stage</a>
+                                            <ul class="dropdown-menu">
+                                                <?php foreach ($this->processes as $process): ?>
+                                                <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'set-process', 'job' => $jobStatus->jobId, 'process' => $process->jobProcessId));?>" class="modalConfirm" data-modalmessage="You are changing this to <?php echo $process->label; ?>"><?php echo $process->label; ?></a></li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                   </tbody>
+                </table>
+            <?php else: ?>
+                <p>There are no jobs to show.</p>
             <?php endif; ?>
-            <th>Days till ETA</th>
-            <?php if ($this->dateBookedIn): ?>
-            <th>Date Booked In</th>
-            <?php endif; ?>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($this->jobStatuses as $jobStatus): ?>
-        <tr class="<?php echo strtolower($jobStatus->jobSource); ?>">
-            <td><?php echo count($jobStatus->notes); ?></td>
-            <td>
-                <span class="customer"><?php echo $jobStatus->name; ?></span>
-                <span class="numberPlateTable"><?php echo $jobStatus->carReg; ?></span>
-            </td>
-            <td><?php echo $jobStatus->site ?></td>
-            <td><?php echo $jobStatus->jobSource; ?></td>
-            <td><?php echo $jobStatus->model; ?></td>
-            <?php if ($this->stage): ?>
-                <td><?php echo $jobStatus->process->label; ?></td>
-            <?php endif; ?>
-            <td><?php echo $this->date($jobStatus->eta); ?></td>
-            <?php if ($this->dateBookedIn): ?>
-                <td><?php echo $this->date($jobStatus->onSite); ?></td>
-            <?php endif;?>
-            <td>
-                <div class="btn-group">
-                    <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $jobStatus->jobId));?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
-                    <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-submenu pull-left"><a>Status</a>
-                            <ul class="dropdown-menu">
-                                <?php foreach ($this->statuses as $status): ?>
-                                <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'set-status', 'job' => $jobStatus->jobId, 'status' => $status->jobStatusId));?>" class="modalConfirm" data-modalmessage="You are changing this to <?php echo $status->label; ?>"><?php echo $status->label; ?></a></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </li>
-                        <?php if ($this->stage): ?>
-                        <li class="dropdown-submenu pull-left"><a>Stage</a>
-                            <ul class="dropdown-menu">
-                                <?php foreach ($this->processes as $process): ?>
-                                <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'set-process', 'job' => $jobStatus->jobId, 'process' => $process->jobProcessId));?>" class="modalConfirm" data-modalmessage="You are changing this to <?php echo $process->label; ?>"><?php echo $process->label; ?></a></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </li>
-                        <?php endif; ?>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-   </tbody>
-</table>
-<?php else: ?>
-<p>There are no jobs to show.</p>
-<?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>

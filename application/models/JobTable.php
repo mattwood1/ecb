@@ -20,9 +20,15 @@ class ECB_Model_JobTable extends Doctrine_Record
         return $this->_query;
     }
 
-    public function getJobs()
+    public function getJobs(array $status, array $process = array())
     {
-        $this->_query = $this->getInstance()->createQuery('j');
+        $query = $this->getInstance()->createQuery('j')
+                ->whereIn('jobStatusId', $status)
+                ->orderBy('CASE jobSource WHEN "TMI" THEN 1 ELSE 2 END ');
+        if ($process) {
+            $query->whereIn('jobProcessId', $process);
+        }
+        return $query->execute();
     }
 
     public function orderJobs($params)
