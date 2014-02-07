@@ -7,102 +7,60 @@
 
 <div class="row-fluid">
     <div class="span6">
-        <div class="box">
-            <div class="box-header">
-                <span class="title">Strip</span>
-            </div>
-            <div class="box-content padded">
-                <?php if ($this->strip->toArray()): ?>
-                    <?php echo $this->partial('index/partials/board-table.phtml', array(
-                            'data' => $this->strip,
-                            'processes' => $this->processes
-                    ))?>
-               <?php endif; ?>
-            </div>
-        </div>
+        <?php if ($this->strip->toArray()): ?>
+            <?php echo $this->partial('index/partials/board-table.phtml', array(
+                    'processes' => $this->processes,
+                    'jobProcesses' => array(ECB_Model_JobProcess::STRIP)
+            ))?>
+       <?php endif; ?>
     </div>
 
     <div class="span6">
-        <div class="box">
-            <div class="box-header">
-                <span class="title">Polish / Fit</span>
-            </div>
-            <div class="box-content padded">
-                <?php if ($this->polishFit->toArray()): ?>
-                    <?php echo $this->partial('index/partials/board-table.phtml', array(
-                            'data' => $this->polishFit,
-                            'processes' => $this->processes
-                    ))?>
-               <?php endif; ?>
-            </div>
-        </div>
+        <?php if ($this->polishFit->toArray()): ?>
+            <?php echo $this->partial('index/partials/board-table.phtml', array(
+                    'processes' => $this->processes,
+                    'jobProcesses' => array(ECB_Model_JobProcess::POLISH_FIT)
+            ))?>
+       <?php endif; ?>
     </div>
 </div>
 
 <div class="row-fluid">
     <div class="span6">
-        <div class="box">
-            <div class="box-header">
-                <span class="title">Paint</span>
-            </div>
-            <div class="box-content padded">
-                <?php if ($this->paint->toArray()): ?>
-                    <?php echo $this->partial('index/partials/board-table.phtml', array(
-                            'data' => $this->paint,
-                            'processes' => $this->processes
-                    ))?>
-               <?php endif; ?>
-            </div>
-        </div>
+        <?php if ($this->paint->toArray()): ?>
+            <?php echo $this->partial('index/partials/board-table.phtml', array(
+                    'processes' => $this->processes,
+                    'jobProcesses' => array(ECB_Model_JobProcess::PAINT)
+            ))?>
+       <?php endif; ?>
     </div>
 
     <div class="span6">
-        <div class="box">
-            <div class="box-header">
-                <span class="title">Repair</span>
-            </div>
-            <div class="box-content padded">
-                <?php if ($this->repair->toArray()): ?>
-                    <?php echo $this->partial('index/partials/board-table.phtml', array(
-                            'data' => $this->repair,
-                            'processes' => $this->processes
-                    ))?>
-               <?php endif; ?>
-            </div>
-        </div>
+        <?php if ($this->repair->toArray()): ?>
+            <?php echo $this->partial('index/partials/board-table.phtml', array(
+                    'processes' => $this->processes,
+                    'jobProcesses' => array(ECB_Model_JobProcess::REPAIR)
+            ))?>
+       <?php endif; ?>
     </div>
 </div>
 
 <div class="row-fluid">
     <div class="span6">
-        <div class="box">
-            <div class="box-header">
-                <span class="title">Prime</span>
-            </div>
-            <div class="box-content padded">
-                <?php if ($this->prime->toArray()): ?>
-                    <?php echo $this->partial('index/partials/board-table.phtml', array(
-                            'data' => $this->prime,
-                            'processes' => $this->processes
-                    ))?>
-               <?php endif; ?>
-              </div>
-        </div>
+        <?php if ($this->prime->toArray()): ?>
+            <?php echo $this->partial('index/partials/board-table.phtml', array(
+                    'processes' => $this->processes,
+                    'jobProcesses' => array(ECB_Model_JobProcess::PRIME)
+            ))?>
+       <?php endif; ?>
     </div>
 
     <div class="span6">
-        <div class="box">
-            <div class="box-header">
-                <span class="title">Wash</span>
-            </div>
-            <div class="box-content padded">
-                <?php if ($this->wash->toArray()): ?>
-                    <?php echo $this->partial('index/partials/board-table.phtml', array(
-                            'data' => $this->wash,
-                            'processes' => $this->processes
-                    ))?>
-                <?php endif; ?>
-            </div>
-        </div>
+        <?php if ($this->wash->toArray()): ?>
+            <?php echo $this->partial('index/partials/board-table.phtml', array(
+                    'processes' => $this->processes,
+                    'jobProcesses' => array(ECB_Model_JobProcess::WASH)
+            ))?>
+        <?php endif; ?>
     </div>
 </div>
