@@ -1,56 +1,23 @@
 <h1><i class="icon-dashboard"></i> Dashboard</h1>
 
-<div class="row-fluid">
-    <div class="span12">
-        <div class="box">
-            <div class="box-header">
-                <span class="title"><i class="icon-cogs"></i> W I P</span>
-            </div>
-            <div class="box-content padded">
-                <?php echo $this->partial('index/partials/table-data.phtml', array(
-                        'jobStatuses' => $this->wip,
-                        'statuses' => $this->statuses,
-                        'processes' => $this->processes,
-                        'stage' => true
-                    )); ?>
-            </div>
-        </div>
-    </div>
-</div>
+<?php
+echo $this->partial('index/partials/table-data.phtml', array(
+    'stage' => true,
+    'jobStatus' => array(ECB_Model_JobStatus::WIP),
+    'statuses' => $this->statuses,
+    'processes' => $this->processes
+));
 
-<div class="row-fluid">
-    <div class="span12">
-        <div class="box">
-            <div class="box-header">
-                <span class="title">Booked In</span>
-            </div>
-            <div class="box-content padded">
-                <?php echo $this->partial('index/partials/table-data.phtml', array(
-                        'jobStatuses' => $this->bookedIn,
-                        'statuses' => $this->statuses,
-                        'processes' => $this->processes,
-                        'stage' => false,
-                        'dateBookedIn' => true
-                    )); ?>
-            </div>
-        </div>
-    </div>
-</div>
+echo $this->partial('index/partials/table-data.phtml', array(
+    'stage' => false,
+    'dateBookedIn' => true,
+    'jobStatus' => array(ECB_Model_JobStatus::BOOKED_IN),
+    'statuses' => $this->statuses
+));
 
-<div class="row-fluid">
-    <div class="span12">
-        <div class="box">
-            <div class="box-header">
-                <span class="title">To be Booked In</span>
-            </div>
-            <div class="box-content padded">
-                <?php echo $this->partial('index/partials/table-data.phtml', array(
-                        'jobStatuses' => $this->toBeBookedIn,
-                        'statuses' => $this->statuses,
-                        'processes' => $this->processes,
-                        'stage' => false
-                    )); ?>
-            </div>
-        </div>
-    </div>
-</div>
+echo $this->partial('index/partials/table-data.phtml', array(
+    'stage' => false,
+    'jobStatus' => array(ECB_Model_JobStatus::TO_BOOK_IN),
+    'statuses' => $this->statuses
+));
+?>

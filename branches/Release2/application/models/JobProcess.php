@@ -1,6 +1,13 @@
 <?php
 class ECB_Model_JobProcess extends Doctrine_Record
 {
+    const STRIP = 1;
+    const POLISH_FIT = 2;
+    const PAINT = 3;
+    const REPAIR = 4;
+    const PRIME = 5;
+    const WASH = 6;
+    const COMPLETE = 7;
 
     public function setTableDefinition()
     {
