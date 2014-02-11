@@ -6,6 +6,7 @@ class Coda_View_Helper_Date extends Zend_View_Helper_Abstract
     const DATETIME  = 'd/m/Y H:i';
     const SHORTTEXT = 'j M Y';
     const SQL       = 'Y-m-d H:i:s';
+    const ETA       = 'ETA';
 
     public function date($date = null, $format = null)
     {
@@ -21,6 +22,13 @@ class Coda_View_Helper_Date extends Zend_View_Helper_Abstract
 
         $format = $format ? $format : self::DATE;
 
-        return date($format, $date);
+        if ($format != self::ETA) {
+            return date($format, $date);
+        } else {
+            $days = ceil(($date - mktime()) / (60 * 60 * 24));
+            $daysRemainder = $days - (floor($days / 7) * 7);
+            $workingDays = (floor($days / 7) * 5) + $daysRemainder;
+            return $workingDays;
+        }
     }
 }

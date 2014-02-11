@@ -44,7 +44,7 @@ $this->jobs = $jobTable->getJobs($this->jobStatus);
                             <?php if ($this->stage): ?>
                                 <td><?php echo $jobStatus->process->label; ?></td>
                             <?php endif; ?>
-                            <td><?php echo $this->date($jobStatus->eta); ?></td>
+                            <td><?php echo $this->date($jobStatus->eta, Coda_View_Helper_Date::ETA); ?></td>
                             <?php if ($this->dateBookedIn): ?>
                                 <td><?php echo $this->date($jobStatus->onSite); ?></td>
                             <?php endif;?>
