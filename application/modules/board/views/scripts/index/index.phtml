@@ -64,3 +64,14 @@
         <?php endif; ?>
     </div>
 </div>
+
+<div class="row-fluid">
+    <div class="span12">
+        <?php if ($this->prime->toArray()): ?>
+            <?php echo $this->partial('index/partials/board-table.phtml', array(
+                    'processes' => $this->processes,
+                    'jobProcesses' => array(ECB_Model_JobProcess::COMPLETE)
+            ))?>
+       <?php endif; ?>
+    </div>
+</div>
