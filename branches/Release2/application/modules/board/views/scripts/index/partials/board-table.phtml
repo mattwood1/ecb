@@ -28,8 +28,8 @@ $jobs = $jobTable->getJobs(array(ECB_Model_JobStatus::WIP), $this->jobProcesses)
                <tr class="<?php echo strtolower($data->jobSource); ?>">
                    <td><?php echo count($data->notes); ?></td>
                    <td>
+                       <span class="numberPlateTable"><?php echo $data->carReg; ?></span>
                        <span class="customer"><?php echo $data->name; ?></span>
-                       <span class="numberPlateTable"><?php echo $data->carReg; ?>
                    </td>
                    <td><?php echo $data->model; ?></td>
                    <td><?php echo $this->date($data->eta, Coda_View_Helper_Date::ETA); ?></td>
