@@ -9,13 +9,7 @@ class User_Form_Registration extends Twitter_Bootstrap_Form_Horizontal
                 "required" => true
        ))
 
-        ->addElement("text", "username", array(
-                "label" => "Username",
-                "placeholder" => "Your username",
-                "required" => true
-       ))
-
-        ->addElement("text", "email", array(
+       ->addElement("text", "email", array(
                 "label" => "Email Address",
                 "required" => true,
                 "placeholder" => "Your email address",
