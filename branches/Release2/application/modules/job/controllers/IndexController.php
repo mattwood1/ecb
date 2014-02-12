@@ -10,6 +10,7 @@ class Job_IndexController extends Coda_Controller
         $processes = ECB_Model_JobProcessTable::getInstance()->findAll();
 
         $this->view->jobs = $jobs;
+        $this->view->status = $this->_request->getParam('status');
         $this->view->statuses = $statuses;
         $this->view->processes = $processes;
     }
