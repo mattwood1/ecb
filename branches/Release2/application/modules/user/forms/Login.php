@@ -10,7 +10,7 @@ class User_Form_Login extends Twitter_Bootstrap_Form_Vertical
         //    "label" => "Email",
                 'required'    => true,
                 'placeholder' => 'Your email address',
-                'prepend'       => '<i class="icon-user"></i>',
+                'prepend'       => '<i class="fa fa-user"></i>',
                 'class' => 'span12'
         ))
 
@@ -18,7 +18,7 @@ class User_Form_Login extends Twitter_Bootstrap_Form_Vertical
         //    "label" => "Password",
                 'required' => true,
                 'placeholder' => 'Your password',
-                'prepend' => '<i class="icon-lock"></i>',
+                'prepend' => '<i class="fa fa-lock"></i>',
                 'class' => 'span12'
         ))
 

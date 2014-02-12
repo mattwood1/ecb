@@ -15,7 +15,7 @@ $this->jobs = $jobTable->getJobs($this->jobStatus);
                 <table class="table">
                     <thead>
                         <tr>
-                            <th><i class="icon-file-text-alt"></i></th>
+                            <th><i class="fa fa-file-text-alt"></i></th>
                             <th>Customer</th>
                             <th>Site</th>
                             <th>Job Source</th>
@@ -50,7 +50,7 @@ $this->jobs = $jobTable->getJobs($this->jobStatus);
                             <?php endif;?>
                             <td>
                                 <div class="btn-group">
-                                    <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $jobStatus->jobId));?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
+                                    <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $jobStatus->jobId));?>" class="btn btn-mini"><i class="fa fa-edit"></i> Edit</a>
                                     <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
                                         <span class="caret"></span>
                                     </button>
