@@ -14,7 +14,7 @@ $jobs = $jobTable->getJobs(array(ECB_Model_JobStatus::WIP), $this->jobProcesses)
         <table class="table">
            <thead>
                <tr>
-                   <th><i class="icon-file-text-alt"></i></th>
+                   <th><i class="fa fa-file-text-alt"></i></th>
                    <th>Customer</th>
                    <th>Model</th>
                    <th>ETA</th>
@@ -36,7 +36,7 @@ $jobs = $jobTable->getJobs(array(ECB_Model_JobStatus::WIP), $this->jobProcesses)
                    <?php if ($this->auth()->isLoggedIn()): ?>
                        <td>
                             <div class="btn-group">
-                                <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $data->jobId));?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
+                                <a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'edit', 'job' => $data->jobId));?>" class="btn btn-mini"><i class="fa fa-edit"></i> Edit</a>
                                 <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
                                     <span class="caret"></span>
                                 </button>

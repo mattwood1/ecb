@@ -1,31 +1,31 @@
 <?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/todo.css') ?>
 
-<h1><i class="icon-tasks"></i> To Do List</h1>
+<h1><i class="fa fa-tasks"></i> To Do List</h1>
 
-<a href="<?php echo $this->url(array('action' => 'add')); ?>" class="btn btn-primary"><i class="icon-plus icon-white"></i> Add To Do</a>
+<a href="<?php echo $this->url(array('action' => 'add')); ?>" class="btn btn-primary"><i class="fa fa-plus fa fa-white"></i> Add To Do</a>
 
 <ul id="todoList">
 
     <?php foreach ($this->todos as $todo): ?>
     <li class="<?php echo strtolower($todo->status); ?>">
         <div class="btn-group pull-right">
-            <a href="<?php echo $this->url(array('action' => 'edit', 'todoId' => $todo->todoId))?>" class="btn btn-mini"><i class="icon-edit"></i> Edit</a>
-            <a href="<?php echo $this->url(array('action' => 'delete', 'todoId' => $todo->todoId)); ?>" class="btn btn-mini modalConfirm" data-modalmessage="Are you sure you want to delete this todo item"><i class="icon-remove"></i> Delete</a>
+            <a href="<?php echo $this->url(array('action' => 'edit', 'todoId' => $todo->todoId))?>" class="btn btn-mini"><i class="fa fa-edit"></i> Edit</a>
+            <a href="<?php echo $this->url(array('action' => 'delete', 'todoId' => $todo->todoId)); ?>" class="btn btn-mini modalConfirm" data-modalmessage="Are you sure you want to delete this todo item"><i class="fa fa-remove"></i> Delete</a>
         </div>
 
         <?php
         switch ($todo->status) {
             case 'DONE':
-                echo '<i class="icon-ok"></i>';
+                echo '<i class="fa fa-ok"></i>';
                 break;
             case 'TODO':
-                echo '<i class="icon-star"></i>';
+                echo '<i class="fa fa-star"></i>';
                 break;
             case 'INFO':
-                echo '<i class="icon-flag"></i>';
+                echo '<i class="fa fa-flag"></i>';
                 break;
             case 'FAULT':
-                echo '<i class="icon-warning-sign"></i>';
+                echo '<i class="fa fa-warning-sign"></i>';
                 break;
         }
         ?>

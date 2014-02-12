@@ -34,11 +34,11 @@ class Coda_View_Helper_Flash extends Zend_View_Helper_Abstract
     {
         switch ($type) {
             case Coda_Helper_Flash::ERROR:
-                return 'icon-exclamation-sign';
+                return 'fa fa-exclamation-sign';
             case Coda_Helper_Flash::INFO;
-                return 'icon-info-sign';
+                return 'fa fa-info-sign';
             case Coda_Helper_Flash::SUCCESS:
-                return 'icon-ok';
+                return 'fa fa-ok';
         }
     }
 }

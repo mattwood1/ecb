@@ -1,11 +1,11 @@
 <?php echo $this->headScript()->appendFile("/js/job/search.js") ?>
 
-<h1><i class="icon-wrench"></i> Jobs</h1>
+<h1><i class="fa fa-wrench"></i> Jobs</h1>
 
 <form id="jobSearch" class="form-inline ajax">
     <input type="search" name="keyword" placeholder="Keyword" />
     <input type="submit" value="Search" />
-    <a href="<?php echo $this->url(array('action' => 'add')); ?>" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i> Add Job</a>
+    <a href="<?php echo $this->url(array('action' => 'add')); ?>" class="btn btn-primary pull-right"><i class="fa fa-plus fa fa-white"></i> Add Job</a>
 </form>
 
 <div id="resultContent">
