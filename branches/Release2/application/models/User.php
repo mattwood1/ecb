@@ -16,11 +16,6 @@ class ECB_Model_User extends Doctrine_Record
                 'length'              => '11',
         ));
 
-        $this->hasColumn('username', 'string', 1000, array(
-                'type'                => 'string',
-                'length'              => '1000'
-        ));
-
         $this->hasColumn('password', 'string', 1000, array(
                 'type'                => 'string',
                 'length'              => '1000'
