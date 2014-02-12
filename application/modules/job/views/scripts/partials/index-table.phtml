@@ -4,12 +4,25 @@
         <tr>
             <th><i class="fa fa-file-text-alt"></i></th>
             <th>Customer</th>
+            <?php if ($this->status == 4): ?>
+            <th>Co-Ord</th>
+            <?php endif; ?>
+            <th>Site</th>
             <th>Model</th>
+            <?php if (in_array($this->status, array(2,3,4))): ?>
+            <th>Loan Car</th>
+            <th>Job Source</th>
+            <?php endif; ?>
+            <?php if ($this->status == 4): ?>
+            <th>Stage</th>
+            <th>ETA</th>
+            <th>Lead Time</th>
+            <?php endif; ?>
+            <?php if ($this->status == 3): ?>
+            <th>Booked In Date</th>
+            <?php endif;?>
             <th>Status</th>
-            <th class="hidden-phone hidden-tablet">Vin No.</th>
-            <th class="hidden-phone hidden-tablet">Postcode</th>
-            <th class="hidden-phone hidden-tablet">Modified</th>
-            <th class="hidden-phone hidden-tablet">Created</th>
+            <th>Created</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -21,14 +34,27 @@
                 <span class="numberPlateTable"><?php echo $job->carReg; ?></span>
                 <span class="customer"><?php echo $job->name; ?></span>
             </td>
+            <?php if ($this->status == 4): ?>
+            <td><?php echo $job->coordinator; ?></td>
+            <?php endif; ?>
+            <td><span class="label site <?php echo strtolower(str_replace(".", "", str_replace(" ", "", $job->site))); ?>"><?php echo $job->site ?></span></td>
             <td><?php echo $job->model; ?></td>
+            <?php if (in_array($this->status, array(2,3,4))): ?>
+            <td>LOAN CAR</td>
+            <td><?php echo $job->jobSource; ?></td>
+            <?php endif;?>
+            <?php if ($this->status == 4): ?>
+            <td><?php echo $job->process->label; ?></td>
+            <td><span title="<?php echo $this->date($job->onSite, Coda_View_Helper_Date::DATE); ?>"><?php echo $this->date($job->eta, Coda_View_Helper_Date::ETA); ?></span></td>
+            <td><?php echo ($this->date($job->onSite, Coda_View_Helper_Date::ETA) * -1); ?></td>
+            <?php endif; ?>
+            <?php if ($this->status == 3): ?>
+            <td>Booked In Date</td>
+            <?php endif;?>
             <td>
                 <span class="label <?php echo strtolower($job->status->class); ?>"><?php echo $job->status->label; ?></span>
             </td>
-            <td class="small hidden-phone hidden-tablet"><?php echo $job->vin; ?></td>
-            <td class="hidden-phone hidden-tablet"><?php echo $job->postcode; ?></td>
-            <td class="small hidden-phone hidden-tablet"><?php echo $this->date($job->dateModified, Coda_View_Helper_Date::DATETIME); ?></td>
-            <td class="small hidden-phone hidden-tablet"><?php echo $this->date($job->dateCreated, Coda_View_Helper_Date::DATETIME); ?></td>
+            <td><?php echo $this->date($job->dateCreated, Coda_View_Helper_Date::DATE); ?></td>
 
             <td>
                 <div class="btn-group">

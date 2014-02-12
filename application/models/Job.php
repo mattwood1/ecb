@@ -231,6 +231,11 @@ class ECB_Model_Job extends Doctrine_Record
                 'length'              => '1000'
         ));
 
+        $this->hasColumn('coordinator', 'string', 1000, array(
+                'type'                => 'string',
+                'length'              => '1000'
+        ));
+
         $this->hasColumn('eta', 'date', null, array(
                 'type'                => 'date'
         ));

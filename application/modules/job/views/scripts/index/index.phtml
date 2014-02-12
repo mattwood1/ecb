@@ -9,6 +9,11 @@
 </form>
 
 <div id="resultContent">
-    <?php echo $this->partial('partials/index-table.phtml', array('jobs' => $this->jobs, 'statuses' => $this->statuses, 'processes' => $this->processes)); ?>
+    <?php echo $this->partial('partials/index-table.phtml', array(
+            'jobs' => $this->jobs,
+            'status' => $this->status,
+            'statuses' => $this->statuses,
+            'processes' => $this->processes
+            )); ?>
 </div>
 
