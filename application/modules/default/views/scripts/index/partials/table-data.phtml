@@ -35,8 +35,8 @@ $this->jobs = $jobTable->getJobs($this->jobStatus);
                         <tr class="<?php echo strtolower($jobStatus->jobSource); ?>">
                             <td><?php echo count($jobStatus->notes); ?></td>
                             <td>
-                                <span class="customer"><?php echo $jobStatus->name; ?></span>
                                 <span class="numberPlateTable"><?php echo $jobStatus->carReg; ?></span>
+                                <span class="customer"><?php echo $jobStatus->name; ?></span>
                             </td>
                             <td><?php echo $jobStatus->site ?></td>
                             <td><?php echo $jobStatus->jobSource; ?></td>
