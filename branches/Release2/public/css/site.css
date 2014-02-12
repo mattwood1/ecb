@@ -218,3 +218,51 @@ h2.center {
 #images .thumb, #images .thumb > * {
     display: inline-block;
 }
+
+.site {
+    padding: 3px;
+    border: outset;
+    
+}
+
+.site.mk {
+    background: rgb(0, 255, 0);
+    color: black;
+    border-color: rgba(0, 255, 0, 0.8);
+}
+
+.site.bedford {
+    background: rgb(64, 224, 208);
+    color: black;
+    border-color: rgba(64, 224, 208, 0.8);
+}
+
+.site.ayelsbury {
+    background: rgb(173, 216, 230);
+    color: black;
+    border-color: rgba(173, 216, 230, 0.8);
+}
+
+.site.northampton {
+    background: rgb(0, 128, 0);
+    color: white;
+    border-color: rgba(0, 128, 0, 0.8);
+}
+
+.site.luton {
+    background: rgb(255, 255, 0);
+    color: black;
+    border-color: rgba(255, 255, 0, 0.8);
+}
+
+.site.stalbans {
+    background: rgb(255, 165, 0);
+    color: black;
+    border-color: rgba(255, 165, 0, 0.8);
+}
+
+.site.watford {
+    background: rgb(255, 0, 0);
+    color: black;
+    border-color: rgba(255, 0, 0, 0.8);
+}

@@ -38,7 +38,7 @@ $this->jobs = $jobTable->getJobs($this->jobStatus);
                                 <span class="numberPlateTable"><?php echo $jobStatus->carReg; ?></span>
                                 <span class="customer"><?php echo $jobStatus->name; ?></span>
                             </td>
-                            <td><?php echo $jobStatus->site ?></td>
+                            <td><span class="label site <?php echo strtolower(str_replace(".", "", str_replace(" ", "", $jobStatus->site))); ?>"><?php echo $jobStatus->site ?></span></td>
                             <td><?php echo $jobStatus->jobSource; ?></td>
                             <td><?php echo $jobStatus->model; ?></td>
                             <?php if ($this->stage): ?>
