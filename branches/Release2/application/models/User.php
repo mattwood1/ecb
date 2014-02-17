@@ -51,18 +51,10 @@ class ECB_Model_User extends Doctrine_Record
 
     public function setUp()
     {
-/*
-        $this->hasMany('ECB_Model_Session as sessions', array(
-                'local' =>     'addressId',
-                'foreign' => 'addressId',
-                'cascade' => array('delete')
+        $this->hasMany('ECB_Model_Role as roles', array(
+                'local'      => 'userId',
+                'foreign'    => 'roleId',
+                'refClass'   => 'ECB_Model_UserRole'
         ));
-*/
-
-      /*  $this->hasOne('ECB_Model_Job', array(
-                'local' =>     'jobId',
-                'foreign' => 'jobId'
-        ));
-*/
     }
 }

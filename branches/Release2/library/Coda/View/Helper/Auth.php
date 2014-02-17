@@ -21,6 +21,6 @@ class Coda_View_Helper_Auth extends Zend_View_Helper_Abstract
         if (! $this->isLoggedIn()) {
             return false;
         }
-        return Doctrine_Core::getTable('ECB_Model_User')->findOneBy('email', Zend_Auth::getInstance()->getIdentity());
+        return Doctrine_Core::getTable('ECB_Model_User')->findOneBy('email', Zend_Auth::getInstance()->getIdentity()->email);
     }
 }

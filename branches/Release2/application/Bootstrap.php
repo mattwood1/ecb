@@ -40,6 +40,47 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Loader::loadClass('Coda_Debug');
     }
 
+    protected function _initAcl()
+    {
+        $this->bootstrap('doctrine');
+        $roles = ECB_Model_RoleTable::getInstance()->findAll();
+        $acl = new Zend_Acl();
+
+        foreach (ECB_Model_RoleTable::definedResources() as $resource => $data) {
+            if (!$acl->has($resource)) {
+                $acl->add(new Zend_Acl_Resource($resource));
+            }
+        }
+        foreach ($roles as $role) {
+            if (!$acl->hasRole($role->name)) {
+                $acl->addRole($role->name);
+            }
+
+            if ($role->resources) {
+                foreach (unserialize($role->resources) as $resource) {
+                    $acl->allow($role->name, $resource);
+                }
+            } else {
+                // Hack in access for now...
+                if ($role->name == 'Administrator') {
+                    $role->resources = serialize(array('administrators'));
+                }
+                else {
+                    $role->resources = serialize(array('notAuthenticated', 'authenticated'));
+                }
+                $role->save();
+            }
+        }
+
+        // NotAuthenticated Users
+        $acl->addRole('notAuthenticatedUser');
+        $acl->allow('notAuthenticatedUser', 'notAuthenticated');
+
+        Zend_Registry::set('acl', $acl);
+
+        return $acl;
+    }
+
     // Initialises the doctrine orm framework
     protected function _initDoctrine ()
     {
@@ -78,7 +119,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $front = Zend_Controller_Front::getInstance();
         $front
               ->registerPlugin(new Coda_Plugin_InitPlugin())
-              ->registerPlugin(new Coda_Plugin_AuthPlugin())
+        //      ->registerPlugin(new Coda_Plugin_AuthPlugin())
         //        ->registerPlugin(new CustomerPlugin())
         //        ->registerPlugin(new PageAccessPlugin())
         //        ->registerPlugin(new InitPlugin())
