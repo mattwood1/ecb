@@ -9,13 +9,9 @@ class User_AuthController extends Coda_Controller
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             // process authentication
-            if ($result = $this->_performLogin($form->getValues())) {
-                // login sucessful
-                $zfDate = new Zend_Date();
-                $user = Doctrine_Core::getTable('ECB_Model_User')->findOneBy('userId', $result->userId);
-                $user->dateLoggedIn = $zfDate->get(Zend_Date::ISO_8601);
-                $user->save();
+            if ($this->_performLogin($form->getValues())) {
 
+                // login sucessful
                 if ($requestUrl->url) {
                     header('Location: '.$requestUrl->url);
                 } else {
@@ -84,9 +80,14 @@ class User_AuthController extends Coda_Controller
 
         // successful login
         if($result->isValid()) {
-            $user = $authAdapter->getResultRowObject();
+            $zfDate = new Zend_Date();
+            $user = ECB_Model_UserTable::getInstance()->find($authAdapter->getResultRowObject()->userId);
             $this->_flash('Log in sucess', Coda_Helper_Flash::SUCCESS);
-            return $user;
+            $user->dateLoggedIn = $zfDate->get(Zend_Date::ISO_8601);
+            $user->save();
+
+            $auth->getStorage()->write($user);
+            return true;
         }
         $this->_flash('Log in failed', Coda_Helper_Flash::ERROR);
         return false;
