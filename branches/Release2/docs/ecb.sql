@@ -288,6 +288,33 @@ INSERT INTO `jobStatus` VALUES (1,'Estimate','Grey'),(2,'To Book In','Red'),(3,'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `role`
+--
+
+DROP TABLE IF EXISTS `role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `role` (
+  `roleId` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text NOT NULL,
+  `system` int(11) NOT NULL,
+  `resources` text NOT NULL,
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`roleId`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `role`
+--
+
+LOCK TABLES `role` WRITE;
+/*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'Administrator',1,'a:1:{i:0;s:14:\"administrators\";}',0);
+/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `todo`
 --
 
@@ -340,8 +367,32 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'6b34fe24ac2ff8103f6fce1f0da2ef57','chris','chrisw6152@yahoo.co.uk','0000-00-00 00:00:00','2013-06-29 22:08:13','0000-00-00 00:00:00'),(2,'9dc5b8a7732196248f978dcce7de708e','Matthew Wood','matthew.john.wood@gmail.com','2013-06-29 00:11:23','2014-02-12 00:59:45','2014-02-12 00:59:45'),(3,'d00f4d6137c71d64a74e099680529d3f','chris','chris@cwtkd.co.uk','2013-06-30 11:12:44','2013-07-03 09:57:50','2013-07-03 10:57:50'),(4,'1a1dc91c907325c69271ddf0c944bc72','Chris Wood','none@none.com','2013-07-03 11:45:03','2014-02-14 06:20:56','2014-02-14 06:20:56'),(5,'5e74c30a0bf9b81a79dad7e782357d6a','Joe','joe@bloggs.co.uk','2014-02-04 01:16:01','0000-00-00 00:00:00','0000-00-00 00:00:00'),(6,'5e7185365fa4b3a3da7088f9f287d0bf','fishy','fishy@fishco.co.uk','2014-02-04 01:18:04','0000-00-00 00:00:00','0000-00-00 00:00:00');
+INSERT INTO `user` VALUES (1,'6b34fe24ac2ff8103f6fce1f0da2ef57','chris','chrisw6152@yahoo.co.uk','0000-00-00 00:00:00','2013-06-29 22:08:13','0000-00-00 00:00:00'),(2,'9dc5b8a7732196248f978dcce7de708e','Matthew Wood','matthew.john.wood@gmail.com','2013-06-29 00:11:23','2014-02-17 01:28:11','2014-02-17 01:28:11'),(3,'d00f4d6137c71d64a74e099680529d3f','chris','chris@cwtkd.co.uk','2013-06-30 11:12:44','2013-07-03 09:57:50','2013-07-03 10:57:50'),(4,'1a1dc91c907325c69271ddf0c944bc72','Chris Wood','none@none.com','2013-07-03 11:45:03','2014-02-14 06:20:56','2014-02-14 06:20:56'),(5,'5e74c30a0bf9b81a79dad7e782357d6a','Joe','joe@bloggs.co.uk','2014-02-04 01:16:01','0000-00-00 00:00:00','0000-00-00 00:00:00'),(6,'5e7185365fa4b3a3da7088f9f287d0bf','fishy','fishy@fishco.co.uk','2014-02-04 01:18:04','0000-00-00 00:00:00','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userRole`
+--
+
+DROP TABLE IF EXISTS `userRole`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userRole` (
+  `userId` int(11) NOT NULL,
+  `roleId` int(11) NOT NULL,
+  PRIMARY KEY (`userId`,`roleId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userRole`
+--
+
+LOCK TABLES `userRole` WRITE;
+/*!40000 ALTER TABLE `userRole` DISABLE KEYS */;
+INSERT INTO `userRole` VALUES (2,1);
+/*!40000 ALTER TABLE `userRole` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -353,4 +404,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-02-14 15:29:45
+-- Dump completed on 2014-02-17  1:32:56
