@@ -29,7 +29,7 @@
     <tbody>
     <?php foreach ($this->jobs as $job): ?>
         <tr class="<?php echo strtolower($job->jobSource); ?>">
-            <td><?php echo count($job->notes); ?></td>
+            <td><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'add-note', 'jobId' => $job->jobId)); ?>" data-toggle="modal" data-target="#modalNotes"><?php echo count($job->notes); ?></a></td>
             <td>
                 <span class="numberPlateTable"><?php echo $job->carReg; ?></span>
                 <span class="customer"><?php echo $job->name; ?></span>
