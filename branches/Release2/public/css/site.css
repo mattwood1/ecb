@@ -142,6 +142,11 @@ td.currency, th.currency {
     font-weight: 600;
 }
 
+.btn-mini .caret, .btn-small .caret {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
 .padded {
     padding: 15px;
 }
