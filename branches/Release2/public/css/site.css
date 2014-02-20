@@ -63,7 +63,7 @@ input.numberPlateTable, .numberPlateTable {
 .black {
         background: black;
         color: #ffffff;
-       
+   
 }
 .label.yellow {
         background: yellow;
@@ -210,7 +210,7 @@ font-size: 7pt;
 #JobForm label, #JobForm input, #JobForm button, #JobForm select, #JobForm textarea {
     font-size: 12px;
     line-height: 12px;
-    
+
 }
 #JobForm label, #JobForm input, #JobForm select, #JobForm textarea {
     width: 90%;
@@ -224,10 +224,10 @@ h2.center {
     display: inline-block;
 }
 
-.site {
+.site, .eta, .jobsource {
     padding: 3px;
     border: outset;
-    
+
 }
 
 .site.mk {
@@ -270,4 +270,69 @@ h2.center {
     background: rgb(255, 0, 0);
     color: black;
     border-color: rgba(255, 0, 0, 0.8);
+}
+
+.eta {
+    background: rgb(0, 255, 0);
+    border-color: rgba(0, 255, 0, 0.8);
+}
+
+.eta.days_4 {
+    background: rgb(0, 200, 0);
+    border-color: rgba(0, 200, 0, 0.8);
+}
+
+.eta.days_3 {
+    background: rgb(0, 100, 0);
+    border-color: rgba(0, 100, 0, 0.8);
+}
+
+.eta.days_2 {
+    background: rgb(255, 255, 0);
+    border-color: rgba(255, 255, 0, 0.8);
+}
+
+.eta.days_1 {
+    background: rgb(255, 165, 0);
+    border-color: rgba(255, 165, 0, 0.8);
+}
+
+.eta.days_0 {
+    background: rgb(255, 0, 0);
+    border-color: rgba(255, 0, 0, 0.8);
+}
+
+span[class^="label eta days_-"] {
+    background: rgb(255, 0, 0);
+    border-color: rgba(255, 0, 0, 0.8);
+}
+
+.jobsource {
+    color: rgb(0,0,0);
+    background: rgb(255, 165, 0);
+    border-color: rgba(255, 165, 0, 0.8);
+}
+
+.jobsource.tmi {
+    color: rgb(255,255,255);
+    background: rgb(255, 0, 0);
+    border-color: rgba(255, 0, 0, 0.8);
+}
+
+.jobsource.cash {
+    color: rgb(255,255,255);    
+    background: rgb(0, 100, 0);
+    border-color: rgba(0, 100, 0, 0.8);
+}
+
+.jobsource.insurance {
+    color: rgb(255,255,255);
+    background: rgb(0, 0, 255);
+    border-color: rgba(0, 0, 255, 0.8);
+}
+
+.jobsource.internal {
+    color: rgb(255,255,255);    
+    background: rgb(128, 0, 128);
+    border-color: rgba(128, 0, 128, 0.8);
 }

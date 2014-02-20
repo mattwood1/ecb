@@ -41,11 +41,11 @@
             <td><?php echo $job->model; ?></td>
             <?php if (in_array($this->status, array(2,3,4))): ?>
             <td>LOAN CAR</td>
-            <td><?php echo $job->jobSource; ?></td>
+            <td><span class="label jobsource <?php echo strtolower($job->jobSource); ?>"><?php echo $job->jobSource; ?></span></td>
             <?php endif;?>
             <?php if ($this->status == 4): ?>
             <td><?php echo $job->process->label; ?></td>
-            <td><span title="<?php echo $this->date($job->onSite, Coda_View_Helper_Date::DATE); ?>"><?php echo $this->date($job->eta, Coda_View_Helper_Date::ETA); ?></span></td>
+            <td><span class="label eta days_<?php echo $this->date($job->eta, Coda_View_Helper_Date::ETA); ?>" title="<?php echo $this->date($job->onSite, Coda_View_Helper_Date::DATE); ?>"><?php echo $this->date($job->eta, Coda_View_Helper_Date::ETA); ?></span></td>
             <td><?php echo ($this->date($job->onSite, Coda_View_Helper_Date::ETA) * -1); ?></td>
             <?php endif; ?>
             <?php if ($this->status == 3): ?>
