@@ -17,3 +17,19 @@
             )); ?>
 </div>
 
+<div id="modalNotes" class="modal hide fade" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+        <h3 id="myModalLabel">Notes</h3>
+    </div>
+    <div class="modal-body"></div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+</div>
+
+<script>
+    $('body').on('hidden', '#modalNotes', function () {
+        $(this).removeData('modal');
+    });
+</script>
