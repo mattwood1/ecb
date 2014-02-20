@@ -29,6 +29,10 @@ class User_IndexController extends Coda_Controller
 
     public function deleteAction()
     {
+        $user = ECB_Model_UserTable::getInstance()->findOneBy('userId', $this->_request->getParam('id'));
+        $user->delete();
 
+        $this->_flash('User has been deleted.', Coda_Helper_Flash::SUCCESS);
+        $this->gotoRoute(array('action' => 'index'));
     }
 }
