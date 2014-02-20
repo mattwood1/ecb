@@ -34,6 +34,6 @@ class Coda_Plugin_AuthPlugin extends Zend_Controller_Plugin_Abstract
 
         $request->setParam('user', $user);
 
-        _d($user);
+        //_d($user);
     }
 }
