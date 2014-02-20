@@ -32,7 +32,7 @@ $jobs = $jobTable->getJobs(array(ECB_Model_JobStatus::WIP), $this->jobProcesses)
                        <span class="customer"><?php echo $data->name; ?></span>
                    </td>
                    <td><?php echo $data->model; ?></td>
-                   <td><?php echo $this->date($data->eta, Coda_View_Helper_Date::ETA); ?></td>
+                   <td><span class="label eta days_<?php echo $this->date($data->eta, Coda_View_Helper_Date::ETA); ?>"><?php echo $this->date($data->eta, Coda_View_Helper_Date::ETA); ?></span></td>
                    <?php if ($this->auth()->isLoggedIn()): ?>
                        <td>
                             <div class="btn-group">

@@ -39,12 +39,12 @@ $this->jobs = $jobTable->getJobs($this->jobStatus);
                                 <span class="customer"><?php echo $jobStatus->name; ?></span>
                             </td>
                             <td><span class="label site <?php echo strtolower(str_replace(".", "", str_replace(" ", "", $jobStatus->site))); ?>"><?php echo $jobStatus->site ?></span></td>
-                            <td><?php echo $jobStatus->jobSource; ?></td>
+                            <td><span class="label jobsource <?php echo strtolower($jobStatus->jobSource); ?>"><?php echo $jobStatus->jobSource; ?></span></td>
                             <td><?php echo $jobStatus->model; ?></td>
                             <?php if ($this->stage): ?>
                                 <td><?php echo $jobStatus->process->label; ?></td>
                             <?php endif; ?>
-                            <td><?php echo $this->date($jobStatus->eta, Coda_View_Helper_Date::ETA); ?></td>
+                            <td><span class="label eta days_<?php echo $this->date($jobStatus->eta, Coda_View_Helper_Date::ETA); ?>"><?php echo $this->date($jobStatus->eta, Coda_View_Helper_Date::ETA); ?></span></td>
                             <?php if ($this->dateBookedIn): ?>
                                 <td><?php echo $this->date($jobStatus->onSite); ?></td>
                             <?php endif;?>
