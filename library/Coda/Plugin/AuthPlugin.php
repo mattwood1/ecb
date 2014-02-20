@@ -33,5 +33,7 @@ class Coda_Plugin_AuthPlugin extends Zend_Controller_Plugin_Abstract
             ->addMessage(Zend_Registry::get('current_user'), 'danger');
 
         $request->setParam('user', $user);
+
+        _d($user);
     }
 }
