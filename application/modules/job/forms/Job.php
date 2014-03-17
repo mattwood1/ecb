@@ -151,8 +151,8 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Horizontal
         ));
 
         $this->addElement('select', 'jobProcessId', array(
-                'label' => 'Stage of Process',
-                'multiOptions' => $jobProcesses->getPairs(),
+                'label' => 'Stage',
+                'multiOptions' => array('' => 'TBC') + $jobProcesses->getPairs(),
                 'class' => 'span12'
         ));
 
@@ -173,7 +173,7 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Horizontal
         ));
 
         $this->addElement('textarea', 'partsEst', array(
-                'label' => 'Parts Required',
+                'label' => 'Parts Ordered',
                 'class' => 'span12',
                 'rows'  => '3'
         ));

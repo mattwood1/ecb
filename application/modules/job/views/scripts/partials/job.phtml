@@ -22,15 +22,24 @@
         <?php echo $this->form->vatRegistered; ?>
     </div>
     <div class="span4">
+
+        <?php echo $this->form->mileage; ?>
+        <?php echo $this->form->vin; ?>
+        <?php echo $this->form->transmission; ?>
+        <?php echo $this->form->fuel; ?>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
         <h4>Vehicle Information</h4>
         <?php echo $this->form->carReg; ?>
         <?php echo $this->form->make; ?>
         <?php echo $this->form->model; ?>
-        <?php echo $this->form->mileage; ?>
-        <?php echo $this->form->vin; ?>
         <?php echo $this->form->colour; ?>
-        <?php echo $this->form->transmission; ?>
-        <?php echo $this->form->fuel; ?>
+    </div>
+    <div class="span6">
+
     </div>
 </div>
 
@@ -48,8 +57,6 @@
         <?php echo $this->form->partsEst; ?>
     </div>
 </div>
-
-<h2>Estimate Details</h2>
 
 <div class="row-fluid">
     <div class="span4">
