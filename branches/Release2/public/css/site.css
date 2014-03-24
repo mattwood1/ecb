@@ -8,11 +8,10 @@
 
 
 body {   
-    background: url("/ecb_back.svg");
+    background: url(/css/ecb_back.svg) repeat top left #999999;
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color:#999999;
  }
 
 /* Bootstrap Overrides */

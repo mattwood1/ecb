@@ -10,7 +10,7 @@
 
             <div class=" nav-collapse collapse">
                 <ul class="nav nav-pills">
-                    
+
                     <li><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index'), 'default', true); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                     <li><a href="<?php echo $this->url(array('module' => 'board', 'controller' => 'index', 'action' => 'index'), 'default', true); ?>"><i class="fa fa-th-large"></i> Board</a></li>
                     <li class="dropdown">
@@ -31,11 +31,11 @@
                             <li><a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'index', 'action' => 'index'), 'default', true); ?>"><i class="fa fa-user"></i> Users</a></li>
                         </ul>
                     </li>
-                    <li><a href="<?php echo $this->url(array('action' => 'add')); ?>""><i class="fa fa-plus fa fa-white"></i> Add Job</a></li>
+                    <li><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'add')); ?>""><i class="fa fa-plus fa fa-white"></i> Add Job</a></li>
                     <li>
                         <a href="<?php echo $this->url(array('module' => 'todo', 'controller' => 'index', 'action' => 'index'), 'default', true); ?>"><i class="fa fa-tasks"></i> To Do</a>
                     </li>
-                   
+
                 </ul>
             </div>
 
@@ -65,7 +65,7 @@
                     <form id="jobSearch" class="form-inline ajax">
                    <input type="search" name="keyword" placeholder="Search" id="nav_search" title="uses: name, postcode, car reg, vin no, model,make,"" />
                    <input type="submit" value="Search" id="search_button_nav" />
-                   </form> 
+                   </form>
                    </li>
                 </ul>
             </div>

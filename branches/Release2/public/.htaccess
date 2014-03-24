@@ -1,6 +1,9 @@
 Options +FollowSymLinks +SymLinksIfOwnerMatch
 AddDefaultCharset utf-8
 
+AddType image/svg+xml svg
+AddType image/svg+xml svgz
+
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
