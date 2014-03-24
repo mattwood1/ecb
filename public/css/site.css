@@ -6,21 +6,29 @@
 	src: url(UKNumberPlate.ttf);
 }
 
-body {
-    background: linear-gradient(red 40%,black 60%);
-}
+
+body {   
+    background: url("/ecb_back.svg");
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color:#999999;
+ }
 
 /* Bootstrap Overrides */
 .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
-    max-width: 1020px;
+    max-width: 1200px;
+    
 }
-
+div.content {
+    background-color: #dddddd;
+}
 /* Number Plate */
-input.numberPlateTable, .numberPlateTable {
+input.numberPlateTable, .numberPlateTable, .numberPlateTableLoan {
     font-family: UKNumberPlate;
-    background: yellow;
-    font-size: 20px;
-    width: 120px;
+    background: yellow; /*rgb(251, 255, 165);*/
+    font-size: 18px;
+    width: 100px;
     text-align: center;
     color: black;
     display: block;
@@ -28,7 +36,49 @@ input.numberPlateTable, .numberPlateTable {
     border: 1px solid black;
     border-radius: 3px;
     margin: 0 auto;
+    border-left: rgb(73, 73, 255) 12px solid;
+                
 }
+
+.numberPlateTable:hover {
+    transition:background 0.80s;
+    background: white;
+    border-left: rgb(0, 0, 255) 12px solid;
+    transition:border-left 0.80s;
+    font-size:20px;
+    
+}
+
+.form-inline ajax {
+    margin: 5px 0px 0px 0px;
+}
+.numberPlateTableLoan {
+    width: 50px;
+}
+.tooltip-inner{
+    max-width: 500px;
+    padding: 4px;
+    color: black;
+    text-align: left;
+    text-decoration: strong;
+    background-color: #F5F2C5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: #735249 solid 2px;
+    opacity: 0.98;
+    border-top: #735249 10px solid;
+    font-weight: normal;
+    font-style:oblique;
+}
+.tooltip.top .tooltip-arrow {
+bottom: 0;
+left: 50%;
+margin-left: -5px;
+border-width: 5px 4px 0px;
+border-top-color: #735249;
+}
+
 .numberPlateTable td span  {
     text-align: center;
 }
@@ -189,6 +239,10 @@ font-size: 7pt;
 }
 .table td{
     text-align: center;
+    padding: 3px;
+    line-height: 20px;
+    vertical-align: middle;
+    border-top: 1px solid #a3a3a3;
 }
 
 .input-append, .input-prepend {
@@ -198,6 +252,7 @@ font-size: 7pt;
 #JobForm.form-horizontal .control-label {
     width: 100px;
 }
+
 
 #JobForm.form-horizontal .controls {
     margin-left: 110px;
@@ -219,21 +274,27 @@ font-size: 7pt;
 h2.center {
     text-align: center;
 }
+h4.center {
+    text-align: center;
+}
+
 
 #images .thumb, #images .thumb > * {
     display: inline-block;
 }
 
 .site, .eta, .jobsource {
-    padding: 3px;
-    border: outset;
+    padding: 1px 2px 1px 2px;
+    border: 1px solid;
+    border-radius: 4px;
 
 }
 
 .site.mk {
-    background: rgb(0, 255, 0);
-    color: black;
-    border-color: rgba(0, 255, 0, 0.8);
+    background: blue;
+    color:white;
+    border-color: rgb(97, 141, 255);
+
 }
 
 .site.bedford {
@@ -273,8 +334,8 @@ h2.center {
 }
 
 .eta {
-    background: rgb(0, 255, 0);
-    border-color: rgba(0, 255, 0, 0.8);
+    background: black;
+    border-color: blue;
 }
 
 .eta.days_4 {
@@ -290,16 +351,19 @@ h2.center {
 .eta.days_2 {
     background: rgb(255, 255, 0);
     border-color: rgba(255, 255, 0, 0.8);
+    color: black;
 }
 
 .eta.days_1 {
     background: rgb(255, 165, 0);
     border-color: rgba(255, 165, 0, 0.8);
+    color:black;
 }
 
 .eta.days_0 {
     background: rgb(255, 0, 0);
     border-color: rgba(255, 0, 0, 0.8);
+    color: black;
 }
 
 span[class^="label eta days_-"] {
@@ -314,7 +378,7 @@ span[class^="label eta days_-"] {
 }
 
 .jobsource.tmi {
-    color: rgb(255,255,255);
+    color: black;
     background: rgb(255, 0, 0);
     border-color: rgba(255, 0, 0, 0.8);
 }
@@ -335,4 +399,29 @@ span[class^="label eta days_-"] {
     color: rgb(255,255,255);    
     background: rgb(128, 0, 128);
     border-color: rgba(128, 0, 128, 0.8);
+}
+#jobsearch {
+    margin-bottom: 5px;
+}
+li.search {
+    height: 16px;
+    padding-top: 5px;
+}
+#nav_search {
+    width: 110px;
+    color: white;
+    background-color:#585858;
+    border-color:black;
+    height: 18px;
+}
+#nav_search:focus {
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 0, 0, 0.6);
+-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
+#search_button_nav {
+    border-radius: 4px;
+    background-color:#585858;
+    color: #999999;
+    border-color: #999999;
 }

@@ -24,8 +24,7 @@ $this->jobs = $jobTable->getJobs($this->jobStatus);
                             <th>Stage</th>
                             <?php endif; ?>
                             <th>Days till ETA</th>
-                            <?php if ($this->dateBookedIn): ?>
-                            <th>Date Booked In</th>
+                            <?php if ($this->onSite): ?>
                             <?php endif; ?>
                             <th>Action</th>
                         </tr>
@@ -35,7 +34,7 @@ $this->jobs = $jobTable->getJobs($this->jobStatus);
                         <tr class="<?php echo strtolower($jobStatus->jobSource); ?>">
                             <td><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'add-note', 'jobId' => $jobStatus->jobId)); ?>" data-toggle="modal" data-target="#modalNotes"><?php echo count($jobStatus->notes); ?></a></td>
                             <td>
-                                <span class="numberPlateTable"><?php echo $jobStatus->carReg; ?></span>
+                                <span class="numberPlateTable" data-toggle="tooltip" title="<?php echo $jobStatus->damage?> <?php echo $job->special?>"><?php echo $jobStatus->carReg; ?></span>
                                 <span class="customer"><?php echo $jobStatus->name; ?></span>
                             </td>
                             <td><span class="label site <?php echo strtolower(str_replace(".", "", str_replace(" ", "", $jobStatus->site))); ?>"><?php echo $jobStatus->site ?></span></td>

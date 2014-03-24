@@ -6,6 +6,7 @@ class ECB_Model_Job extends Doctrine_Record
     {
 
         $this->setTableName('job');
+        
 
         $this->hasColumn('jobId', 'integer', 11, array(
                 'type'                => 'integer',
@@ -17,6 +18,7 @@ class ECB_Model_Job extends Doctrine_Record
         ));
 
 
+        
         $this->hasColumn('site', 'enum', null, array(
                 'type'                => 'enum',
                 'values'              => array('MK', 'Bedford', 'Northampton', 'Luton', 'Ayelsbury', 'St. Albans', 'Watford')
@@ -28,6 +30,11 @@ class ECB_Model_Job extends Doctrine_Record
                 'values'              => array('CASH', 'TMI', 'INSURANCE', 'WARRANTY', 'INTERNAL', 'EASIDRIVE', 'OTHER')
         ));
 
+        $this->hasColumn('ccar', 'string', 1000, array(
+                'type'                => 'string',
+                'length'              => '1000',
+        ));
+        
         $this->hasColumn('carReg', 'string', 1000, array(
                 'type'                => 'string',
                 'length'              => '1000',
@@ -139,11 +146,14 @@ class ECB_Model_Job extends Doctrine_Record
                 'length'              => '2'
         ));
 
-        // Insurance
+        // inspection date
         $this->hasColumn('insDate', 'date', null, array(
                 'type'                => 'date'
         ));
-
+        $this->hasColumn('onSite', 'date', null, array(
+                'type'                => 'date'
+        ));
+        //Insurance info
         $this->hasColumn('insName', 'string', 1000, array(
                 'type'                => 'string',
                 'length'              => '1000'
@@ -241,6 +251,10 @@ class ECB_Model_Job extends Doctrine_Record
         ));
 
         $this->hasColumn('onSite', 'date', null, array(
+                'type'                => 'date'
+        ));
+        
+        $this->hasColumn('bookedIn', 'date', null, array(
                 'type'                => 'date'
         ));
 
