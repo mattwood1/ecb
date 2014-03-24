@@ -6,9 +6,16 @@
 	src: url(UKNumberPlate.ttf);
 }
 
+@font-face
+{
+	font-family: Crillee;
+	src: url(crillee.ttf);
+}
 
-body {   
+
+body {
     background: url(/css/ecb_back.svg) repeat top left #999999;
+    background-size: 100px;
     height: 100%;
     margin: 0;
     padding: 0;
