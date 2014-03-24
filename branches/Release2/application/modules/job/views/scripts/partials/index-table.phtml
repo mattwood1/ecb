@@ -31,7 +31,7 @@
         <tr class="<?php echo strtolower($job->jobSource); ?>">
             <td><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'add-note', 'jobId' => $job->jobId)); ?>" data-toggle="modal" data-target="#modalNotes"><?php echo count($job->notes); ?></a></td>
             <td>
-                <span class="numberPlateTable"><?php echo $job->carReg; ?></span>
+                 <span class="numberPlateTable" data-toggle="tooltip" title="Damage: <?php echo $job->damage?>* * * * * * Specialist: <?php echo $job->special?>"><?php echo $job->carReg; ?></span>
                 <span class="customer"><?php echo $job->name; ?></span>
             </td>
             <?php if ($this->status == 4): ?>
@@ -40,16 +40,17 @@
             <td><span class="label site <?php echo strtolower(str_replace(".", "", str_replace(" ", "", $job->site))); ?>"><?php echo $job->site ?></span></td>
             <td><?php echo $job->model; ?></td>
             <?php if (in_array($this->status, array(2,3,4))): ?>
-            <td>LOAN CAR</td>
+            <td><?php if ($job->ccar != "No") { ?><span class="numberPlateTableLoan"><?php echo $job->ccar; ?></span><?php } ?></td>
             <td><span class="label jobsource <?php echo strtolower($job->jobSource); ?>"><?php echo $job->jobSource; ?></span></td>
             <?php endif;?>
             <?php if ($this->status == 4): ?>
             <td><?php echo $job->process->label; ?></td>
-            <td><span class="label eta days_<?php echo $this->date($job->eta, Coda_View_Helper_Date::ETA); ?>" title="<?php echo $this->date($job->onSite, Coda_View_Helper_Date::DATE); ?>"><?php echo $this->date($job->eta, Coda_View_Helper_Date::ETA); ?></span></td>
+            <td><span class="label eta days_ data-toggle="tooltip"<?php echo $this->date($job->eta, Coda_View_Helper_Date::ETA); ?>" title="<?php echo $this->date($job->onSite, Coda_View_Helper_Date::DATE); ?>"><?php echo $this->date($job->eta, Coda_View_Helper_Date::ETA); ?></span></td>
             <td><?php echo ($this->date($job->onSite, Coda_View_Helper_Date::ETA) * -1); ?></td>
             <?php endif; ?>
             <?php if ($this->status == 3): ?>
-            <td>Booked In Date</td>
+            //**** this bookedIn date needs to list in date order, nearest date first(top)
+            <td><?php echo $this->date($job->bookedIn, Coda_View_Helper_Date::DATE); ?></td>
             <?php endif;?>
             <td>
                 <span class="label <?php echo strtolower($job->status->class); ?>"><?php echo $job->status->label; ?></span>

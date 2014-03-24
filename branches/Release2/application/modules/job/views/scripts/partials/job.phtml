@@ -3,7 +3,7 @@
 <form class="form-horizontal" id="JobForm" action="" method="post">
 <div class="row-fluid">
     <div class="span4">
-        <h4>Customer Information</h4>
+        <h4 class="center">Customer Information</h4>
         <?php echo $this->form->insDate; ?>
         <?php echo $this->form->name; ?>
         <?php echo $this->form->address; ?>
@@ -13,7 +13,18 @@
         <?php echo $this->form->email; ?>
     </div>
     <div class="span4">
-        <h4>Insurance Info</h4>
+        <h4 class="center">Vehicle Details</h4>
+        <?php echo $this->form->carReg; ?>
+        <?php echo $this->form->make; ?>
+        <?php echo $this->form->model; ?>
+        <?php echo $this->form->colour; ?>
+        <?php echo $this->form->mileage; ?>
+        <?php echo $this->form->vin; ?>
+        <?php echo $this->form->transmission; ?>
+        <?php echo $this->form->fuel; ?>
+    </div>
+    <div class="span4">
+        <h4 class="center">Insurance Info</h4>
         <?php echo $this->form->insName; ?>
         <?php echo $this->form->insAdd; ?>
         <?php echo $this->form->insPost; ?>
@@ -21,56 +32,66 @@
         <?php echo $this->form->excess; ?>
         <?php echo $this->form->vatRegistered; ?>
     </div>
-    <div class="span4">
-
-        <?php echo $this->form->mileage; ?>
-        <?php echo $this->form->vin; ?>
-        <?php echo $this->form->transmission; ?>
-        <?php echo $this->form->fuel; ?>
-    </div>
 </div>
 
 <div class="row-fluid">
-    <div class="span6">
-        <h4>Vehicle Information</h4>
-        <?php echo $this->form->carReg; ?>
-        <?php echo $this->form->make; ?>
-        <?php echo $this->form->model; ?>
-        <?php echo $this->form->colour; ?>
-    </div>
+    
     <div class="span6">
 
     </div>
-</div>
-
-<h4>Internal Use</h4>
-<div class="row-fluid">
-    <div class="span4"><?php echo $this->form->jobStatusId; ?></div>
-    <div class="span4"><?php echo $this->form->jobProcessId; ?></div>
-    <div class="span4"><?php echo $this->form->seToyota; ?></div>
 </div>
 
 <div class="row-fluid">
     <div class="span12">
+    <hr size=3>
+        <h4>Work Instructions</h4>
         <?php echo $this->form->damage; ?>
         <?php echo $this->form->special; ?>
         <?php echo $this->form->partsEst; ?>
     </div>
 </div>
+<hr size=3>
 
 <div class="row-fluid">
     <div class="span4">
+        <h4 class="center">Dates</h4>
+        <?php echo $this->form->bookedIn; ?>
+        <?php echo $this->form->onSite; ?>
+        <?php echo $this->form->eta; ?>
+        <?php echo $this->form->complete; ?>
+    </div>
+    <div class="span4">
+        <h4 class="center">Internal</h4>
+        <?php echo $this->form->site; ?>
+        <?php echo $this->form->jobStatusId; ?>
+        <?php echo $this->form->jobProcessId; ?>
+        <?php echo $this->form->jobSource; ?>
+        <?php echo $this->form->ccar; ?>
+        <?php echo $this->form->seToyota; ?>
+    </div>
+    <div class="span4">
+        <h4></h4>
+    </div>
+</div>
+
+<hr size=3>
+<h4 class="center">Finacials</h4>
+<div class="row-fluid">
+    <div class="span4">
+    
         <?php echo $this->form->estPrep; ?>
         <?php echo $this->form->labRate; ?>
         <?php echo $this->form->labHours; ?>
     </div>
     <div class="span4">
+    <h4></h4>
         <?php echo $this->form->pandmEst; ?>
         <?php echo $this->form->partsTotal; ?>
         <?php echo $this->form->specialEst; ?>
         <?php echo $this->form->recovEst; ?>
     </div>
     <div class="span4">
+    <h4></h4>
         <?php echo $this->form->labEst; ?>
         <?php echo $this->form->subtotEst; ?>
         <?php echo $this->form->vatEst; ?>

@@ -5,6 +5,7 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Horizontal
     {
         $jobStatuses = new ECB_Model_JobStatusTable();
         $jobProcesses = new ECB_Model_JobProcessTable();
+        $ccars = new ECB_Model_CcarsTable();
 
         $this->addElement('text', 'insDate', array (
                 'label'     => 'Inspection Date',
@@ -12,6 +13,46 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Horizontal
                 'prepend' => '<i class="fa fa-calendar"></i>',
                 'class' => 'span12 datepicker'
         ));
+        
+        $this->addElement('text', 'onSite', array (
+                'label'     => 'Vehcile On Site',
+                'prepend' => '<i class="fa fa-calendar"></i>',
+                'class' => 'span12 datepicker'
+        ));
+        
+        $this->addElement('select', 'site', array(
+                'label' => 'Site',
+                'multiOptions' => array(
+                        ''         => 'Please Choose',
+                        'MK'           => 'MK',
+                        'Bedford'      => 'Bedford',
+                        'Northampton'  => 'Northampton',
+                        'Luton'        => 'Luton',
+                        'Ayelsbury'    => 'Ayelsbury',
+                        'St. Albans'   => 'St. Albans',
+                        'Watford'      => 'Watford',
+                     ),
+                'class' => 'span12'
+        ));
+        
+         $this->addElement('text', 'eta', array (
+                'label'     => 'ETA date',
+                'prepend' => '<i class="fa fa-calendar"></i>',
+                'class' => 'span12 datepicker'
+        ));
+        
+         $this->addElement('text', 'bookedIn', array (
+                'label'     => 'Booked In Date',
+                'prepend' => '<i class="fa fa-calendar"></i>',
+                'class' => 'span12 datepicker'
+        ));
+        
+         $this->addElement('text', 'complete', array (
+                'label'     => 'Completed Date',
+                'prepend' => '<i class="fa fa-calendar"></i>',
+                'class' => 'span12 datepicker'
+        ));
+        
 
         $this->addElement('text', 'carReg', array(
                 'label'     => 'Car Reg',
@@ -129,6 +170,21 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Horizontal
                      ),
                 'class' => 'span12'
         ));
+        
+        $this->addElement('select', 'jobSource', array(
+                'label' => 'Job Source',
+                'multiOptions' => array(
+                        ''         => 'Please Choose',
+                        'CASH'     => 'CASH',
+                        'TMI'      => 'TMI',
+                        'INSURANCE'=> 'INSURANCE',
+                        'WARRANTY' => 'WARRANTY',
+                        'INTERNAL' => 'INTERNAL',
+                        'EASIDRIVE'=> 'EASIDRIVE',
+                        'OTHER'    => 'OTHER',
+                     ),
+                'class' => 'span12'
+        ));
 
         $this->addElement('select', 'fuel', array(
                 'label' => 'Fuel Type',
@@ -147,6 +203,12 @@ class Job_Form_Job extends Twitter_Bootstrap_Form_Horizontal
         $this->addElement('select', 'jobStatusId', array(
                 'label'        => 'Status',
                 'multiOptions' => $jobStatuses->getPairs(),
+                'class'        => 'span12'
+        ));
+        
+        $this->addElement('select', 'ccar', array(
+                'label'        => 'Loan Car',
+                'multiOptions' => array("No" => "No") + $ccars->getPairs(),
                 'class'        => 'span12'
         ));
 

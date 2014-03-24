@@ -28,7 +28,7 @@ $jobs = $jobTable->getJobs(array(ECB_Model_JobStatus::WIP), $this->jobProcesses)
                <tr class="<?php echo strtolower($data->jobSource); ?>">
                    <td><a href="<?php echo $this->url(array('module' => 'job', 'controller' => 'index', 'action' => 'add-note', 'jobId' => $data->jobId)); ?>" data-toggle="modal" data-target="#modalNotes"><?php echo count($data->notes); ?></a></td>
                    <td>
-                       <span class="numberPlateTable"><?php echo $data->carReg; ?></span>
+                       <span class="numberPlateTable" data-toggle="tooltip" title="<?php echo $data->damage?>"><?php echo $data->carReg; ?></span>
                        <span class="customer"><?php echo $data->name; ?></span>
                    </td>
                    <td><?php echo $data->model; ?></td>
