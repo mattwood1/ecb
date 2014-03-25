@@ -35,4 +35,12 @@ class ECB_Model_JobTable extends Doctrine_Record
         return $query->execute();
     }
 
+    public function getMakes()
+    {
+
+        $query = $this->getInstance()->createQuery('j')
+            ->select('DISTINCT (j.make) as make');
+
+        return $query->execute();
+    }
 }
